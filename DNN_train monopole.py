@@ -1,38 +1,15 @@
 
 ########## Loading data from .mat file
 ########## Note: you can also use .csv or .txt, etc. files, it is easy to find code of loading them online.
-import scipy.io
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-x = np.loadtxt('MachineLearning\data\data112.csv', delimiter=',') 
+import pickle
 
-
-s11_list = []
-
-# Loop through the files
-for i in range(0, len(x)):  
-    filename = f"MachineLearning/data/s11/s11file_{i}.txt"    
+# Load data from pickle file
+with open("MachineLearning\data\Data_dict.pkl", 'rb') as file:
+    data_dict = pickle.load(file)
     
-    with open(filename, 'r') as file:
-        file.readline()  # Skip the first line
-        file.readline()  # Skip the second line
-        s11_values =[] # Create an empty array to store the s11 values
-        frequency = []
-        for line in file:
-            if line != '\n':  # Skip the empty line
-                parts = line.split()
-                s11_values.append(float(parts[1]))
-                frequency.append(float(parts[0]))
-                           
-
-    s11_list.append(s11_values)
-    
-file_data = {'Parameter combination': x, 'S1,1': np.asarray(s11_list)}
-
-print(f"The parameter combination is: {file_data['Parameter combination'][1]}, the s11 values are: {file_data['S1,1'][1]}")
-
 
 # ########## Processing data
 # import numpy as np
