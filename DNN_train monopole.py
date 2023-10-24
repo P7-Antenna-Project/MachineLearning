@@ -4,54 +4,35 @@
 import scipy.io
 import numpy as np
 import pandas as pd
-x = np.loadtxt('MachineLearning/data/data112.csv', delimiter=',') 
-
-# Load frequency range, vary the delimiter for even and odd lines in the file
-    
-# frequency_range = np.loadtxt(r"MachineLearning/data/s11/s11file_0.txt", delimiter='\t',skiprows=2)[:,0]
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+x = np.loadtxt('MachineLearning\data\data112.csv', delimiter=',') 
 
 
-# # Define size of output array (s1,1 parameters)
-# y = np.zeros(len(x),(np.max(frequency_range)-np.min(frequency_range))/(frequency_range[1]-frequency_range[0]))
+s11_list = []
 
-# #Load all s11 parameters
-# for i in range(len(x)):
-#     y[i] = np.loadtxt(f'MachineLearning/data/s11/s11_{i}.txt', delimiter=',',skiprows=2)[:,1]
-
-
-
-# im = y.split(f"\t")
-# y[i][k][0] = float(im[0])
-# y[i][k][1] = float(im[1])
-
-# print(y.shape)
-# x = scipy.io.loadmat('input.mat')
-# y = scipy.io.loadmat('output.mat')
-
-
-# Create an empty DataFrame to store the data
-df = pd.DataFrame(columns=['S3,3/abs,dB'])
-    
 # Loop through the files
 for i in range(0, len(x)):  
     filename = f"MachineLearning/data/s11/s11file_{i}.txt"    
-    file_data = {'Frequency': [], 'S1,1': []}
     
     with open(filename, 'r') as file:
         file.readline()  # Skip the first line
         file.readline()  # Skip the second line
+        s11_values =[] # Create an empty array to store the s11 values
+        frequency = []
         for line in file:
             if line != '\n':  # Skip the empty line
                 parts = line.split()
-                file_data['Frequency'].append(float(parts[0]))
-                file_data['S1,1'].append(float(parts[1]))
+                s11_values.append(float(parts[1]))
+                frequency.append(float(parts[0]))
+                           
+
+    s11_list.append(s11_values)
     
-    # Create a DataFrame from the dictionary
-    file_df = pd.DataFrame(file_data)
-    # print(np.transpose(file_df['S1,1'].to_numpy()))
-    # y[i,1]=np.transpose(file_df['S1,1'].to_numpy())
-    
-    
+file_data = {'Parameter combination': x, 'S1,1': np.asarray(s11_list)}
+
+print(f"The parameter combination is: {file_data['Parameter combination'][1]}, the s11 values are: {file_data['S1,1'][1]}")
+
 
 # ########## Processing data
 # import numpy as np
