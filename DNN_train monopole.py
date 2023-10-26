@@ -10,6 +10,11 @@ import pickle
 with open("MachineLearning\data\Data_dict.pkl", 'rb') as file:
     data_dict = pickle.load(file)
     
+#Define input and output data
+x = data_dict['Parameter combination']
+y = data_dict['S1,1']
+
+
 
 # ########## Processing data
 # import numpy as np

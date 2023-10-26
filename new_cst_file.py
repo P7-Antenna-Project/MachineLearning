@@ -2,14 +2,14 @@ import numpy as np
 import pandas as pd
 import sys
 from tqdm import tqdm
-paraname = ['Offset2mid', 'TransformPAR']
+paraname = ['line1_length']
 
-dim_x = 2
+dim_x = len(paraname)
 # dim_y = 51
-para_min = np.array([-2, 17])
-para_max = np.array([5.5,20])
-para_step = np.array([0.5,0.5])
-ns = np.array([16,7]).astype(np.int) #Number of parameter samples
+para_min = np.array([4])
+para_max = np.array([10])
+para_step = np.array([0.5])
+ns = np.array([(para_max[0]-para_min[0])/para_step[0]+1]).astype(np.int) #Number of parameter samples
 num = np.prod(ns)
 
 laptop_path = r'C:\Program Files (x86)\CST Studio Suite 2021\AMD64\python_cst_libraries'
@@ -27,10 +27,10 @@ para[:, -1] = np.arange(num)
 for j in range(dim_x):
     para[:, j] = (np.mod(para[:, -1], np.prod(ns[j:]))/np.prod(ns[j+1:])).astype(np.int)
 para = represent(para)
-pd.DataFrame(para).to_csv(f'data\\data{num}.csv', header=None, index=None)
+pd.DataFrame(para).to_csv(f'MIFA_results\\data{num}.csv', header=None, index=None)
 
-
-new_cstfile = cst_path+'\\Anders_Version_To_Sweep.cst'
+# Define handles to CST
+new_cstfile = cst_path+'\\with_General_materials_and_shapes_andGrounds_MIFA.cst'
 DE = cst.interface.DesignEnvironment()
 microwavestructure = DE.open_project(new_cstfile)
 modeler = microwavestructure.modeler
@@ -59,7 +59,7 @@ def runmacro(s11file, s21file, paraname, paravalue, lenpara):
         # execute the solver
         'Solver.Start',
         # select the result to export
-        'SelectTreeItem("1D Results\\S-Parameters\\S3,3")', # S Change this to the correct port
+        'SelectTreeItem("1D Results\\S-Parameters\\S1,1")', # S Change this to the correct port
         # export the selected result
         'With ASCIIExport',
         '.Reset',
@@ -101,9 +101,7 @@ def tryrun(paraname, para, dim, s11file, s21file):
 for i in range(start, num):
     print(f'Run {i+1}/{num}:')
     toc = time.time()
-    s11file =f"C:/Users/nlyho/Desktop/s11/s11file_{i}.txt"
-    #r'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s11/s11file.txt'
-    # f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s11/s11file_{i}.txt'
+    s11file =f"MIFA_results\\s11file_{i}.txt"
     
     s21file = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s21/s21file_{i}.txt'
     tryrun(paraname, para[i], dim_x, s11file, s21file)
