@@ -1,0 +1,35 @@
+{
+    "parameters": [
+        {
+            "expr": "78",
+            "name": "ground_length",
+            "value": "78"
+        },
+        {
+            "expr": "28",
+            "name": "ground_width",
+            "value": "28"
+        },
+        {
+            "expr": "0.3",
+            "name": "ground_thickness",
+            "value": "0.3"
+        },
+        {
+            "expr": "0.8",
+            "name": "wire_thickness",
+            "value": "0.8"
+        },
+        {
+            "expr": "10",
+            "name": "wire_height",
+            "value": "10"
+        },
+        {
+            "expr": "157",
+            "name": "wire_length",
+            "value": "157"
+        }
+    ],
+    "version": 1
+}

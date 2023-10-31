@@ -7,7 +7,7 @@ import pickle
 from sklearn.model_selection import train_test_split
 
 # Flags
-PLOT_TRAIN = False
+PLOT_TRAIN = True
 PLOT_TEST = True
 # Load the data
 with open("data/Simple_wire.pkl", 'rb') as file:
@@ -18,25 +18,8 @@ x = np.asarray(data_dict['Parameter combination'])
 frequency = np.asarray(data_dict['Frequency'])
 y = np.asarray(data_dict['S1,1'])
 
-
-# Convert y to linear scale
-#y = 10**(y/10)
-
 # Define training and test data
-# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, shuffle=True)
-x_train = x[:int(0.7*x.shape[0]), :]
-x_test = x[int(0.7*x.shape[0]):, :]
-
-y_train = y[:int(0.7*y.shape[0]), :]
-y_test = y[int(0.7*y.shape[0]):, :]
-
-# # Construct a normalization layer for the input data
-# norm_layer_data = keras.layers.Normalization()
-# norm_layer_data.adapt(x_train)
-
-# # Construct a normalization layer for the labels
-# norm_layer_label = keras.layers.Normalization()
-# norm_layer_label.adapt(y_train)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, shuffle=False)
 
 # # Normalize training and test data
 # x_train_norm = norm_layer_data(x_train)
@@ -61,7 +44,6 @@ ystd1 = np.std(y_train)
 ymean2 = np.mean(y_test)
 ystd2 = np.std(y_test)
 
-
 y_train_norm = (y_train-ymean1)/ystd1
 y_test_norm = (y_test-ymean1)/ystd1
 
@@ -81,48 +63,48 @@ model.compile(
     loss=keras.losses.MeanAbsoluteError(),
     metrics=[keras.metrics.MeanSquaredError()]
 )
-
-# Train the model
-model.fit(
-    x=x_train_norm,
-    y=y_train_norm,
-    batch_size=100,
-    epochs=10000,
-    shuffle=False,
-    callbacks=[keras.callbacks.History()]
-)
-
-# Define the loss and accuracy for the training and test data
-loss = model.history.history['loss']
-mean_error = model.history.history['mean_squared_error']
-
-if PLOT_TRAIN:
-    plt.figure()
-    plt.subplot(121)
-    plt.plot(loss)
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['loss'])
-    plt.subplot(122)
-    plt.plot(mean_error)
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['accuracy'])
-    plt.show()
-
-# Run the model on the test data
-y_pred_norm = model.predict(x_test_norm)
- 
-# Reverse the normalization of the labels
-y_pred = y_pred_norm*ystd1 + ymean1
-
-# Plot the testing results
-if PLOT_TEST:
-    plt.figure()
-    for i in range(5):
-        plt.subplot(5, 1, i+1)
-        plt.plot(frequency,y_pred[i])
-        plt.plot(frequency,y_test[i])
-        plt.legend(['pred', 'test'])
-plt.show()
     
+# Train the model
+for i in range(50):
+    model.fit(
+        x=x_train_norm,
+        y=y_train_norm,
+        batch_size=100,
+        epochs=1000,
+        shuffle=False,
+        callbacks=[keras.callbacks.History()]
+    )
+
+    # Define the loss and accuracy for the training and test data
+    loss = model.history.history['loss']
+    mean_error = model.history.history['mean_squared_error']
+
+    if PLOT_TRAIN:
+        plt.figure()
+        plt.subplot(121)
+        plt.plot(loss)
+        plt.ylabel('Absolute error')
+        plt.xlabel('epoch')
+        plt.legend(['Absolute error'])
+        plt.subplot(122)
+        plt.plot(mean_error)
+        plt.ylabel('Mean-squared error')
+        plt.xlabel('epoch')
+        plt.legend(['Mean-squared error'])
+        plt.savefig(f'data/DNN_results/loss_{i}k.png')
+    # Run the model on the test data
+    y_pred_norm = model.predict(x_test_norm)
+    
+    # Reverse the normalization of the labels
+    y_pred = y_pred_norm*ystd1 + ymean1
+
+    # Plot the testing results
+    if PLOT_TEST:
+        plt.figure(figsize=(50, 50))
+        for i in range(50):
+            plt.subplot(10, 5, i+1)
+            plt.plot(frequency,y_pred[i])
+            plt.plot(frequency,y_test[i])
+            plt.legend(['pred', 'test'])
+            plt.savefig(f'data/DNN_results/test_{i}k.png')
+        
