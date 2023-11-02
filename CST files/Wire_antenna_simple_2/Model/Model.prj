@@ -1,0 +1,21 @@
+[Version]
+2
+[ProjectVersion]
+'# MWS Version: Version 2021.5 - Jun 28 2021 - ACIS 30.0.1 -
+[Author]
+nlyho
+[Mesh Cells]
+
+[Mesh Type]
+Hexahedral
+[Last Problem Type]
+High Frequency
+[Last Solver Type]
+HF Time Domain
+[Last Solver Type Abb]
+t
+[Results]
+Unavailable
+[Modeler Unique ID]
+5:wire_antenna_simple_2.cst?a8096b268550312b3c80d2f6ff8bdf40?6952:numberofparameters=7:port=1>mode=1>zre=0>zim=0:::offset_in_v?ground_length?ground_thickness?ground_width?wire_height?wire_length?wire_thickness
+[Comment]

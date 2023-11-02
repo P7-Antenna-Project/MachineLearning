@@ -72,7 +72,7 @@ loss_train = []
 mean_error_train = []
 mean_error_pred = np.zeros(50)
 # Train the model
-for j in range(50):
+for j in range(5):
     model.fit(
         x=x_train_norm,
         y=y_train_norm,
@@ -100,7 +100,7 @@ for j in range(50):
         plt.xlabel('epoch')
         plt.legend(['Mean-squared error'])
         plt.ylim([0, 0.7])
-        plt.savefig(f'data/DNN_results/train_loss/loss_{j+1}k.png')
+        plt.savefig(f'data/DNN_results_reversal/train_loss/loss_{j+1}k.png')
         plt.close()
     # Run the model on the test data and get the loss and mean-squared error
     y_pred_norm = model.predict(x_test_norm)
@@ -114,11 +114,11 @@ for j in range(50):
         plt.figure(figsize=(50, 50))
         for i in range(10):
             plt.subplot(5, 2, i+1)
-            plt.plot(frequency,y_pred[i])
-            plt.plot(frequency,y_test[i])
+            plt.plot([1,2,3],y_pred[i], "r.")
+            plt.plot([1,2,3],y_test[i], "b.")
             plt.legend(['pred', 'test'])
-            plt.ylim([-40,0])
-        plt.savefig(f'data/DNN_results/test_pred/test_pred_{j+1}k.png')
+            #plt.ylim([0,15])
+        plt.savefig(f'data/DNN_results_reversal/test_pred/test_pred_{j+1}k.png')
         plt.close()
 
 # Plot the testing loss
@@ -126,5 +126,7 @@ if PLOT_TEST_LOSS:
     plt.plot(np.arange(1,51,1)*1000, mean_error_pred)
     plt.ylabel('Mean-squared error')
     plt.xlabel('epoch')
-    plt.savefig(f'data/DNN_results/test_loss/test_loss.png')
+    plt.savefig(f'data/DNN_results_reversal/test_loss/test_loss.png')
     plt.close()
+
+model.save("Models/Reverse_Neural_network.keras")

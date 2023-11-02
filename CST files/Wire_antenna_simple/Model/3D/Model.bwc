@@ -1,7 +1,7 @@
 3000 0 6 0           
-20 CST MICROWAVE STUDIO 14 ACIS 30.0.1 NT 24 Fri Oct 27 04:31:12 2023 
+20 CST MICROWAVE STUDIO 14 ACIS 30.0.1 NT 24 Thu Nov  2 15:01:42 2023 
 1 9.9999999999999995e-07 1e-10 
-T @77 P3P3MRAKV2GDHVGKVVB3QV9825JVX2QURBMCJR6DB894KJ6DYADMQE73F8KMQM5XA8Q3P85AF8FMP 
+T @77 58799FRH_XBTJ5W6GPAHSDGAM3Q3ZGNX898MPJPH3D44QPPVXCRUK2Q23BN4KGP2QBNBFJNW69UKK 
 vertex $6 -1 -1 $-1 $-1 $7 #
 face $8 -1 -1 $-1 $-1 $9 $-1 $-1 $10 forward single F F #
 edge $11 -1 -1 $-1 $12 -14 $13 14 $-1 $14 forward @7 unknown F #
@@ -21,10 +21,10 @@ name_attrib-gen-attrib $-1 -1 $29 $-1 $3 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @24
 point $-1 -1 -1 $-1 -39 14 0.29999999999999999 #
 name_attrib-gen-attrib $-1 -1 $30 $-1 $4 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @24 ncomponent1:Wire_antenna #
 loop $-1 -1 -1 $-1 $-1 $31 $4 F unknown #
-plane-surface $-1 -1 -1 $-1 -37 0 10.300000000000001 -1 0 0 0 1 0 forward_v I I I I #
+plane-surface $-1 -1 -1 $-1 -37 0 22.650000000000002 -1 0 0 0 1 0 forward_v I I I I #
 name_attrib-gen-attrib $-1 -1 $32 $-1 $5 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @24 ncomponent1:Wire_antenna #
 loop $-1 -1 -1 $-1 $-1 $33 $5 F unknown #
-plane-surface $-1 -1 -1 $-1 -37 0 10.300000000000001 -1 0 0 0 1 0 forward_v I I I I #
+plane-surface $-1 -1 -1 $-1 -37 0 22.650000000000002 -1 0 0 0 1 0 forward_v I I I I #
 integer_attrib-name_attrib-gen-attrib $-1 -1 $34 $6 $0 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @17 backwd_pickNumber 1 #
 integer_attrib-name_attrib-gen-attrib $-1 -1 $35 $8 $1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @17 backwd_pickNumber 1 #
 coedge $-1 -1 -1 $-1 $36 $37 $-1 $38 forward $9 $-1 #
@@ -61,11 +61,11 @@ integer_attrib-name_attrib-gen-attrib $-1 -1 $-1 $40 $3 2 1 1 1 1 1 1 1 1 1 1 1 
 integer_attrib-name_attrib-gen-attrib $-1 -1 $75 $41 $4 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @9 backwd_id 1 #
 name_attrib-gen-attrib $-1 -1 $-1 $-1 $42 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 eif #
 vertex $-1 -1 -1 $-1 $42 $76 #
-ellipse-curve $-1 -1 -1 $-1 -37 0 10.300000000000001 -1 0 0 0 -0.80000000000000004 0 1 I I #
+ellipse-curve $-1 -1 -1 $-1 -37 0 22.650000000000002 -1 0 0 0 -1.8 0 1 I I #
 integer_attrib-name_attrib-gen-attrib $-1 -1 $77 $43 $5 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @9 backwd_id 1 #
 name_attrib-gen-attrib $-1 -1 $-1 $-1 $44 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 eif #
 vertex $-1 -1 -1 $-1 $44 $78 #
-ellipse-curve $-1 -1 -1 $-1 -37 0 10.300000000000001 -1 0 0 0 -0.80000000000000004 0 1 I I #
+ellipse-curve $-1 -1 -1 $-1 -37 0 22.650000000000002 -1 0 0 0 -1.8 0 1 I I #
 integer_attrib-name_attrib-gen-attrib $-1 -1 $-1 $46 $1 2 0 0 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 fif 0 #
 edge $79 -1 -1 $-1 $67 -14 $70 14 $47 $80 forward @7 unknown F #
 name_attrib-gen-attrib $-1 -1 $-1 $-1 $48 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 eif #
@@ -78,9 +78,9 @@ point $-1 -1 -1 $-1 39 -14 0.29999999999999999 #
 point $-1 -1 -1 $-1 39 14 0.29999999999999999 #
 name_attrib-gen-attrib $-1 -1 $-1 $54 $2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 eif #
 integer_attrib-name_attrib-gen-attrib $-1 -1 $-1 $56 $4 2 0 0 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 fif 0 #
-point $-1 -1 -1 $-1 -37 -0.80000000000000004 10.300000000000001 #
+point $-1 -1 -1 $-1 -37 -1.8 22.650000000000002 #
 integer_attrib-name_attrib-gen-attrib $-1 -1 $-1 $60 $5 2 0 0 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 fif 0 #
-point $-1 -1 -1 $-1 -37 -0.80000000000000004 10.300000000000001 #
+point $-1 -1 -1 $-1 -37 -1.8 22.650000000000002 #
 name_attrib-gen-attrib $-1 -1 $-1 $-1 $65 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 @3 eif #
 straight-curve $-1 -1 -1 $-1 -39 0 0.29999999999999999 0 -1 0 I I #
 point $-1 -1 -1 $-1 -39 14 0.29999999999999999 #
