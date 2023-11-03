@@ -8,9 +8,9 @@ paraname = ['wire_length','wire_height', 'wire_thickness']
 
 dim_x = len(paraname)
 # dim_y = 51
-para_min = np.array([157/10,0.8,0.1])
-para_max = np.array([157,10,0.8])
-para_step = np.array([7.43684210526316, 1, 0.1])
+para_min = np.array([157/10,4,0.5])
+para_max = np.array([157,15,3])
+para_step = np.array([7.43684210526316, 1, 0.25])
 ns = np.array([(para_max[0]-para_min[0])/para_step[0]+1,(para_max[1]-para_min[1])/para_step[1]+1,(para_max[2]-para_min[2])/para_step[2]+1]).astype(np.int) #Number of parameter samples
 num = np.prod(ns)
 
@@ -19,7 +19,7 @@ sys.path.append(laptop_path)
 import cst.interface
 
 save_path = r'data'
-cst_path =  r'C:\Users\nlyho\Desktop\Simple_wire'
+cst_path =  r'C:\Users\nlyho\Desktop\Simple_wire_2'
 def represent(para):
     return para/(ns-1)*(para_max-para_min)+para_min
 
@@ -28,10 +28,10 @@ para[:, -1] = np.arange(num)
 for j in range(dim_x):
     para[:, j] = (np.mod(para[:, -1], np.prod(ns[j:]))/np.prod(ns[j+1:])).astype(np.int)
 para = represent(para)
-pd.DataFrame(para).to_csv(f'C:/Users/nlyho/Desktop/Simple_wire/data{num}.csv', header=None, index=None)
+pd.DataFrame(para).to_csv(f'C:/Users/nlyho/Desktop/Simple_wire_2/data{num}.csv', header=None, index=None)
 
 # Define handles to CST
-new_cstfile = cst_path+'\\Wire_antenna_simple.cst'
+new_cstfile = cst_path+'\\Wire_antenna_simple_2.cst'
 DE = cst.interface.DesignEnvironment()
 microwavestructure = DE.open_project(new_cstfile)
 modeler = microwavestructure.modeler
@@ -103,14 +103,14 @@ run_time = np.zeros(num)
 for i in range(start, num):
     print(f'Run {i+1}/{num}:')
     toc = time.time()
-    s11file =f"C:/Users/nlyho/Desktop/Simple_wire/Results/s11file_{i}.txt"
+    s11file =f"C:/Users/nlyho/Desktop/Simple_wire_2/Results/s11file_{i}.txt"
     
     s21file = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s21/s21file_{i}.txt'
     tryrun(paraname, para[i], dim_x, s11file, s21file)
 
     #Use this if you want to save the run times in a csv file
     run_time[i] = time.time()-toc
-    pd.DataFrame(run_time).to_csv(f'C:/Users/nlyho/Desktop/Simple_wire/run_times.csv', header=None, index=None)
+    pd.DataFrame(run_time).to_csv(f'C:/Users/nlyho/Desktop/Simple_wire_2/run_times.csv', header=None, index=None)
                         
     print(f'{time.time()-toc} used for this run, {time.time()-tic} used, {(time.time()-tic)/(i+1-start)*(num-i-1)} more needed')
     

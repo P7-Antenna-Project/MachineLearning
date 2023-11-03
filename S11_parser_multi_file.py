@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import pickle
 
-x = np.loadtxt('Simple_wire_results/data1520.csv', delimiter=',') 
+x = np.loadtxt('C:/Users/nlyho/Desktop/Simple_wire_2/data1320.csv', delimiter=',') 
 
 # Making list to store s11 values for each run
 s11_list = []
 frequency_list = []
 # Loop through the files
 for i in tqdm(range(0, len(x))):  
-    filename = f"Simple_wire_results/Results/s11file_{i}.txt"    
+    filename = f"C:/Users/nlyho/Desktop/Simple_wire_2/Results/s11file_{i}.txt"    
     
     with open(filename, 'r') as file:
         file.readline()  # Skip the first line
@@ -32,7 +32,7 @@ for i in tqdm(range(0, len(x))):
 file_data = {'Parameter combination': x, 'S1,1': np.asarray(s11_list), 'Frequency': frequency_list}
 
 #Pickle the dictionary into a file
-with open("C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/Simple_wire.pkl", 'wb') as pkl_path: #Dump the pickle file at the given file path
+with open("C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/Simple_wire_2.pkl", 'wb') as pkl_path: #Dump the pickle file at the given file path
     pickle.dump(file_data, pkl_path)
 
 
