@@ -355,3 +355,23 @@ With DiscretePort
      .Create 
 End With
 
+'@ define farfield monitor: farfield (f=1900)
+
+'[VERSION]2021.5|30.0.1|20210628[/VERSION]
+With Monitor 
+     .Reset 
+     .Name "farfield (f=1900)" 
+     .Domain "Frequency" 
+     .FieldType "Farfield" 
+     .MonitorValue "1900" 
+     .ExportFarfieldSource "False" 
+     .UseSubvolume "False" 
+     .Coordinates "Structure" 
+     .SetSubvolume "-5.55", "0", "-14", "14", "0", "78" 
+     .SetSubvolumeOffset "10", "10", "10", "10", "10", "10" 
+     .SetSubvolumeInflateWithOffset "False" 
+     .SetSubvolumeOffsetType "FractionOfWavelength" 
+     .EnableNearfieldCalculation "True" 
+     .Create 
+End With
+

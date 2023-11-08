@@ -5,7 +5,7 @@
 [Author]
 nlyho
 [Mesh Cells]
-
+83,904
 [Mesh Type]
 Hexahedral
 [Last Problem Type]
@@ -15,7 +15,7 @@ HF Time Domain
 [Last Solver Type Abb]
 t
 [Results]
-Unavailable
+Time Domain: S-Parameter
 [Modeler Unique ID]
-5:wire_antenna_simple_2.cst?a8096b268550312b3c80d2f6ff8bdf40?6952:numberofparameters=7:port=1>mode=1>zre=0>zim=0:::offset_in_v?ground_length?ground_thickness?ground_width?wire_height?wire_length?wire_thickness
+5:wire_antenna_simple_2.cst?3220a431369f21d06d8a54acc1cd8d22?7471:numberofparameters=7:port=1>mode=1>zre=0>zim=0:::ground_length?ground_thickness?ground_width?offset_in_v?wire_height?wire_length?wire_thickness
 [Comment]

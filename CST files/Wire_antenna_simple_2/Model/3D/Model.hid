@@ -68,13 +68,10 @@ Solid.Delete "component1:Wire_antenna"
 14
 [end]block_index
 [start]command
-
 '@ activate local coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "local"
-
 [end]content
 [start]recover_picks
 0
@@ -88,13 +85,10 @@ WCS.ActivateWCS "local"
 15
 [end]block_index
 [start]command
-
 '@ activate global coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "global"
-
 [end]content
 [start]recover_picks
 0
@@ -108,13 +102,10 @@ WCS.ActivateWCS "global"
 16
 [end]block_index
 [start]command
-
 '@ activate local coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "local"
-
 [end]content
 [start]recover_picks
 0
@@ -128,13 +119,10 @@ WCS.ActivateWCS "local"
 17
 [end]block_index
 [start]command
-
 '@ activate global coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "global"
-
 [end]content
 [start]recover_picks
 0
@@ -148,13 +136,10 @@ WCS.ActivateWCS "global"
 21
 [end]block_index
 [start]command
-
 '@ activate local coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "local"
-
 [end]content
 [start]recover_picks
 0
@@ -168,13 +153,10 @@ WCS.ActivateWCS "local"
 22
 [end]block_index
 [start]command
-
 '@ activate global coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "global"
-
 [end]content
 [start]recover_picks
 0
@@ -190,13 +172,9 @@ WCS.ActivateWCS "global"
 [start]command
 [end]command
 [start]content
-
 Solid.Delete "component1:ground"
-
 Solid.Delete "component1:ground"
-
 Solid.Delete "component1:ground"
-
 [end]content
 [start]recover_picks
 1
@@ -212,9 +190,7 @@ Solid.Delete "component1:ground"
 [start]command
 [end]command
 [start]content
-
 Solid.Delete "component1:wire_antenna"
-
 [end]content
 [start]recover_picks
 1
@@ -243,13 +219,11 @@ Solid.Delete "component1:wire_antenna"
 27
 [end]block_index
 [start]command
-
 '@ define discrete port: 1
  (undo)
 [end]command
 [start]content
 Port.Delete "1"
-
 [end]content
 [start]recover_picks
 1
