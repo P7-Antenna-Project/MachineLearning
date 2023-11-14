@@ -1,0 +1,19 @@
+==============================================================================================================================================================================
+== CST Matrix Calculation Priority Log                                                                                                                                      ==
+==============================================================================================================================================================================
+ 
+Priorities are sorted in ascending order beginning with the lowest priority
+ 
+Priority-group:   1, shape   5: </cst/Boundaries/> Low^X,   material: $NFSMaterial$,  user-priority: 0,  material-attributes: normal.vacuum,  shape-attributes: boundary,   
+Priority-group:   1, shape   6: </cst/Boundaries/> Low^Y,   material: $NFSMaterial$,  user-priority: 0,  material-attributes: normal.vacuum,  shape-attributes: boundary,   
+Priority-group:   1, shape   7: </cst/Boundaries/> Low^Z,   material: $NFSMaterial$,  user-priority: 0,  material-attributes: normal.vacuum,  shape-attributes: boundary,   
+Priority-group:   1, shape   8: </cst/Boundaries/> Up^X,    material: $NFSMaterial$,  user-priority: 0,  material-attributes: normal.vacuum,  shape-attributes: boundary,   
+Priority-group:   1, shape   9: </cst/Boundaries/> Up^Y,    material: $NFSMaterial$,  user-priority: 0,  material-attributes: normal.vacuum,  shape-attributes: boundary,   
+Priority-group:   1, shape  10: </cst/Boundaries/> Up^Z,    material: $NFSMaterial$,  user-priority: 0,  material-attributes: normal.vacuum,  shape-attributes: boundary,   
+Priority-group:   2, shape   3: </cst/Ports/> 1^t0, material: PEC,    user-priority: 0,  material-attributes: pec,    shape-attributes: edge-element.wire,  
+Priority-group:   2, shape   4: </cst/Ports/> 1^t1, material: PEC,    user-priority: 0,  material-attributes: pec,    shape-attributes: edge-element.wire,  
+Priority-group:   3, shape   1: component1:ground,  material: PEC,    user-priority: 0,  2D/3D-geometry: true, material-attributes: pec,    shape-attributes: solid,  
+Priority-group:   3, shape   2: component1:wire_antenna,    material: PEC,    user-priority: 0,  2D/3D-geometry: true, material-attributes: pec,    shape-attributes: solid,  
+ 
+==============================================================================================================================================================================
+ 

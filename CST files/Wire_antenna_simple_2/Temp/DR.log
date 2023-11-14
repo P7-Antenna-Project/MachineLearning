@@ -1,57 +1,63 @@
 Unknown:
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.sam
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model_m1.sam
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\PP-Prio.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc-Facets-PP.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\m^fifx.dsc
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc-Facets-1xN.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Ports.web
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.coco
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\m^fqq.dsc
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^m^fqq.slog
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.ddi
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.ddi
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^m^fbqq.slog
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\p^a.dsc
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Hex.gap
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalcMMC.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\WEP.log
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^p^m.slog
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.axg
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\ModelPBA.axg
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^s^pm.slog
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.sa
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\farfield (f=1900)1D_1.ffp
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\farfield (f=1900)2D_1.ffp
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\farfield (f=1900)_1.fme
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Farfield_mono_tmp.sig
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Hex.gap
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc-Facets-1xN.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc-Facets-PP.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.ddi
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalcMMC.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\ml_info.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.axg
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.coco
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.ddi
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.sa
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.sam
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\ModelPBA.axg
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model_m1.sam
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\m^fifx.dsc
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\m^fqq.dsc
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Ports.web
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Postprocessing.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\PP-Prio.log
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\p^a.dsc
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^m^fbqq.slog
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^m^fqq.slog
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^p^m.slog
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\P^s^pm.slog
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\WEP.log
 Mesh:
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.xcfd
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fmm
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.sid
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\m^fqq.mem
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fmf
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.spi
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\p^a.mem
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.cct
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Shapes.con
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.fmp
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fpc
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Ports.fpt
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fwf
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Meta.m2h
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\HexMatrix_MCalc.m2h
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\S2HMatrix.m2h
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Meta.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\PEC.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\dsMCalc.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.xcfd
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\p^m.mem
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\dsd.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\dA.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\ds.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\dad.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\HexMatrix.m2h
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Mue.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Eps.mat
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\s^pm.mem
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\dA.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\dad.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\ds.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\dsd.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\dsMCalc.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Eps.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\HexMatrix.m2h
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\HexMatrix_MCalc.m2h
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.fmp
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\MCalc.xcfd
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Meta.m2h
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Meta.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.cct
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fmf
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fmm
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fpc
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.fwf
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.sid
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.spi
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.xcfd
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Mue.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\m^fqq.mem
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\PEC.mat
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Ports.fpt
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\p^a.mem
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\p^m.mem
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\S2HMatrix.m2h
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Shapes.con
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\s^pm.mem
 Port:
-D:\FurtherP7Git\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.pmi
+C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antenna_simple_2\Result\Model.pmi
