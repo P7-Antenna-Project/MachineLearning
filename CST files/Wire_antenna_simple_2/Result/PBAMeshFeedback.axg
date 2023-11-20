@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSTAuxiliaryGeometry version="20170928">
+  <Objects>
+    <Object name="Lines" id="2">
+      <LineSet points="0 14 0 0 14 78 0 -14 0 0 -14 78 -0.300000012 14 0 -0.300000012 14 78 -0.300000012 -14 0 -0.300000012 -14 78 0 -14 78 0 14 78 -0.300000012 -14 78 -0.300000012 14 78 0 -14 0 0 14 0 -0.300000012 -14 0 -0.300000012 14 0 -0.300000012 14 78 0 14 78 -0.300000012 14 0 0 14 0 -0.300000012 -14 78 0 -14 78 -0.300000012 -14 0 0 -14 0" stripped="0" material="$CornerCorrectionMaterial$"/>
+    </Object>
+    <Object name="Connected" id="1">
+      <PointSet points="-2.54999995 1.60734891e-16 3 -0.300000012 1.60734891e-16 3" material="$00f219"/>
+    </Object>
+  </Objects>
+  <Materials>
+    <Material name="$00f219">
+      <Drawstyle color="0 0.949019611 0.0980392173" transparency="0" linestrength="3"/>
+    </Material>
+  </Materials>
+  <Groups>
+    <Group name="Wire Endpoints" type="Undefined" ID="1">
+      <Item name="Connected" type="solid" id="1"/>
+    </Group>
+    <Group name="Corner Correction" type="Undefined" ID="2">
+      <Item name="Lines" type="solid" id="2"/>
+    </Group>
+  </Groups>
+</CSTAuxiliaryGeometry>

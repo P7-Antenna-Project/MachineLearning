@@ -1,0 +1,95 @@
+20/Nov/2023 16:02:23  *** Warning ***
+                      
+                      This software is licensed for educational purposes only.
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:23  The following farfield monitor(s) have been adjusted to model box [-6.43904,
+                      0.389035, -14.3891, 14.3891, -0.389077, 78.3891]:
+                        farfield (f=1900).
+                      For further information please check the page "Special Solver Parameters -
+                      Solver" in the Online Help.
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:23  
+                      Solver started at: 04:02 PM Monday, 20. November 2023 (Romance Standard Time)
+                      
+                        Module:  Time Domain: S-Parameter (Win 64)
+                        Version: 2023.0 Release from 2022-09-12 (change 1015769)
+                      
+
+                      ------------------------------------------------------------------------------
+
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:23  ======================================================================
+                       Solver cycle: 1
+                      ======================================================================
+                      
+                      Stimulation at discrete port 1 
+                      
+                      
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:23  Units settings: 
+                      
+                        Dimensions: mm
+                        Frequency:  MHz
+                        Time:       ns
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:23  The dispersive material update will be performed using the "Standard" update schema
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:30  The following discrete edge port is connected to metal material:
+                      	1
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:30  Mesh statistics:
+                      
+                         Hexahedral mesh type: Perfect Boundary Approximation (PBA)
+                            Version: default
+                      
+                         Parallelization type: domain decomposition
+                            Number of parallel working threads: 4
+                            Number of calculation domains used: 4
+                      
+                         Used point accuracy enhancement value: 52.00%.
+20/Nov/2023 16:02:25     current system memory usage reached 60%
+                         Acceleration mode: CPU
+                         PBA fill limit: 98.81% (inverse)
+20/Nov/2023 16:02:26     current system memory usage reached 60%
+
+20/Nov/2023 16:02:30  Boundary conditions: 
+                      
+                        YZsymmetry: none
+                        XZsymmetry: none
+                        XYsymmetry: none
+                      
+                        Xmin: expanded open, 4 Layer, depth 24.625 mm
+                        Xmax: expanded open, 4 Layer, depth 24.625 mm
+                      
+                        Ymin: expanded open, 4 Layer, depth 24.7062 mm
+                        Ymax: expanded open, 4 Layer, depth 24.7062 mm
+                      
+                        Zmin: expanded open, 4 Layer, depth 24.7062 mm
+                        Zmax: expanded open, 4 Layer, depth 24.7062 mm
+                      
+                        PML-Type: Convolution PML
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:30  Frequency settings: 
+                      
+                        Fmin:         500
+                        Fmax:         3000
+                        Nfsteps(lin): 1001
+                      
+                      ------------------------------------------------------------------------------
+20/Nov/2023 16:02:30  Field update statistics:
+                      
+                        Number of components in total: 	724019
+                      
+                      Subcycling state:      			Automatically activated
+                      
+                      Subcycling statistics:
+                      
+                        Number of subcycled components:	4999
+         

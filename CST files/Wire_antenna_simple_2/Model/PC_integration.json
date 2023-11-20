@@ -1,0 +1,51 @@
+{
+   "execution": {
+      "classname": "SMAPowerByEmagHPCFrame",
+      "libname": "SMAPowerByEmagUI"
+   },
+   "inputVariables": [
+      {
+         "name": "ground_length",
+         "type": "float",
+         "value": 78.0
+      },
+      {
+         "name": "ground_width",
+         "type": "float",
+         "value": 28.0
+      },
+      {
+         "name": "ground_thickness",
+         "type": "float",
+         "value": 0.3
+      },
+      {
+         "name": "wire_thickness",
+         "type": "float",
+         "value": 1.5
+      },
+      {
+         "name": "wire_height",
+         "type": "float",
+         "value": 4.0
+      },
+      {
+         "name": "wire_length",
+         "type": "float",
+         "value": 15.7
+      },
+      {
+         "name": "offset_in_v",
+         "type": "float",
+         "value": 3.0
+      }
+   ],
+   "outputVariables": [
+      {
+         "len": 1,
+         "name": "3D\\Efficiency",
+         "type": "float",
+         "value": -11.3661398110022
+      }
+   ]
+}

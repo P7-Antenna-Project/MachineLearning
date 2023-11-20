@@ -1,0 +1,33 @@
+08/Nov/2023 15:29:14  Some of the upcoming parameter combinations were already performed previously and will be skipped.
+                      Potential changes in the result settings like Template Based Post Processing are not taken into account. The feature can be deactivated via "Parameter Sweep -> Options..."
+08/Nov/2023 15:29:14  
+                      ==========================================================================
+                      Ignoring disabled sequence(s):
+                      
+                      Sequence 1
+                      ==========================================================================
+
+08/Nov/2023 15:29:14  ==========================================================================
+                      Sequence: Sequence 2
+                      ==========================================================================
+
+08/Nov/2023 15:29:14  --------------------------------------------------------------------------
+                      Parameter Values: 
+                      
+                         ground_length = 78
+08/Nov/2023 15:29:14  
+                      Simulation for this parameter combination has already been performed (Run ID found).
+08/Nov/2023 15:29:14  --------------------------------------------------------------------------
+                      Parameter Values: 
+                      
+                         ground_length = 79
+08/Nov/2023 15:29:15  
+                      Structure update: Successful
+08/Nov/2023 15:29:41            Solver: Successful
+08/Nov/2023 15:29:41       Solver time: 0 hours, 0 min., 25 sec.
+08/Nov/2023 15:29:41  --------------------------------------------------------------------------
+08/Nov/2023 15:29:41  1 parameter combinations were skipped in the parameter sweep because they were already performed previously.
+08/Nov/2023 15:29:41  
+                      ==========================================================================
+                      Total evaluation time: 0 hours, 0 min., 25 sec.
+                      ==========================================================================

@@ -1,0 +1,24 @@
+Post-processing Logfile 
+
+----------------------------------------------------------------------------------------
+Units settings: 
+
+  Dimensions: mm
+  Frequency:  MHz
+  Time:       ns
+
+----------------------------------------------------------------------------------------
+
+Template based post-processing started at: 03:29 PM Wednesday, 08. November 2023
+
+  Evaluating 'Directivity,Phi=0.0': 1 s
+  Evaluating 'Directivity,Phi=45.0': 1 s
+  Evaluating 'Directivity,Phi=90.0': 0 s
+  Evaluating 'Directivity,Theta=0.0': 1 s
+  Evaluating 'Directivity,Theta=45.0': 0 s
+  Evaluating 'Directivity,Theta=90.0': 0 s
+
+  Total time: 6 s  ( = 0 h, 0 m, 6 s )
+
+Template based post-processing finished at: 03:29 PM Wednesday, 08. November 2023
+----------------------------------------------------------------------------------------

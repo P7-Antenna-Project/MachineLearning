@@ -3,7 +3,18 @@ import pandas as pd
 import sys
 from tqdm import tqdm
 
+# -------------------------------------- path til workspace: --------------------------------------
+#mads path:
+path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning"
+result_path = "/data/wireAntennaSimple2Results_inc_eff"
+# Nicolai path: 
+#path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
+
+# HUSK AT SÆTTE START OG STOP ( LINJE 57+59 )
+
 paraname = ['wire_length','wire_height', 'wire_thickness']
+
+
 
 dim_x = len(paraname)
 # dim_y = 51
@@ -18,8 +29,7 @@ sys.path.append(laptop_path)
 import cst.interface
 import shutil
 
-# path til cst-filen:
-#cst_path =  r"C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\Wire_antpyenna_simple_2.cst" (NOT USED)
+
 def represent(para):
     return para/(ns-1)*(para_max-para_min)+para_min
 
@@ -28,18 +38,29 @@ para[:, -1] = np.arange(num)
 for j in range(dim_x):
     para[:, j] = (np.mod(para[:, -1], np.prod(ns[j:]))/np.prod(ns[j+1:])).astype(int)
 para = represent(para)
-pd.DataFrame(para).to_csv(f'data\\distanceTest{num}.csv', header=None, index=None)
+pd.DataFrame(para).to_csv(f'data\\par_comb{num}.csv', header=None, index=None)
+
+#new_cstfile = r"C:\Users\nlyho\OneDrive - Aalborg Universitet\7. semester\Git\MachineLearning\CST files\Wire_antenna_simple_2.cst"
+new_cstfile = f"{path}\CST files\Wire_antenna_simple_2.cst"
 
 
-new_cstfile = r"C:\Users\nlyho\OneDrive - Aalborg Universitet\7. semester\Git\MachineLearning\CST files\Wire_antenna_simple_2.cst"
+
 DE = cst.interface.DesignEnvironment()
 microwavestructure = DE.open_project(new_cstfile)
 modeler = microwavestructure.modeler
 schematic = microwavestructure.schematic
+
+
+
+# --------------------------------- DEFFINING THE RUNS ---------------------------------
 # Set this if you want to start at a specific run
-start = int(3/4*num)
+start = 0 #int(3/4*num)
 # Set this num if you want to stop at a specific run
-num = num
+num = int(1/4*num)
+# -------------------------------------------------------------------------------------
+
+
+
 # generate vba code that changes the parameters in cst
 def setpara(paraname, paravalue, num=dim_x):
     code = ''
@@ -50,7 +71,7 @@ def setpara(paraname, paravalue, num=dim_x):
     return code
 
 # generate the complete vba code
-def runmacro(phi0,phi45,phi90, theta0, theta45, theta90, s11file, s21file, paraname, paravalue, lenpara): #commented s21file 
+def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff, s11file, s21file, paraname, paravalue, lenpara): #commented s21file 
     code = [
         'Option Explicit',
         'Sub Main',
@@ -87,8 +108,16 @@ def runmacro(phi0,phi45,phi90, theta0, theta45, theta90, s11file, s21file, paran
          '.Execute',
          'End With',
 
-        'SelectTreeItem("Tables\\1D Results\\Directivity,Theta=0.0")', # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        'SelectTreeItem("Tables\\1D Results\\Directivity,Phi=135.0")', # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
          # export the selected result
+         'With ASCIIExport',
+         '.Reset',
+         '.Filename("{}")'.format(phi135),
+         '.Execute',
+         'End With',
+
+        'SelectTreeItem("Tables\\1D Results\\Directivity,Theta=0.0")', # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        #  # export the selected result
          'With ASCIIExport',
          '.Reset',
          '.Filename("{}")'.format(theta0),
@@ -104,14 +133,28 @@ def runmacro(phi0,phi45,phi90, theta0, theta45, theta90, s11file, s21file, paran
          'End With',
 
         'SelectTreeItem("Tables\\1D Results\\Directivity,Theta=90.0")', # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
-         # export the selected result
+        #  # export the selected result
          'With ASCIIExport',
          '.Reset',
          '.Filename("{}")'.format(theta90),
          '.Execute',
          'End With',
 
+        'SelectTreeItem("Tables\\1D Results\\Directivity,Theta=135.0")', # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        #  # export the selected result
+         'With ASCIIExport',
+         '.Reset',
+         '.Filename("{}")'.format(theta135),
+         '.Execute',
+         'End With',
 
+        'SelectTreeItem("Tables\\0D Results\\Efficiency")', # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+         # export the selected result
+         'With ASCIIExport',
+         '.Reset',
+         '.Filename("{}")'.format(tot_eff),
+         '.Execute',
+         'End With',
 
         ################################# this is for s11 params
          # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
@@ -154,11 +197,11 @@ tic = time.time()
 
 
 # try run again when encountering unexpected errors
-def tryrun(paraname, para, dim, s11file, s21file,phi0,phi45,phi90, theta0, theta45, theta90):
+def tryrun(paraname, para, dim, s11file, s21file,phi0, phi45, phi90,phi135, theta0, theta45, theta90,theta135, tot_eff):
     try:
-        runmacro(phi0,phi45,phi90, theta0, theta45, theta90,s11file, s21file, paraname=paraname, paravalue=para, lenpara=dim)
+        runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,s11file, s21file, paraname=paraname, paravalue=para, lenpara=dim)
     except RuntimeError:
-        tryrun(paraname, para, dim, s11file, s21file,phi0,phi45,phi90, theta0, theta45, theta90)
+        tryrun(paraname, para, dim, s11file, s21file,phi0,phi45,phi90, phi135, theta0, theta45, theta90,theta135,tot_eff)
     else:
         return 1
 
@@ -169,25 +212,48 @@ angles = [0,45,90]
 for i in range(start, num):
     print(f'Run {i+1}/{num}:')
     toc = time.time()
-    s11file =f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_s11/s11_{i}.txt'
     
     # for j in angles:
     #     theta = f'data//radiation//theta//theta{j}_{i}.txt'
     #     phi = f'data//radiation//phi//phi{j}_{i}.txt'
 
-# "C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\data\wireAntennaSimple2Results\theta"
+# -------------------------------------- CHANGE TO DIR --------------------------------------
 
-    phi0 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi0_{i}.txt'
-    phi45= f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi45_{i}.txt'
-    phi90 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi90_{i}.txt'
-    theta0 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_theta/theta0_{i}.txt'
-    theta45 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_theta/theta45_{i}.txt'
-    theta90 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_theta/theta90_{i}.txt'
+# "C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\data\wireAntennaSimple2Results\theta"
+    s11file = f'{path}{result_path}/test_s11/s11_{i}.txt'
+    phi0 = f'{path}{result_path}/test_phi/phi0_{i}.txt'
+    phi45= f'{path}{result_path}/test_phi/phi45_{i}.txt'
+    phi90= f'{path}{result_path}/test_phi/phi90_{i}.txt'
+    phi135 = f'{path}{result_path}/test_phi/phi135_{i}.txt'
+    theta0 = f'{path}{result_path}/test_theta/theta0_{i}.txt'
+    theta45 = f'{path}{result_path}/test_theta/theta45_{i}.txt'
+    theta90 = f'{path}{result_path}/test_theta/theta90_{i}.txt'
+    theta135 = f'{path}{result_path}/test_theta/theta135_{i}.txt'
+    tot_eff = f'{path}{result_path}/test_eff/tot_eff_{i}.txt'
+
+    # phi0 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi0_{i}.txt'
+    # phi45= f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi45_{i}.txt'
+    # phi90 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi90_{i}.txt'
+    # theta0 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_theta/theta0_{i}.txt'
+    # theta45 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_theta/theta45_{i}.txt'
+    # theta90 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_theta/theta90_{i}.txt'
+    # tot_eff = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_tot_eff/tot_eff_{i}.txt'
+
+    # s11file = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_s11/s11_{i}.txt"
+    # phi0 = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_phi/phi0_{i}.txt"
+    # phi45= f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_phi/phi45_{i}.txt"
+    # phi90 = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_phi/phi90_{i}.txt"
+    # theta0 = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_theta/theta0_{i}.txt"
+    # theta45 = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_theta/theta45_{i}.txt"
+    # theta90 = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_theta/theta90_{i}.txt"
+    # tot_eff = f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff/test_eff/tot_eff_{i}.txt"
+    
+# -------------------------------------------------------------------------------------------    
     
     #r'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s11/s11file.txt'
     # f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s11/s11file_{i}.txt'
     
     s21file =f'data//s21//s21_{i}.txt'
-    tryrun(paraname, para[i], dim_x, s11file, s21file,phi0,phi45,phi90, theta0, theta45, theta90)
+    tryrun(paraname, para[i], dim_x, s11file, s21file,phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135, tot_eff)
     print(para[i])
     print(f'{time.time()-toc} used for this run, {time.time()-tic} used, {(time.time()-tic)/(i+1-start)*(num-i-1)} more needed')

@@ -1,0 +1,32 @@
+{
+    "parameter sweep": {
+        "options": {
+            "restore parameter values after run": "false",
+            "simulation type": "Transient",
+            "skip existing combinations": "true",
+            "start active solver": "true"
+        },
+        "sequences": {
+            "Sequence 1": [
+                {
+                    "from": "5",
+                    "samples": "50",
+                    "to": "50",
+                    "type": "linear",
+                    "varname": "wire_length"
+                },
+                {
+                    "from": "0.1",
+                    "samples": "8",
+                    "to": "0.8",
+                    "type": "linear",
+                    "varname": "wire_thickness"
+                },
+                {
+                    "index": 1
+                }
+            ]
+        },
+        "version": 1
+    }
+}
