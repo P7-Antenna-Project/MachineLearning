@@ -36,8 +36,10 @@ DE = cst.interface.DesignEnvironment()
 microwavestructure = DE.open_project(new_cstfile)
 modeler = microwavestructure.modeler
 schematic = microwavestructure.schematic
-start = 0
-num = 5
+# Set this if you want to start at a specific run
+start = int(3/4*num)
+# Set this num if you want to stop at a specific run
+num = num
 # generate vba code that changes the parameters in cst
 def setpara(paraname, paravalue, num=dim_x):
     code = ''
@@ -163,6 +165,7 @@ def tryrun(paraname, para, dim, s11file, s21file,phi0,phi45,phi90, theta0, theta
 angles = [0,45,90]
 
 # sweep and running simulation and collect data
+# Don't change this for loop, change the start and num variables at the top
 for i in range(start, num):
     print(f'Run {i+1}/{num}:')
     toc = time.time()

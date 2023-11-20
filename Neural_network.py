@@ -30,7 +30,7 @@ def load_data(path: str):
 
     par_comb = np.asarray(data_dict['Parameter combination'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_par = np.asarray(data_dict['S1,1'])
+    S11_par = np.asarray(data_dict['Best parametric data'])
     return par_comb, S11_par, frequency
 
 def normalize_data(data: dict, inverse: bool):
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     reset_dirs()
 
     # Load the data
-    x, y, frequency = load_data("data/Simple_wire_2.pkl")
+    x, y, frequency = load_data("data/Simple_wire_2_new_data.pkl")
 
     # Define training and test data
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, shuffle=True)
@@ -71,11 +71,12 @@ if __name__ == "__main__":
         layers.InputLayer(input_shape=(3)),
         layers.Dense(y_train_norm.shape[1], activation = 'linear', name = 'Output_layer')
     ]
+    
     # Create list to store run times
     run_time = np.zeros(10)
 
     for layer in range(10):
-        start_time = time.time()
+        start_time = time.perf_counter()
         # Add a layer to the model
         base_layers.insert(-1, layers.Dense(128, activation='sigmoid', name = f'layer{layer+1}'))
         
@@ -158,7 +159,7 @@ if __name__ == "__main__":
             plt.legend()
             plt.grid(True)
         # Save the run time for the current model
-        run_time[layer] = time.time() - start_time
+        run_time[layer] = time.perf_counter() - start_time
         # Save the model
         model.save(f'data/DNN_results/Models/forward_model_{layer+1}_layer.keras', overwrite=True)
     plt.savefig(f'data/DNN_results/test_loss/test_loss_{layer+1}_layer.png')
