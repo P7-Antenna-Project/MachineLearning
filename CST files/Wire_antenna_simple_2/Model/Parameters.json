@@ -16,19 +16,19 @@
             "value": "0.3"
         },
         {
-            "expr": "1.5",
+            "expr": "3",
             "name": "wire_thickness",
-            "value": "1.5"
+            "value": "3"
         },
         {
-            "expr": "4",
+            "expr": "15",
             "name": "wire_height",
-            "value": "4"
+            "value": "15"
         },
         {
-            "expr": "15.7",
+            "expr": "157",
             "name": "wire_length",
-            "value": "15.7"
+            "value": "157"
         },
         {
             "expr": "3",

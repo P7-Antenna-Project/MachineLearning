@@ -5,7 +5,7 @@
 -ground_width/2#
 -14
 -wire_height-wire_thickness
--5.5
+-18
 ground_length
 78
 ground_length/2#
@@ -17,13 +17,13 @@ ground_width/2#
 offset_in_v
 3
 offset_in_v+wire_length
-18.7
+160
 wire_height
-4
+15
 wire_height+ground_thickness
-4.3
+15.3
 wire_length
-15.7
+157
 wire_thickness
-1.5
+3
 @LONG

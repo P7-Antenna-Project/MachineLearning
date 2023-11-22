@@ -24,6 +24,7 @@ para_step = np.array([7.43684210526316, 1, 0.25])
 ns = np.array([(para_max[0]-para_min[0])/para_step[0]+1,(para_max[1]-para_min[1])/para_step[1]+1,(para_max[2]-para_min[2])/para_step[2]+1]).astype(int) #Number of parameter samples
 num = np.prod(ns)
 
+
 laptop_path = r"C:\Program Files (x86)\CST Studio Suite 2023\AMD64\python_cst_libraries"
 sys.path.append(laptop_path)
 import cst.interface
@@ -54,9 +55,9 @@ schematic = microwavestructure.schematic
 
 # --------------------------------- DEFFINING THE RUNS ---------------------------------
 # Set this if you want to start at a specific run
-start = 0 #int(3/4*num)
+start = int(num-1)
 # Set this num if you want to stop at a specific run
-num = int(1/4*num)
+num = int(num)
 # -------------------------------------------------------------------------------------
 
 
