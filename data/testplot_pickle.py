@@ -4,7 +4,7 @@ import numpy as np
 
 
 para_path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data" 
-with open(f"{para_path}/Simple_wire_2_new_data_madsTest_inc_eff4.pkl", "rb") as f:
+with open(f"{para_path}/Simple_wire_2_newdata_inc_eff.pkl", "rb") as f:
     dict = pickle.load(f)
 print(dict.keys())
 
@@ -15,7 +15,7 @@ print(np.asarray(dict["combined gain list"]).shape)
 
 
 run = 1500
-print(dict["Standard deviation"][run])
+print(dict["Standard deviation Phi"][run])
 
 plt.figure(1)
 for i in range(4):
