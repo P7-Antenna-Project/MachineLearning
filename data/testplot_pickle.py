@@ -10,7 +10,10 @@ print(dict.keys())
 
 print(np.asarray(dict["combined gain list"]).shape)
 
+# p i c k l e is split into:
 # run ID | theta / phi | angle 0,45,90,135 | gain
+
+
 run = 1500
 print(dict["Standard deviation"][run])
 
