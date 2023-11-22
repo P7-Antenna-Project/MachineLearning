@@ -5,6 +5,23 @@ import pickle
 import bz2
 import scipy.optimize as opt
 import random
+
+# ----------------------------------------------
+#              CODE FUNCTIONALITY:
+# ----------------------------------------------
+# This code parses the data from the simulation runs and saves it to a pickle file
+
+# It CAN also parameterizes the s11 data and saves it to a pickle file,
+#   but that takes a long time, so the parameterized data is already saved in the pickle file
+#   comment some stuff if you want to parameterize the S11 again
+
+# but! it saves the data in a picklefile called "data/simple_wire_2_new_data_madsTest_inc_eff.pkl", where the pickle contains :
+#   dict_keys(['Parameter combination', 'S1,1', 'Frequency', 'degrees', 'combined gain list', 'Standard deviation Phi', 'efficiency'])
+
+
+# REMEMBER TO SET DATA PATH IN LINE 267 ISH
+
+
 try:
     def parse_s11(par_comb_path: str, s11_path: str):
         """Parse the s11 files and return a list of s11 values for each run
@@ -75,9 +92,12 @@ def parse_gain(par_comb_path: str, PHI_gain_path, THETA_gain_path: str):
     theta_gain_list = []
     std_dev_list = []
     max_gain_list = []
-    # We skip 45 degrees since we dont have the counterpart at 135 degrees
-    angles = [0,90]
+    combined_gain_list = []
+    #
+    angles = [0,45,90,135]
     for i in tqdm(range(0, len(parameter_comb))):
+        angle_list_theta = []
+        angle_list_phi = []
 
         for j in angles:
             filename_phi = f"{PHI_gain_path}"+ f"/phi{j}_{i}.txt"
@@ -86,33 +106,67 @@ def parse_gain(par_comb_path: str, PHI_gain_path, THETA_gain_path: str):
                 file.readline()  # Skip the first line
                 file.readline()  # Skip the second line
                 #pass # add logic to read gain files
+                phi_gain_list = []
 
                 for line in file:
                     if line != '\n':  # Skip the empty lines
                         parts = line.split()
                         phi_gain_list.append(float(parts[1]))
-                        if i == 0: # We only need to store the frequency values once
+                        if i == 0: # We only need to store the degree values once
                             degree_list.append(float(parts[0]))
+
+            angle_list_phi.append(phi_gain_list)
+
         for j in angles:
             filename_theta = f"{THETA_gain_path}"+ f"/theta{j}_{i}.txt"
             with open(filename_theta, 'r') as file:
                 file.readline()  # Skip the first line
                 file.readline()  # Skip the second line
+
+                theta_gain_list = []
+
                 for line in file:
                     if line != '\n':  # Skip the empty lines
                         parts = line.split()
                         theta_gain_list.append(float(parts[1]))
-        combined_gain_list = phi_gain_list + theta_gain_list
-        std_dev_list.append(np.std(combined_gain_list))
-        max_gain_list.append(np.max(combined_gain_list))
+            
+            angle_list_theta.append(theta_gain_list)
+
+        std_dev_list.append(np.std(np.ndarray.flatten(np.asarray(angle_list_phi)))) #)))))))))))
+                        
+        combined_gain_list.append([angle_list_phi, angle_list_theta])
+
+        
+        #max_gain_list.append(np.max(combined_gain_list))
                     
     dictionary = {'degrees': degree_list,
-                  'phi_gain': phi_gain_list,
-                  'theta_gain': theta_gain_list,
-                  'Parameter combination': par_comb,
-                  'Standard deviation': std_dev_list,
-                  'Max gain': max_gain_list}
+                  "combined gain list": np.asarray(combined_gain_list),
+                  'Parameter combination': parameter_comb,
+                  'Standard deviation Phi': std_dev_list}
+                  #'Max gain': max_gain_list}
     print("Finished parsing gain data")
+    return dictionary
+
+#make dictionary for efficiency files:
+def parse_efficiency(par_comb_path: str, efficiency_path: str):
+    print("Parsing efficiency data")
+    parameter_comb = np.loadtxt(par_comb_path, delimiter=',')
+    efficiency_dict = {}
+    for i in tqdm(range(0, len(parameter_comb))):
+        filename = f"{efficiency_path}"+ f"/tot_eff_{i}.txt"
+        with open(filename, 'r') as file:
+            file.readline()  # Skip the first line
+            file.readline()  # Skip the second line
+            for line in file:
+                if line != '\n':  # Skip the empty lines
+                    parts = line.split()
+                    efficiency_dict[i] = float(parts[1])
+                    break  # Stop after reading the first non-empty line
+
+    dictionary = {'efficiency': efficiency_dict,
+                  'Parameter combination': parameter_comb}  # Use parameter_comb instead of par_comb
+    
+    print("Finished parsing efficiency data")
     return dictionary
 
 
@@ -211,8 +265,18 @@ def save_data(dictionary: dict, path: str):
     
 
 if __name__ == "__main__":
-    s11, par_comb, frequency = parse_s11(par_comb_path = "data/par_comb_2508.csv", s11_path = "data/wireAntennaSimple2Results_nicolai/test_s11")
-    
+    # set data_path to correct:
+    # ----------------------------------------------
+    data_path = r"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff"
+    para_path = r"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data"
+    # ----------------------------------------------
+
+    #s11, par_comb, frequency = parse_s11(par_comb_path = f"{para_path}/par_comb_2508.csv", s11_path = f"{data_path}/test_s11")
+
+    #phi, theta, par_comb, degree, standardDeviation  = parse_gain(par_comb_path = f"{para_path}/par_comb_2508.csv", PHI_gain_path=f"{data_path}/test_phi", THETA_gain_path=f"{data_path}/test_theta")
+
+    #efficiency, par_comb = parse_efficiency(par_comb_path = f"{para_path}/par_comb_2508.csv", efficiency_path=f"{data_path}/test_eff")
+
     # print(s11[0]==s11[1])
     # frequency = np.arange(500,3001, 2.5)
     # for index, value in enumerate(s11):
@@ -222,17 +286,28 @@ if __name__ == "__main__":
         
     
     # Add s11 variables to dictionary
-    s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
+    #s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
     
-    gain_dict = parse_gain(par_comb_path = "data/par_comb_2508.csv", PHI_gain_path="data/wireAntennaSimple2Results_nicolai/test_phi", THETA_gain_path="data/wireAntennaSimple2Results_nicolai/test_theta")
-
+    gain_dict = parse_gain(par_comb_path = f"{para_path}/par_comb_2508.csv",  PHI_gain_path=f"{data_path}/test_phi", THETA_gain_path=f"{data_path}/test_theta")
+    eff_dict = parse_efficiency(par_comb_path = f"{para_path}/par_comb_2508.csv", efficiency_path=f"{data_path}/test_eff")
     # Parameterize the s11 parameters for all runs
-    s11_parameterized_dict = parameterize_s11(TEST_FLAG = False)
+    #s11_parameterized_dict = parameterize_s11(TEST_FLAG = False)
     
+    # open pickle Simple_wire_2.pkl and add eff_dict to it:
+    with open(f"{para_path}/Simple_wire_2_new_data_madsTest_inc_eff.pkl", "rb") as f:
+        previous_dict = pickle.load(f)
+    previous_dict.update(gain_dict)
+    previous_dict.update(eff_dict)
+    save_data(previous_dict, f"{para_path}/Simple_wire_2_newdata_inc_eff.pkl")
+    
+    print(previous_dict.keys())
+
+
     #Combine the dictionaries
-    combined_dict = s11_parameterized_dict | gain_dict
-    combined_dict.update({'S1,1': np.asarray(s11)})
+    #combined_dict = s11_parameterized_dict | gain_dict | eff_dict
+    #combined_dict.update({'S1,1': np.asarray(s11)})
     # Save the data
-    save_data(combined_dict, "data/Simple_wire_2_new_data.pkl")
+    #save_data(combined_dict, "data/Simple_wire_2_new_data_madsTest_inc_eff.pkl")
     
     print("Finished parsing data")
+   
