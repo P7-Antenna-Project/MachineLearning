@@ -14,26 +14,49 @@ import time
 PLOT_TRAIN = True
 PLOT_TEST = True
 PLOT_TEST_LOSS = True
+MAX_LAYERS = 3
 
 def reset_dirs():
-    for layer in range(10):
+    for layer in range(MAX_LAYERS):
         shutil.rmtree(f'data/DNN_results/train_loss/train_loss_layer{layer+1}', ignore_errors=True)
         shutil.rmtree(f'data/DNN_results/test_pred/test_pred_layer{layer+1}', ignore_errors=True)
-        
+        shutil.rmtree(f'data/DNN_results/Models', ignore_errors=True)
         os.mkdir(f'data/DNN_results/train_loss/train_loss_layer{layer+1}')
         os.mkdir(f'data/DNN_results/test_pred/test_pred_layer{layer+1}')
     return
 
 def load_data(path: str):
+    """
+    This function loads data from a pickle file located at the provided path.
+
+    Parameters:
+        path (str): The path to the pickle file.
+
+    Returns:
+        par_comb (np.ndarray): The parameter combinations.
+        S11_par (np.ndarray): The best parametric data.
+        frequency (np.ndarray): The frequency data.
+        degrees (np.ndarray): The degrees data.
+        combined_gain (np.ndarray): The combined gain list.
+        std_dev (np.ndarray): The standard deviation of Phi.
+        efficiency (np.ndarray): The efficiency data.
+    """
+
     with open(path,'rb') as file:
         data_dict = pickle.load(file)
+    print(f"Dictionary keys: {data_dict.keys()}")
 
     par_comb = np.asarray(data_dict['Parameter combination'])
+    # S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_par = np.asarray(data_dict['Best parametric data'])
-    return par_comb, S11_par, frequency
+    S11_par = np.asarray(data_dict['S1,1'])
+    degrees = np.asarray(data_dict['degrees'])
+    combined_gain = np.asarray(data_dict['combined gain list'])
+    std_dev = np.asarray(data_dict['Standard deviation Phi'])
+    efficiency = np.asarray(list(data_dict['efficiency'].values()))
+    return par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency
 
-def normalize_data(data: dict, inverse: bool):
+def normalize_data(data, inverse: bool):
     if inverse:
         data_norm = data*np.std(data) + np.mean(data)
     else:   
@@ -49,33 +72,43 @@ if __name__ == "__main__":
     reset_dirs()
 
     # Load the data
-    x, y, frequency = load_data("data/Simple_wire_2_new_data.pkl")
+    par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency = load_data("data\Simple_wire_2_newdata_inc_eff.pkl")
+    
+    # Normalize the input data to the model
+    par_comb_norm = normalize_data(par_comb, inverse=False)
+    combined_gain_norm = normalize_data(combined_gain, inverse=False)
+    std_dev_norm = normalize_data(std_dev, inverse=False)
+    efficiency_norm = normalize_data(efficiency, inverse=False)
+
+    # Combine input data to a single vector
+    input_vector = np.hstack((par_comb_norm, combined_gain_norm, std_dev_norm))
+    print(f"input shape: {input_vector.shape}")
 
     # Define training and test data
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, shuffle=True)
+    x_train, x_test, y_train, y_test = train_test_split(input_vector, S11_par, test_size=0.3, shuffle=True)
 
     #normalize the data (maybe a keras normalization layer is better)
-    xmean1 = np.mean(x_train)
-    xstd1 = np.std(x_train)
-    xmean2 = np.mean(x_test)
-    xstd2 = np.std(x_test)
+    # xmean1 = np.mean(x_train)
+    # xstd1 = np.std(x_train)
+    # xmean2 = np.mean(x_test)
+    # xstd2 = np.std(x_test)
 
-    x_train_norm = normalize_data(x_train, inverse=False)
-    x_test_norm = normalize_data(x_test, inverse=False)
+    # x_train_norm = normalize_data(x_train, inverse=False)
+    # x_test_norm = normalize_data(x_test, inverse=False)
 
-    y_train_norm = normalize_data(y_train, inverse=False)
-    y_test_norm = normalize_data(y_test, inverse=False)
+    # y_train_norm = normalize_data(y_train, inverse=False)
+    # y_test_norm = normalize_data(y_test, inverse=False)
 
     # List containing the layers of the model, will have layers appended with each iteration
     base_layers = [
-        layers.InputLayer(input_shape=(3)),
-        layers.Dense(y_train_norm.shape[1], activation = 'linear', name = 'Output_layer')
+        layers.InputLayer(input_shape=(4,)),
+        layers.Dense(y_train.shape[1], activation = 'linear', name = 'Output_layer')
     ]
     
     # Create list to store run times
     run_time = np.zeros(10)
 
-    for layer in range(10):
+    for layer in range(MAX_LAYERS):
         start_time = time.perf_counter()
         # Add a layer to the model
         base_layers.insert(-1, layers.Dense(128, activation='sigmoid', name = f'layer{layer+1}'))
@@ -98,8 +131,8 @@ if __name__ == "__main__":
         # Train the model
         for j in range(50):
             model.fit(
-                x=x_train_norm,
-                y=y_train_norm,
+                x=x_train,
+                y=y_train,
                 batch_size=100,
                 epochs=100,
                 shuffle=True,
@@ -127,9 +160,10 @@ if __name__ == "__main__":
                 plt.ylim([0, 1])
                 plt.savefig(f'data/DNN_results/train_loss/train_loss_layer{layer+1}/loss_{(j+1)*100}.png')
                 plt.close()
+
             # Run the model on the test data and get the loss and mean-squared error
-            y_pred_norm = model.predict(x_test_norm)
-            _ , mean_error_pred[j] = model.evaluate(x_test_norm, y_test_norm)
+            y_pred_norm = model.predict(x_test)
+            _ , mean_error_pred[j] = model.evaluate(x_test, y_test)
             
             
             # Reverse the normalization of the labels

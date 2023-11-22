@@ -151,7 +151,7 @@ def parse_gain(par_comb_path: str, PHI_gain_path, THETA_gain_path: str):
 def parse_efficiency(par_comb_path: str, efficiency_path: str):
     print("Parsing efficiency data")
     parameter_comb = np.loadtxt(par_comb_path, delimiter=',')
-    efficiency_dict = {}
+    efficiency_list = []
     for i in tqdm(range(0, len(parameter_comb))):
         filename = f"{efficiency_path}"+ f"/tot_eff_{i}.txt"
         with open(filename, 'r') as file:
@@ -160,10 +160,10 @@ def parse_efficiency(par_comb_path: str, efficiency_path: str):
             for line in file:
                 if line != '\n':  # Skip the empty lines
                     parts = line.split()
-                    efficiency_dict[i] = float(parts[1])
+                    efficiency_list[i] = float(parts[1])
                     break  # Stop after reading the first non-empty line
 
-    dictionary = {'efficiency': efficiency_dict,
+    dictionary = {'efficiency': efficiency_list,
                   'Parameter combination': parameter_comb}  # Use parameter_comb instead of par_comb
     
     print("Finished parsing efficiency data")

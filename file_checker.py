@@ -1,7 +1,7 @@
 import os
 
 # Define the directory where the files are located
-directory = r"C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\data\wireAntennaSimple2Results_inc_eff\test_eff"
+directory = r"data\wireAntennaSimple2Results_inc_eff/test_eff"
 filename = "tot_eff_"
 
 
