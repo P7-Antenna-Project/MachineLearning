@@ -14,7 +14,10 @@ picklepath = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLear
 modelpath = "C:/Users/madsl/Dropbox/Pc/Desktop/DNN_results/Models/"
 save_fig_path = "C:/Users/madsl/Dropbox/Pc/Desktop/"
 
+# how many layers the model used for testing has (1-6)
 MODEL_FOR_TEST = 6
+
+# Seed for shuffling the data. The model is trained on 42.
 SEED = 42
 
 def load_data(path: str):
@@ -74,7 +77,7 @@ def plot_predictions(y_pred,y_test, MODEL_FOR_TEST):
     Parameters:
         y_pred : The predicted data.
         y_test : The test data.
-        MODEL_FOR_TEST : The model used for testing. Load a model with load_model() and use the model number as input.
+        MODEL_FOR_TEST : The model used for testing. Load a model with load_model_calculate_metrics() and use the model number as input.
 
 
     Returns:
@@ -90,7 +93,7 @@ def plot_predictions(y_pred,y_test, MODEL_FOR_TEST):
         ax.plot(frequency, y_pred[MODEL_FOR_TEST-1][i][:len(frequency)], label='pred')
         ax.legend()
         ax.grid(True)
-        ax.set_ylim([-40,2])
+        ax.set_ylim([-30,2])
     plt.savefig(f"{save_fig_path}test_pred_{100}.png")    
     plt.close()
 
