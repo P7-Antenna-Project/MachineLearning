@@ -10,7 +10,7 @@ import shutil
 import random
 import time
 
-path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/"
+path = "C:/Users/nlyho/Desktop/MachineLearning/"
 
 # Flags
 PLOT_TRAIN = True
@@ -21,16 +21,16 @@ MAX_LAYERS = 6
 # Cleaning directories - remove old results and create new directories
 def reset_dirs():
     current_time = time.strftime("%m%d-%H")  # get the current time
+    os.makedirs(f'{path}data/DNN_results/reLU/Models')
     for layer in range(MAX_LAYERS):
         #shutil.rmtree(f'{path}data/DNN_results/train_loss/MADStrain_loss_layer{layer+1}', ignore_errors=True)
         #shutil.rmtree(f'{path}data/DNN_results/test_pred/MADStest_pred_layer{layer+1}', ignore_errors=True)
         #shutil.rmtree(f'{path}data/DNN_results/test_loss/MADStest_loss_layer{layer+1}', ignore_errors=True)
         #shutil.rmtree(f'{path}data/DNN_results/Models', ignore_errors=True)
 
-        os.mkdir(f'{path}data/DNN_results/sigmoid/train_loss/MADStrain_loss_layer{layer+1}_{current_time}')
-        os.mkdir(f'{path}data/DNN_results/sigmoid/test_pred/MADStest_pred_layer{layer+1}_{current_time}')
-        os.mkdir(f'{path}data/DNN_results/sigmoid/test_loss/MADStest_loss_layer{layer+1}_{current_time}')
-        os.mkdir(f'{path}/data/DNN_results/sigmoid/Models_{current_time}')
+        os.makedirs(f'{path}data/DNN_results/reLU/train_loss/MADStrain_loss_layer{layer+1}')
+        os.makedirs(f'{path}data/DNN_results/reLU/test_pred/MADStest_pred_layer{layer+1}')
+        os.makedirs(f'{path}data/DNN_results/reLU/test_loss/MADStest_loss_layer{layer+1}')
     return
 
 def load_data(path: str):
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     # Load the data
     par_comb, S11_vals, S11_parameterized, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{path}data/simple_wire2_final_with_parametric.pkl")
     
-    #Reshape parametrized S11 data, -1 means the size is inferred from the remaining dimensions
+    #Reshape parametrized S11 data, -1 means the length of the array is inferred
     s11_parameterized_flat = [np.reshape(arr, -1) for arr in S11_parameterized]
     
     # Normalize the input data to the model
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     for layer in range(MAX_LAYERS):
         start_time = time.perf_counter()
         # Add a layer to the model
-        base_layers.insert(-1, layers.Dense(128, activation='sigmoid', name = f'layer{layer+1}'))
+        base_layers.insert(-1, layers.Dense(128, activation='relu', name = f'layer{layer+1}'))
         
         # Create the model
         model = keras.Sequential(base_layers,name=f'Sequential_{layer+1}')
@@ -191,7 +191,7 @@ if __name__ == "__main__":
                 plt.xlabel('epoch')
                 plt.legend(['Mean-squared error'])
                 plt.ylim([0, 1])
-                plt.savefig(f'{path}data/DNN_results/train_loss/MADStrain_loss_layer{layer+1}/loss_{(j+1)*100}.png')
+                plt.savefig(f'{path}data/DNN_results/reLU/train_loss/MADStrain_loss_layer{layer+1}/loss_{(j+1)*100}.png')
                 plt.close()
 
             # Run the model on the test data and get the loss and mean-squared error
@@ -215,7 +215,7 @@ if __name__ == "__main__":
                     plt.legend()
                     plt.grid(True)
                     plt.ylim([-40,2])
-                plt.savefig(f'{path}data/DNN_results/test_pred/MADStest_pred_layer{layer+1}/test_pred_{(j+1)*100}.png')
+                plt.savefig(f'{path}data/DNN_results/reLU/test_pred/MADStest_pred_layer{layer+1}/test_pred_{(j+1)*100}.png')
                 plt.close()
 
         # Plot the testing loss
@@ -228,7 +228,7 @@ if __name__ == "__main__":
         # Save the run time for the current model
         run_time[layer] = time.perf_counter() - start_time
         # Save the model
-        model.save(f'{path}data/DNN_results/Models/MADSforward_model_{layer+1}_layer.keras', overwrite=True)
-    plt.savefig(f'{path}data/DNN_results/test_loss/MADStest_loss_{layer+1}_layer.png')
+        model.save(f'{path}data/DNN_results/reLU/Models/MADSforward_model_{layer+1}_layer.keras', overwrite=True)
+    plt.savefig(f'{path}data/DNN_results/reLU/test_loss/MADStest_loss_{layer+1}_layer.png')
     plt.close()
-    np.savetxt(f'{path}data/DNN_results/MADSrun_time.txt', run_time)
+    np.savetxt(f'{path}data/DNN_results/reLU/MADSrun_time.txt', run_time)
