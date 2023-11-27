@@ -20,16 +20,17 @@ MAX_LAYERS = 6
 
 # Cleaning directories - remove old results and create new directories
 def reset_dirs():
+    current_time = time.strftime("%m%d-%H")  # get the current time
     for layer in range(MAX_LAYERS):
-        shutil.rmtree(f'{path}data/DNN_results/train_loss/MADStrain_loss_layer{layer+1}', ignore_errors=True)
-        shutil.rmtree(f'{path}data/DNN_results/test_pred/MADStest_pred_layer{layer+1}', ignore_errors=True)
-        shutil.rmtree(f'{path}data/DNN_results/test_loss/MADStest_loss_layer{layer+1}', ignore_errors=True)
-        shutil.rmtree(f'{path}data/DNN_results/Models', ignore_errors=True)
+        #shutil.rmtree(f'{path}data/DNN_results/train_loss/MADStrain_loss_layer{layer+1}', ignore_errors=True)
+        #shutil.rmtree(f'{path}data/DNN_results/test_pred/MADStest_pred_layer{layer+1}', ignore_errors=True)
+        #shutil.rmtree(f'{path}data/DNN_results/test_loss/MADStest_loss_layer{layer+1}', ignore_errors=True)
+        #shutil.rmtree(f'{path}data/DNN_results/Models', ignore_errors=True)
 
-        os.mkdir(f'{path}data/DNN_results/train_loss/MADStrain_loss_layer{layer+1}')
-        os.mkdir(f'{path}data/DNN_results/test_pred/MADStest_pred_layer{layer+1}')
-        os.mkdir(f'{path}data/DNN_results/train_loss/MADStest_loss_layer{layer+1}')
-        os.mkdir(f'{path}/data/DNN_results/Models')
+        os.mkdir(f'{path}data/DNN_results/sigmoid/train_loss/MADStrain_loss_layer{layer+1}_{current_time}')
+        os.mkdir(f'{path}data/DNN_results/sigmoid/test_pred/MADStest_pred_layer{layer+1}_{current_time}')
+        os.mkdir(f'{path}data/DNN_results/sigmoid/test_loss/MADStest_loss_layer{layer+1}_{current_time}')
+        os.mkdir(f'{path}/data/DNN_results/sigmoid/Models_{current_time}')
     return
 
 def load_data(path: str):
@@ -41,7 +42,7 @@ def load_data(path: str):
 
     Returns:
         par_comb (np.ndarray): The parameter combinations.
-        S11_par (np.ndarray): The best parametric data.
+        S11_vals(np.ndarray): The best parametric data.
         frequency (np.ndarray): The frequency data.
         degrees (np.ndarray): The degrees data.
         combined_gain (np.ndarray): The combined gain list.
@@ -54,14 +55,15 @@ def load_data(path: str):
     print(f"Dictionary keys: {data_dict.keys()}")
 
     par_comb = np.asarray(data_dict['Parameter combination'])
-    # S11_vals = np.asarray(data_dict['S1,1'])
+    S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_par = np.asarray(data_dict['S1,1'])
+    S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
     degrees = np.asarray(data_dict['degrees'])
     combined_gain = np.asarray(data_dict['combined gain list'])
     std_dev = np.asarray(data_dict['Standard deviation Phi'])
     efficiency = np.asarray(data_dict['efficiency'])
-    return par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency
+    
+    return par_comb, S11_vals, S11_parametrized, frequency, degrees, combined_gain, std_dev, efficiency
 
 def normalize_data(data, inverse: bool):
     if inverse:
@@ -79,15 +81,19 @@ if __name__ == "__main__":
     reset_dirs()
 
     # Load the data
-    par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{path}data/simple_wire2_final_no_parametric.pkl")
+    par_comb, S11_vals, S11_parameterized, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{path}data/simple_wire2_final_with_parametric.pkl")
+    
+    #Reshape parametrized S11 data, -1 means the size is inferred from the remaining dimensions
+    s11_parameterized_flat = [np.reshape(arr, -1) for arr in S11_parameterized]
     
     # Normalize the input data to the model
     par_comb_norm = normalize_data(par_comb, inverse=False)
     combined_gain_norm = normalize_data(combined_gain, inverse=False)
     std_dev_norm = normalize_data(std_dev, inverse=False)
     efficiency_norm = normalize_data(efficiency, inverse=False)
-    S11_par_norm = normalize_data(S11_par, inverse=False)
-
+    S11_vals_norm = normalize_data(S11_vals, inverse=False)
+    s11_parameterized_flat_norm = normalize_data(s11_parameterized_flat, inverse=False)
+    
     # Assuming combined_gain is a 2D array
     #combined_gain_norm_new = combined_gain_norm[:]
 
@@ -95,7 +101,7 @@ if __name__ == "__main__":
     print(f"combined_gain_norm shape: {combined_gain_norm.shape}")
     print(f"std_dev_norm shape: {std_dev_norm.shape}")
     print(f"efficiency_norm shape: {efficiency_norm.shape}")
-    print(f"S11_par shape: {S11_par.shape}")
+    print(f"S11_vals shape: {S11_vals.shape}")
 
     # Combine input data to a single vector
     #input_vector = np.hstack((par_comb_norm, combined_gain_norm_new, std_dev_norm))
@@ -103,10 +109,8 @@ if __name__ == "__main__":
     
     input_vector = par_comb_norm
 
+    output_vector = np.asarray([np.concatenate((S11_vals_norm[i], s11_parameterized_flat_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_vals.shape[0])])
 
-
-    output_vector = np.asarray([np.concatenate((S11_par_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_par.shape[0])])
-    
     print(input_vector)
     print(f"input shape: {input_vector.shape}")
     print(output_vector.shape)

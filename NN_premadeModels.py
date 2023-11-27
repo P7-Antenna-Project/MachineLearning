@@ -9,13 +9,13 @@ import pickle
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import random
-
+#C:\Users\madsl\Desktop\DNN_results\Models
 picklepath = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/"
-modelpath = "C:/Users/madsl/Dropbox/Pc/Desktop/DNN_results/Models/"
-save_fig_path = "C:/Users/madsl/Dropbox/Pc/Desktop/"
-
+modelpath = "C:/Users/madsl/Desktop/DNN_results/Models/"
+save_fig_path = "C:/Users/madsl/Desktop/"
+#"C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\data\COPYsimple_wire2_final_no_parametric.pkl"
 # how many layers the model used for testing has (1-6)
-MODEL_FOR_TEST = 6
+MODEL_FOR_TEST = 4
 
 # Seed for shuffling the data. The model is trained on 42.
 SEED = 42
@@ -94,7 +94,7 @@ def plot_predictions(y_pred,y_test, MODEL_FOR_TEST):
         ax.legend()
         ax.grid(True)
         ax.set_ylim([-30,2])
-    plt.savefig(f"{save_fig_path}test_pred_{100}.png")    
+    plt.savefig(f"{save_fig_path}test_pred_MODEL{MODEL_FOR_TEST}_{100}.png")    
     plt.close()
 
 def load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data):
@@ -152,7 +152,6 @@ if __name__ == "__main__":
     # Define training and test data
     x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=True, random_state=SEED)
     
-
     model_layers = [None]*7
     
     # Load models and calculate metrics (MSE and MAE)
