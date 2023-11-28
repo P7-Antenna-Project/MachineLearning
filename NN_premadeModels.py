@@ -42,14 +42,15 @@ def load_data(path: str):
     print(f"Dictionary keys: {data_dict.keys()}")
 
     par_comb = np.asarray(data_dict['Parameter combination'])
-    # S11_vals = np.asarray(data_dict['S1,1'])
+    S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_par = np.asarray(data_dict['S1,1'])
+    S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
     degrees = np.asarray(data_dict['degrees'])
     combined_gain = np.asarray(data_dict['combined gain list'])
     std_dev = np.asarray(data_dict['Standard deviation Phi'])
     efficiency = np.asarray(data_dict['efficiency'])
-    return par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency
+    
+    return par_comb, S11_vals, S11_parametrized, frequency, degrees, combined_gain, std_dev, efficiency
 
 def normalize_data(data, inverse: bool):
     """

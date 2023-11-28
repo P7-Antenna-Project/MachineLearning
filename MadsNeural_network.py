@@ -109,7 +109,7 @@ if __name__ == "__main__":
     
     input_vector = par_comb_norm
 
-    output_vector = np.asarray([np.concatenate((S11_vals_norm[i], s11_parameterized_flat_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_vals.shape[0])])
+    output_vector = np.asarray([np.concatenate((S11_vals_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_vals.shape[0])])
 
     print(input_vector)
     print(f"input shape: {input_vector.shape}")
