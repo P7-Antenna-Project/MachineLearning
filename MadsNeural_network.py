@@ -9,29 +9,48 @@ import os
 import shutil
 import random
 import time
+import json 
 
-path = "C:/Users/nlyho/Desktop/MachineLearning/"
+path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning"
 
 # Flags
 PLOT_TRAIN = True
 PLOT_TEST = True
 PLOT_TEST_LOSS = True
 MAX_LAYERS = 6
+activation_func = 'tanh'
+
+
 
 # Cleaning directories - remove old results and create new directories
+
 def reset_dirs():
     current_time = time.strftime("%m%d-%H")  # get the current time
-    os.makedirs(f'{path}data/DNN_results/reLU/Models')
+    base_path = os.path.join(path, 'data', 'DNN_results', 'tanh')
+    model_path = os.path.join(base_path, 'Models')
+    shutil.rmtree(model_path, ignore_errors=True)
+    os.makedirs(model_path, exist_ok=True)
     for layer in range(MAX_LAYERS):
-        #shutil.rmtree(f'{path}data/DNN_results/train_loss/MADStrain_loss_layer{layer+1}', ignore_errors=True)
-        #shutil.rmtree(f'{path}data/DNN_results/test_pred/MADStest_pred_layer{layer+1}', ignore_errors=True)
-        #shutil.rmtree(f'{path}data/DNN_results/test_loss/MADStest_loss_layer{layer+1}', ignore_errors=True)
-        #shutil.rmtree(f'{path}data/DNN_results/Models', ignore_errors=True)
-
-        os.makedirs(f'{path}data/DNN_results/reLU/train_loss/MADStrain_loss_layer{layer+1}')
-        os.makedirs(f'{path}data/DNN_results/reLU/test_pred/MADStest_pred_layer{layer+1}')
-        os.makedirs(f'{path}data/DNN_results/reLU/test_loss/MADStest_loss_layer{layer+1}')
+        for sub_dir in ['train_loss', 'test_pred', 'test_loss']:
+            sub_path = os.path.join(base_path, sub_dir, f'MADStrain_loss_layer{layer+1}').replace("\\", "/")
+            shutil.rmtree(sub_path, ignore_errors=True)
+            os.makedirs(sub_path, exist_ok=True)
     return
+
+# def reset_dirs():
+#     current_time = time.strftime("%m%d-%H")  # get the current time
+#     shutil.rmtree(f'{path}data/DNN_results/'+activation_func+f'/Models', ignore_errors=True)
+#     os.mkdir(f'{path}data/DNN_results/'+activation_func+f'/Models')
+#     for layer in range(MAX_LAYERS):
+#         shutil.rmtree(f'{path}data/DNN_results/'+activation_func+f'/train_loss/MADStrain_loss_layer{layer+1}', ignore_errors=True)
+#         shutil.rmtree(f'{path}data/DNN_results/'+activation_func+f'/test_pred/MADStest_pred_layer{layer+1}', ignore_errors=True)
+#         shutil.rmtree(f'{path}data/DNN_results/'+activation_func+f'/test_loss/MADStest_loss_layer{layer+1}', ignore_errors=True)
+#         #shutil.rmtree(f'{path}data/DNN_results/Models', ignore_errors=True)
+
+#         os.mkdir(f'{path}data/DNN_results/'+activation_func+f'/train_loss/MADStrain_loss_layer{layer+1}')
+#         os.mkdir(f'{path}data/DNN_results/'+activation_func+f'/test_pred/MADStest_pred_layer{layer+1}')
+#         os.mkdir(f'{path}data/DNN_results/'+activation_func+f'/test_loss/MADStest_loss_layer{layer+1}')
+#     return
 
 def load_data(path: str):
     """
@@ -78,10 +97,10 @@ def normalize_data(data, inverse: bool):
 # Run main code
 if __name__ == "__main__":
         # Ready the directories
-    reset_dirs()
+    #reset_dirs()
 
     # Load the data
-    par_comb, S11_vals, S11_parameterized, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{path}data/simple_wire2_final_with_parametric.pkl")
+    par_comb, S11_vals, S11_parameterized, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{path}/data/simple_wire2_final_with_parametric.pkl")
     
     #Reshape parametrized S11 data, -1 means the length of the array is inferred
     s11_parameterized_flat = [np.reshape(arr, -1) for arr in S11_parameterized]
@@ -118,7 +137,9 @@ if __name__ == "__main__":
 
     # Define training and test data
     x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=True, random_state=42)
-
+    std_dev = y_test[:,-2]
+    efficiency = y_test[:,-1]
+    
     #normalize the data (maybe a keras normalization layer is better)
     # xmean1 = np.mean(x_train)
     # xstd1 = np.std(x_train)
@@ -143,7 +164,7 @@ if __name__ == "__main__":
     for layer in range(MAX_LAYERS):
         start_time = time.perf_counter()
         # Add a layer to the model
-        base_layers.insert(-1, layers.Dense(128, activation='relu', name = f'layer{layer+1}'))
+        base_layers.insert(-1, layers.Dense(128, activation='tanh', name = f'layer{layer+1}'))
         
         # Create the model
         model = keras.Sequential(base_layers,name=f'Sequential_{layer+1}')
@@ -191,7 +212,9 @@ if __name__ == "__main__":
                 plt.xlabel('epoch')
                 plt.legend(['Mean-squared error'])
                 plt.ylim([0, 1])
-                plt.savefig(f'{path}data/DNN_results/reLU/train_loss/MADStrain_loss_layer{layer+1}/loss_{(j+1)*100}.png')
+                # For saving the training loss figure
+                train_loss_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'train_loss', f'MADStrain_loss_layer{layer+1}', f'loss_{(j+1)*100}.png').replace("\\", "/")
+                plt.savefig(train_loss_path)
                 plt.close()
 
             # Run the model on the test data and get the loss and mean-squared error
@@ -201,7 +224,20 @@ if __name__ == "__main__":
             
             # Reverse the normalization of the labels
             y_pred = normalize_data(y_pred_norm, inverse=True)
+            
+            std_dev_pred = y_pred_norm[:,-2]
+            efficiency_pred = y_pred_norm[:,-1]
+            
+            error_std_dev = np.abs(std_dev - std_dev_pred)
+            MSE_std_dev = np.mean(error_std_dev**2)
+            
+            error_efficiency = np.abs(efficiency - efficiency_pred)
+            MSE_efficiency = np.mean(error_efficiency**2)
 
+            error_dictionary = {'error_std_dev': error_std_dev.tolist(), 'MSE_std_dev': MSE_std_dev.tolist(), 'error_efficiency': error_efficiency.tolist(), 'MSE_efficiency': MSE_efficiency.tolist()}
+            with open (f'{path}data/DNN_results/tanh/error_std_eff.txt', 'w') as file:
+                file.write(json.dumps(error_dictionary))
+                            
             # Plot the testing results
             if PLOT_TEST:
                 # Generate 10 unique random indices
@@ -215,7 +251,9 @@ if __name__ == "__main__":
                     plt.legend()
                     plt.grid(True)
                     plt.ylim([-40,2])
-                plt.savefig(f'{path}data/DNN_results/reLU/test_pred/MADStest_pred_layer{layer+1}/test_pred_{(j+1)*100}.png')
+                # For saving the testing prediction figure
+                test_pred_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'test_pred', f'MADStest_pred_layer{layer+1}', f'test_pred_{(j+1)*100}.png').replace("\\", "/")
+                plt.savefig(test_pred_path)
                 plt.close()
 
         # Plot the testing loss
@@ -228,7 +266,14 @@ if __name__ == "__main__":
         # Save the run time for the current model
         run_time[layer] = time.perf_counter() - start_time
         # Save the model
-        model.save(f'{path}data/DNN_results/reLU/Models/MADSforward_model_{layer+1}_layer.keras', overwrite=True)
-    plt.savefig(f'{path}data/DNN_results/reLU/test_loss/MADStest_loss_{layer+1}_layer.png')
+        model_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'Models', f'MADSforward_model_{layer+1}_layer.keras').replace("\\", "/")
+        model.save(model_path, overwrite=True)
+    # For saving the testing loss figure
+    test_loss_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'test_loss', f'MADStest_loss_{layer+1}_layer.png').replace("\\", "/")
+    plt.savefig(test_loss_path)
     plt.close()
-    np.savetxt(f'{path}data/DNN_results/reLU/MADSrun_time.txt', run_time)
+
+
+    # Save the run time
+    run_time_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'MADSrun_time.txt').replace("\\", "/")
+    np.savetxt(run_time_path, run_time)
