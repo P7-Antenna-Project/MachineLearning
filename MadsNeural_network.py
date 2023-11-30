@@ -11,14 +11,14 @@ import random
 import time
 import json 
 
-path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning"
+path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
 
 # Flags
 PLOT_TRAIN = True
 PLOT_TEST = True
 PLOT_TEST_LOSS = True
 MAX_LAYERS = 6
-activation_func = 'tanh'
+activation_func = 'relu'
 
 
 
@@ -26,7 +26,7 @@ activation_func = 'tanh'
 
 def reset_dirs():
     current_time = time.strftime("%m%d-%H")  # get the current time
-    base_path = os.path.join(path, 'data', 'DNN_results', 'tanh')
+    base_path = os.path.join(path, 'data', 'DNN_results', 'softmax')
     model_path = os.path.join(base_path, 'Models')
     shutil.rmtree(model_path, ignore_errors=True)
     os.makedirs(model_path, exist_ok=True)
@@ -96,7 +96,7 @@ def normalize_data(data, inverse: bool):
 
 # Run main code
 if __name__ == "__main__":
-        # Ready the directories
+    # Ready the directories
     #reset_dirs()
 
     # Load the data
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     for layer in range(MAX_LAYERS):
         start_time = time.perf_counter()
         # Add a layer to the model
-        base_layers.insert(-1, layers.Dense(128, activation='tanh', name = f'layer{layer+1}'))
+        base_layers.insert(-1, layers.Dense(128, activation='relu', name = f'layer{layer+1}'))
         
         # Create the model
         model = keras.Sequential(base_layers,name=f'Sequential_{layer+1}')
@@ -213,7 +213,7 @@ if __name__ == "__main__":
                 plt.legend(['Mean-squared error'])
                 plt.ylim([0, 1])
                 # For saving the training loss figure
-                train_loss_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'train_loss', f'MADStrain_loss_layer{layer+1}', f'loss_{(j+1)*100}.png').replace("\\", "/")
+                train_loss_path = os.path.join(path, 'data', 'DNN_results', 'relu', 'train_loss', f'MADStrain_loss_layer{layer+1}', f'loss_{(j+1)*400}.png').replace("\\", "/")
                 plt.savefig(train_loss_path)
                 plt.close()
 
@@ -235,7 +235,7 @@ if __name__ == "__main__":
             MSE_efficiency = np.mean(error_efficiency**2)
 
             error_dictionary = {'error_std_dev': error_std_dev.tolist(), 'MSE_std_dev': MSE_std_dev.tolist(), 'error_efficiency': error_efficiency.tolist(), 'MSE_efficiency': MSE_efficiency.tolist()}
-            with open (f'{path}data/DNN_results/tanh/error_std_eff.txt', 'w') as file:
+            with open (f'{path}/data/DNN_results/relu/error_std_eff.txt', 'w') as file:
                 file.write(json.dumps(error_dictionary))
                             
             # Plot the testing results
@@ -252,28 +252,29 @@ if __name__ == "__main__":
                     plt.grid(True)
                     plt.ylim([-40,2])
                 # For saving the testing prediction figure
-                test_pred_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'test_pred', f'MADStest_pred_layer{layer+1}', f'test_pred_{(j+1)*100}.png').replace("\\", "/")
+                test_pred_path = os.path.join(path, 'data', 'DNN_results', 'relu', 'test_pred', f'MADStest_pred_layer{layer+1}', f'test_pred_{(j+1)*400}.png').replace("\\", "/")
                 plt.savefig(test_pred_path)
                 plt.close()
 
         # Plot the testing loss
         if PLOT_TEST_LOSS:
-            plt.plot(np.arange(1,51,1)*100, mean_error_pred, label = f'layer{layer+1}')
+            plt.plot(np.arange(1,51,1)*400, mean_error_pred, label = f'layer{layer+1}')
             plt.ylabel('Mean-squared error')
             plt.xlabel('epoch')
+            plt.ylim([0,0.6])
             plt.legend()
             plt.grid(True)
         # Save the run time for the current model
         run_time[layer] = time.perf_counter() - start_time
         # Save the model
-        model_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'Models', f'MADSforward_model_{layer+1}_layer.keras').replace("\\", "/")
+        model_path = os.path.join(path, 'data', 'DNN_results', 'relu', 'Models', f'MADSforward_model_{layer+1}_layer.keras').replace("\\", "/")
         model.save(model_path, overwrite=True)
     # For saving the testing loss figure
-    test_loss_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'test_loss', f'MADStest_loss_{layer+1}_layer.png').replace("\\", "/")
+    test_loss_path = os.path.join(path, 'data', 'DNN_results', 'relu', 'test_loss', f'MADStest_loss_{layer+1}_layer.png').replace("\\", "/")
     plt.savefig(test_loss_path)
     plt.close()
 
 
     # Save the run time
-    run_time_path = os.path.join(path, 'data', 'DNN_results', 'tanh', 'MADSrun_time.txt').replace("\\", "/")
+    run_time_path = os.path.join(path, 'data', 'DNN_results', 'relu', 'MADSrun_time.txt').replace("\\", "/")
     np.savetxt(run_time_path, run_time)
