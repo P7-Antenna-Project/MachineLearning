@@ -304,8 +304,8 @@ def save_data(dictionary: dict, path: str):
 if __name__ == "__main__":
     # set data_path to correct:
     # ----------------------------------------------
-    data_path = "C:/Users/nlyho/Desktop/MachineLearning/data/wireAntennaSimple2Results_inc_eff"
-    para_path = "C:/Users/nlyho/Desktop/MachineLearning/data"
+    data_path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff"
+    para_path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data"
     # ----------------------------------------------
 
     s11, par_comb, frequency = parse_s11(par_comb_path = f"{para_path}/par_comb_2508.csv", s11_path = f"{data_path}/test_s11")
@@ -314,20 +314,20 @@ if __name__ == "__main__":
     s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
 
     # Parameterize the s11 parameters for all runs
-    s11_parameterized_dict = parameterize_s11(TEST_FLAG = False)
-    print(s11_parameterized_dict.keys())
+    s11_parameterized_dict = parameterize_s11(TEST_FLAG = True)
+    # print(s11_parameterized_dict.keys())
 
-    # Parse gain data
-    gain_dict = parse_gain(par_comb_path = f"{para_path}/par_comb_2508.csv",  PHI_gain_path=f"{data_path}/test_phi", THETA_gain_path=f"{data_path}/test_theta")
+    # # Parse gain data
+    # gain_dict = parse_gain(par_comb_path = f"{para_path}/par_comb_2508.csv",  PHI_gain_path=f"{data_path}/test_phi", THETA_gain_path=f"{data_path}/test_theta")
 
-    #Parse efficiency data
-    eff_dict = parse_efficiency(par_comb_path = f"{para_path}/par_comb_2508.csv", efficiency_path=f"{data_path}/test_eff")
+    # #Parse efficiency data
+    # eff_dict = parse_efficiency(par_comb_path = f"{para_path}/par_comb_2508.csv", efficiency_path=f"{data_path}/test_eff")
 
-    #Combine the dictionaries
-    combined_dict = s11_dict | gain_dict | eff_dict | s11_parameterized_dict
+    # #Combine the dictionaries
+    # combined_dict = s11_dict | gain_dict | eff_dict | s11_parameterized_dict
 
-    #Save the data
-    save_data(combined_dict, "data/simple_wire2_final_with_parametric.pkl")
+    # #Save the data
+    # save_data(combined_dict, "data/simple_wire2_final_with_parametric.pkl")
 
     print("Finished parsing data")
    
