@@ -9,14 +9,13 @@ import pickle
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import random
-import json
-#C:\Users\madsl\Desktop\DNN_results\Models
+
 picklepath = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/"
-modelpath = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/DNN_results/reLU/Models/"
-save_fig_path = "C:/Users/madsl/Desktop/"
-#"C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\data\COPYsimple_wire2_final_no_parametric.pkl"
+modelpath = "C:/Users/madsl/Dropbox/Pc/Desktop/DNN_results/Models/"
+save_fig_path = "C:/Users/madsl/Dropbox/Pc/Desktop/"
+
 # how many layers the model used for testing has (1-6)
-MODEL_FOR_TEST = 4
+MODEL_FOR_TEST = 6
 
 # Seed for shuffling the data. The model is trained on 42.
 SEED = 42
@@ -43,15 +42,14 @@ def load_data(path: str):
     print(f"Dictionary keys: {data_dict.keys()}")
 
     par_comb = np.asarray(data_dict['Parameter combination'])
-    S11_vals = np.asarray(data_dict['S1,1'])
+    # S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
+    S11_par = np.asarray(data_dict['S1,1'])
     degrees = np.asarray(data_dict['degrees'])
     combined_gain = np.asarray(data_dict['combined gain list'])
     std_dev = np.asarray(data_dict['Standard deviation Phi'])
     efficiency = np.asarray(data_dict['efficiency'])
-    
-    return par_comb, S11_vals, S11_parametrized, frequency, degrees, combined_gain, std_dev, efficiency
+    return par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency
 
 def normalize_data(data, inverse: bool):
     """
@@ -96,7 +94,7 @@ def plot_predictions(y_pred,y_test, MODEL_FOR_TEST):
         ax.legend()
         ax.grid(True)
         ax.set_ylim([-30,2])
-    plt.savefig(f"{save_fig_path}test_pred_MODEL{MODEL_FOR_TEST}_{100}.png")    
+    plt.savefig(f"{save_fig_path}test_pred_{100}.png")    
     plt.close()
 
 def load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data):
@@ -122,101 +120,43 @@ def load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data):
     y_pred = [np.zeros(len(x_test)) for _ in range(7)]  # Changed from 6 to 7    
     y_pred_norm = [np.zeros(len(x_test)) for _ in range(7)]
     mse = np.zeros(7)
-    error = np.zeros(7)
+    mae = np.zeros(7)
     
-
     for i in range(1,7):
         y_pred[i] = model_layers[i].predict(x_test)
         y_pred_norm[i] = normalize_data(y_pred[i], inverse=True)
         mse[i] = np.mean((y_test - y_pred_norm[i])**2)
-        error[i] = np.abs(y_test - y_pred_norm[i])
-        print(f"Model {i}:\nMSE: {mse[i]}\nError: {error[i]}")
+        mae[i] = np.mean(np.abs(y_test - y_pred_norm[i]))
+        print(f"Model {i}:\nMSE: {mse[i]}\nMAE: {mae[i]}")
     
-    return y_pred, y_pred_norm, mse, error, model_layers
-
+    return y_pred, y_pred_norm, mse, mae
 
 
 
 if __name__ == "__main__":
 
     # Load the data
-    par_comb, S11_vals, s11_parameteric_unused, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{picklepath}Simple_wire2_final_with_parametric.pkl")
-
+    par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{picklepath}COPYsimple_wire2_final_no_parametric.pkl")
+    
     # Normalize the input data to the model
     par_comb_norm = normalize_data(par_comb, inverse=False)
     combined_gain_norm = normalize_data(combined_gain, inverse=False)
     std_dev_norm = normalize_data(std_dev, inverse=False)
     efficiency_norm = normalize_data(efficiency, inverse=False)
-    S11_par_norm = normalize_data(S11_vals, inverse=False)
+    S11_par_norm = normalize_data(S11_par, inverse=False)
 
     # Define input and output vectors
     input_vector = par_comb_norm
-    output_vector = np.asarray([np.concatenate((S11_par_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_vals.shape[0])])
+    output_vector = np.asarray([np.concatenate((S11_par_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_par.shape[0])])
     
-   
-
     # Define training and test data
     x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=True, random_state=SEED)
     
-    print(len(x_test), len(y_test))
-    
-    std_dev = y_test[:,-2]
-    efficiency = y_test[:,-1]
-    
-    # Load the models and calculate metrics
-    #y_pred, y_pred_norm, MSE, error, model_layers = load_model_calculate_metrics(f"{modelpath}MADSforward_model_{MODEL_FOR_TEST}_layer.keras")
-    
-    
-    models = []
-    MSE = np.zeros(7)
-    print(f"mse zeros:{MSE}")
 
-    for i in range(0,6):
-        models.append(load_model(f"{modelpath}MADSforward_model_{i+1}_layer.keras"))
-        print(f"Model {i+1} loaded")
-        
-        models[i].predict(x_test)
-        _, MSE[i] = models[i].evaluate(x_test, y_test)
-        
-        plt.plot(np.arange(1,8,1)*100, MSE, label = f'layer{i+1}')
-        plt.ylabel('Mean-squared error')
-        plt.xlabel('epoch')
-        plt.ylim([0,0.6])
-        plt.legend()
-        plt.grid(True)
+    model_layers = [None]*7
     
-    plt.show()
-    
-    
-    
-    # y_pred = model_4.predict(x_test)
-    # y_pred_norm = normalize_data(y_pred, inverse=True)
-    # print(y_pred.shape)
-    # print(y_pred[:,1001:1003])
-    
-    # std_dev_pred = y_pred_norm[:,-2]
-    # efficiency_pred = y_pred_norm[:,-1]
-    
-    # error_std_dev = np.abs(std_dev - std_dev_pred)
-    # MSE_std_dev = np.mean(error_std_dev**2)
-    
-    # error_efficiency = np.abs(efficiency - efficiency_pred)
-    # MSE_efficiency = np.mean(error_efficiency**2)
-
-    # error_dictionary = {'error_std_dev': error_std_dev.tolist(), 'MSE_std_dev': MSE_std_dev.tolist(), 'error_efficiency': error_efficiency.tolist(), 'MSE_efficiency': MSE_efficiency.tolist()}
-    # with open (f"{save_fig_path}error_std_eff.txt", 'w') as file:
-    #     file.write(json.dumps(error_dictionary))
-    # print(MSE_std_dev, MSE_efficiency)
-    
-    
-
-    
-    # model_layers = [None]*7
-    
-    # # Load models and calculate metrics (MSE and MAE)
-    # y_pred, y_pred_norm, mse, mae = load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data)
+    # Load models and calculate metrics (MSE and MAE)
+    y_pred, y_pred_norm, mse, mae = load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data)
 
     # Plot predictions
-    #plot_predictions(y_pred, y_test, MODEL_FOR_TEST)
-
-    
+    plot_predictions(y_pred, y_test, MODEL_FOR_TEST)
