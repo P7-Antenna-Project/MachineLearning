@@ -15,6 +15,15 @@ PLOT_TEST_LOSS = True
 with open("data\simple_wire2_final_with_parametric.pkl", 'rb') as file:
     data_dict = pickle.load(file)
 
+def normalize_data(data_input, mean, std_dev, inverse: bool):
+    if inverse:
+        data = data_input*std_dev + mean
+    else:   
+        mean = mean
+        std = std_dev
+        data = (data_input-mean)/std
+    return data
+
 # Define the input and output data
 y = np.asarray(data_dict['Parameter combination'])
 frequency = np.asarray(data_dict['Frequency'])

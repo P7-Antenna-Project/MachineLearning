@@ -136,7 +136,8 @@ if __name__ == "__main__":
     print(output_vector)
 
     # Define training and test data
-    x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=True, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=False)
+    #x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=True, random_state=42)
     std_dev = y_test[:,-2]
     efficiency = y_test[:,-1]
     

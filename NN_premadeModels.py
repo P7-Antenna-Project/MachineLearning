@@ -10,12 +10,12 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import random
 
-picklepath = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/"
-modelpath = "C:/Users/madsl/Dropbox/Pc/Desktop/DNN_results/Models/"
-save_fig_path = "C:/Users/madsl/Dropbox/Pc/Desktop/"
+picklepath = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/"
+modelpath = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/DNN_results/reLu/Models/"
+save_fig_path = "C:/Users/nlyho/Dropbox/Pc/Desktop/"
 
 # how many layers the model used for testing has (1-6)
-MODEL_FOR_TEST = 6
+MODEL_FOR_TEST = 4
 
 # Seed for shuffling the data. The model is trained on 42.
 SEED = 42
@@ -42,14 +42,28 @@ def load_data(path: str):
     print(f"Dictionary keys: {data_dict.keys()}")
 
     par_comb = np.asarray(data_dict['Parameter combination'])
-    # S11_vals = np.asarray(data_dict['S1,1'])
+    S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_par = np.asarray(data_dict['S1,1'])
+    # S11_par = np.asarray(data_dict['S1,1'])
     degrees = np.asarray(data_dict['degrees'])
     combined_gain = np.asarray(data_dict['combined gain list'])
     std_dev = np.asarray(data_dict['Standard deviation Phi'])
     efficiency = np.asarray(data_dict['efficiency'])
-    return par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency
+    
+    #Loop through s11 runs and remove any run which never goes below -10
+    good_s11_list = []
+    good_par_comb = []
+    for index, i in enumerate(range(len(S11_vals))):
+        if np.min(S11_vals[i]) < -10:
+            # print(f"Run {index} is good")
+            good_s11_list.append(S11_vals[i])
+            good_par_comb.append(par_comb[i])
+    
+    
+    
+    
+    
+    return good_par_comb, good_s11_list, frequency, degrees, combined_gain, std_dev, efficiency
 
 def normalize_data(data, inverse: bool):
     """
@@ -84,7 +98,7 @@ def plot_predictions(y_pred,y_test, MODEL_FOR_TEST):
         A figure with 10 plots of the predicted and test data.
         Saves the figure in the save_fig_path defined in the top.
     """
-    random_indices = random.sample(range(len(y_pred[1])), 10)
+    random_indices = random.sample(range(0, len(y_test)), 10)
     plt.figure(figsize=(50, 50))
     for idx, i in enumerate(random_indices):
         ax = plt.subplot(5, 2, idx+1)
@@ -94,8 +108,9 @@ def plot_predictions(y_pred,y_test, MODEL_FOR_TEST):
         ax.legend()
         ax.grid(True)
         ax.set_ylim([-30,2])
-    plt.savefig(f"{save_fig_path}test_pred_{100}.png")    
-    plt.close()
+    plt.show()
+    #plt.savefig(f"{save_fig_path}test_pred_{100}.png")    
+    #plt.close()
 
 def load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data):
     """
@@ -123,11 +138,11 @@ def load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data):
     mae = np.zeros(7)
     
     for i in range(1,7):
-        y_pred[i] = model_layers[i].predict(x_test)
-        y_pred_norm[i] = normalize_data(y_pred[i], inverse=True)
-        mse[i] = np.mean((y_test - y_pred_norm[i])**2)
-        mae[i] = np.mean(np.abs(y_test - y_pred_norm[i]))
-        print(f"Model {i}:\nMSE: {mse[i]}\nMAE: {mae[i]}")
+         y_pred[i] = model_layers[i].predict(x_test)
+         y_pred_norm[i] = normalize_data(y_pred[i], inverse=True)
+    #     mse[i] = np.mean((y_test - y_pred_norm[i])**2)
+    #     mae[i] = np.mean(np.abs(y_test - y_pred_norm[i]))
+    #     print(f"Model {i}:\nMSE: {mse[i]}\nMAE: {mae[i]}")
     
     return y_pred, y_pred_norm, mse, mae
 
@@ -136,7 +151,7 @@ def load_model_calculate_metrics(model_layers, x_test, y_test, normalize_data):
 if __name__ == "__main__":
 
     # Load the data
-    par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{picklepath}COPYsimple_wire2_final_no_parametric.pkl")
+    par_comb, S11_par, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"{picklepath}simple_wire2_final_with_parametric.pkl")
     
     # Normalize the input data to the model
     par_comb_norm = normalize_data(par_comb, inverse=False)
@@ -147,7 +162,9 @@ if __name__ == "__main__":
 
     # Define input and output vectors
     input_vector = par_comb_norm
-    output_vector = np.asarray([np.concatenate((S11_par_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_par.shape[0])])
+    # output vector without std_dev and efficiency:
+    output_vector = np.asarray(S11_par_norm)
+    #output_vector = np.asarray([np.concatenate((S11_par_norm[i], [std_dev[i]], [efficiency_norm[i]]))for i in range(S11_par.shape[0])])
     
     # Define training and test data
     x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, shuffle=True, random_state=SEED)

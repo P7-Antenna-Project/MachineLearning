@@ -119,7 +119,7 @@ def parse_gain(par_comb_path: str, PHI_gain_path, THETA_gain_path: str):
 
             angle_list_phi.append(phi_gain_list)
 
-        for j in angles:
+        for j in enumerate(angles):
             filename_theta = f"{THETA_gain_path}"+ f"/theta{j}_{i}.txt"
             with open(filename_theta, 'r') as file:
                 file.readline()  # Skip the first line
@@ -248,7 +248,7 @@ def parameterize_s11(TEST_FLAG: bool = False):
     if TEST_FLAG:
         specific_runs = [2000]
         # Loop through all runs and find the best curve
-        random_indices = random.sample(range(len(s11)), 5)
+        random_indices = random.sample(range(len(s11)), 6)
         
         for index, run in tqdm(enumerate(random_indices)):
             best_comb, best_parametric_data  = find_best_curve(pole_vals, zero_vals, max_poles, max_zeroes, run)
@@ -304,17 +304,35 @@ def save_data(dictionary: dict, path: str):
 if __name__ == "__main__":
     # set data_path to correct:
     # ----------------------------------------------
-    data_path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff"
-    para_path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data"
+    data_path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_inc_eff"
+    para_path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data"
     # ----------------------------------------------
 
     s11, par_comb, frequency = parse_s11(par_comb_path = f"{para_path}/par_comb_2508.csv", s11_path = f"{data_path}/test_s11")
 
+    #Loop through s11 runs and remove any run which never goes below -10
+    good_s11_list = []
+    good_par_comb = []
+    for index, i in enumerate(range(len(s11))):
+        if np.min(s11[i]) < -10:
+            print(f"Run {index} is good")
+            good_s11_list.append(s11[i])
+            good_par_comb.append(par_comb[i])
+    
+    # Plot random indices of the remaining s11
+    random_indices = random.sample(range(len(good_s11_list)), 6)
+    
+    for index, i in enumerate(good_s11_list[-6:-1]):
+        plt.subplot(5,2,index+1)
+        plt.plot(frequency,i)
+        
+    plt.show()
+    
     #Add variables to dictionary
-    s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
+    #s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
 
     # Parameterize the s11 parameters for all runs
-    s11_parameterized_dict = parameterize_s11(TEST_FLAG = True)
+    #s11_parameterized_dict = parameterize_s11(TEST_FLAG = True)
     # print(s11_parameterized_dict.keys())
 
     # # Parse gain data

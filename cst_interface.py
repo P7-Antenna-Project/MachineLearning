@@ -72,7 +72,7 @@ def setpara(paraname, paravalue, num=dim_x):
     return code
 
 # generate the complete vba code
-def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff, s11file, s21file, paraname, paravalue, lenpara): #commented s21file 
+def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff, s11file, s21file, a_file, g_file, paraname, paravalue, lenpara): #commented s21file 
     code = [
         'Option Explicit',
         'Sub Main',
@@ -81,6 +81,22 @@ def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,
         # change the parameters
         setpara(paraname, paravalue, lenpara),
         'Rebuild',
+        # save model
+        'SelectTreeItem("{}")'.format("Components\\component1\\wire_antenna"), # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        'With STEP',
+        '.Reset',
+        '.FileName("{}")'.format(a_file),
+        '.WriteSelectedSolids',
+        'End With',
+        
+        'SelectTreeItem("{}")'.format("Components\\component1\\ground"), # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        'With STEP',
+        '.Reset',
+        '.FileName("{}")'.format(g_file),
+        '.WriteSelectedSolids',
+        'End With',
+
+
         # execute the solver
         'Solver.Start',
         # select the result to export
@@ -198,11 +214,11 @@ tic = time.time()
 
 
 # try run again when encountering unexpected errors
-def tryrun(paraname, para, dim, s11file, s21file,phi0, phi45, phi90,phi135, theta0, theta45, theta90,theta135, tot_eff):
+def tryrun(paraname, para, dim, s11file, s21file, a_file, g_file,phi0, phi45, phi90,phi135, theta0, theta45, theta90,theta135, tot_eff):
     try:
-        runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,s11file, s21file, paraname=paraname, paravalue=para, lenpara=dim)
+        runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,s11file, s21file, a_file, g_file, paraname=paraname, paravalue=para, lenpara=dim)
     except RuntimeError:
-        tryrun(paraname, para, dim, s11file, s21file,phi0,phi45,phi90, phi135, theta0, theta45, theta90,theta135,tot_eff)
+        tryrun(paraname, para, dim, s11file, s21file, a_file, g_file, phi0,phi45,phi90, phi135, theta0, theta45, theta90,theta135,tot_eff)
     else:
         return 1
 
@@ -222,6 +238,8 @@ for i in range(start, num):
 
 # "C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\data\wireAntennaSimple2Results\theta"
     s11file = f'{path}{result_path}/test_s11/s11_{i}.txt'
+    a_file =f'{path}{result_path}/Step_files_Antenna/Antenna_{i}_step.step'
+    g_file =f'{path}{result_path}/Step_files_ENV/Ground_{i}_step.step'
     phi0 = f'{path}{result_path}/test_phi/phi0_{i}.txt'
     phi45= f'{path}{result_path}/test_phi/phi45_{i}.txt'
     phi90= f'{path}{result_path}/test_phi/phi90_{i}.txt'
@@ -255,6 +273,6 @@ for i in range(start, num):
     # f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s11/s11file_{i}.txt'
     
     s21file =f'data//s21//s21_{i}.txt'
-    tryrun(paraname, para[i], dim_x, s11file, s21file,phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135, tot_eff)
+    tryrun(paraname, para[i], dim_x, s11file, s21file,a_file,g_file,phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135, tot_eff)
     print(para[i])
     print(f'{time.time()-toc} used for this run, {time.time()-tic} used, {(time.time()-tic)/(i+1-start)*(num-i-1)} more needed')
