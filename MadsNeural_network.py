@@ -20,6 +20,11 @@ PLOT_TEST_LOSS = True
 MAX_LAYERS = 6
 activation_func = 'relu'
 
+#############################################################
+# The original code used for the neural network 
+#    and making the plots (testing relu,tanh,softmax,sigmoid)
+#     and amount of epochs used.
+#############################################################
 
 
 # Cleaning directories - remove old results and create new directories

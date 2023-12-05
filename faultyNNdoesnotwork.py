@@ -10,6 +10,8 @@ import shutil
 import random
 import time
 
+# delete this code i think
+
 path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/"
 
 # Flags

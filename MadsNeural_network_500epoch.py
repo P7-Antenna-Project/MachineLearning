@@ -11,6 +11,8 @@ import random
 import time
 import json
 
+# keep
+
 path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
 print(path)
 

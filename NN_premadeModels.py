@@ -10,6 +10,12 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import random
 
+
+# keep
+
+
+
+
 picklepath = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/"
 modelpath = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/DNN_results/reLu/Models/"
 save_fig_path = "C:/Users/nlyho/Dropbox/Pc/Desktop/"
