@@ -1,15 +1,11 @@
 @CACHEFILEVERSION 2
 @DOUBLE
--ground_length/2#
--39
 -ground_width/2#
 -14
 -wire_height-wire_thickness
--18
+-15.6908459
 ground_length
 78
-ground_length/2#
-39
 ground_thickness
 0.3
 ground_width/2#
@@ -17,13 +13,13 @@ ground_width/2#
 offset_in_v
 3
 offset_in_v+wire_length
-160
+111.73505
 wire_height
-15
+13.954966
 wire_height+ground_thickness
-15.3
+14.254966
 wire_length
-157
+108.73505
 wire_thickness
-3
+1.7358799
 @LONG
