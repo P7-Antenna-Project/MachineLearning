@@ -1,0 +1,116 @@
+{
+   "execution": {
+      "classname": "SMAPowerByEmagHPCFrame",
+      "libname": "SMAPowerByEmagUI"
+   },
+   "inputVariables": [
+      {
+         "name": "substrateX_max",
+         "type": "float",
+         "value": 35.0
+      },
+      {
+         "name": "substrateY_max",
+         "type": "float",
+         "value": 7.62
+      },
+      {
+         "name": "substrateH",
+         "type": "float",
+         "value": 1.0
+      },
+      {
+         "name": "stripWidth",
+         "type": "float",
+         "value": 0.8
+      },
+      {
+         "name": "copper_thickness",
+         "type": "float",
+         "value": 0.1
+      },
+      {
+         "name": "Tw1",
+         "type": "float",
+         "value": 1.0
+      },
+      {
+         "name": "Line1_height",
+         "type": "float",
+         "value": 2.0
+      },
+      {
+         "name": "tipLength",
+         "type": "float",
+         "value": 1.0
+      },
+      {
+         "name": "Leg_length",
+         "type": "float",
+         "value": 6.9342
+      },
+      {
+         "name": "Leg_placement",
+         "type": "float",
+         "value": 0.762
+      },
+      {
+         "name": "substrateX_min",
+         "type": "float",
+         "value": -10.0
+      },
+      {
+         "name": "substrateY_min",
+         "type": "float",
+         "value": -20.0
+      },
+      {
+         "name": "gp_y_max",
+         "type": "float",
+         "value": 0.0
+      },
+      {
+         "name": "holeL",
+         "type": "float",
+         "value": 0.254
+      },
+      {
+         "name": "holeW",
+         "type": "float",
+         "value": 0.0762
+      },
+      {
+         "name": "holeWPlus",
+         "type": "float",
+         "value": 0.5842
+      },
+      {
+         "name": "groundingPinTopLength",
+         "type": "float",
+         "value": 1.0
+      },
+      {
+         "name": "groundingPinLength",
+         "type": "float",
+         "value": 7.239
+      },
+      {
+         "name": "milstoMM",
+         "type": "float",
+         "value": 0.0254
+      },
+      {
+         "name": "feed_h_negative",
+         "type": "float",
+         "value": 0.0
+      }
+   ],
+   "outputVariables": [
+      {
+         "len": 1,
+         "name": "3D\\Efficiency",
+         "type": "float",
+         "value": -21.5945800301778
+      }
+   ]
+}

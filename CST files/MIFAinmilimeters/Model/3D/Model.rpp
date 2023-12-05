@@ -1,0 +1,95 @@
+10
+0
+0
+9
+Directivity,Phi=0.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Phi=0.0
+Directivity,Phi=45.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Phi=45.0
+Directivity,Phi=90.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Phi=90.0
+Directivity,Phi=135.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Phi=135.0
+Directivity,Theta=0.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Theta=0.0
+Directivity,Theta=45.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Theta=45.0
+Directivity,Theta=90.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Theta=90.0
+Directivity,Theta=135.0
+Farfield Result
+1
+1D
+Farfield and Antenna Properties
+P
+EP10
+Farfield Result^+MWS+DS.rtp
+1
+Directivity,Theta=135.0
+Efficiency
+0D or 1D Result from 1D Result (Rescale, Derivation, etc)
+1
+0D
+General 1D
+P
+EP11
+0D or 1D Result from 1D Result (Rescale, Derivation, etc).rtp
+1
+Efficiency
+0

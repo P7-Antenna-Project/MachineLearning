@@ -1,0 +1,108 @@
+_______________________________________________________________________________________________________________________
+    Message output from C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\MachineLearning\CST files\MIFAinmilimeters
+    Build: 2023.5 Release from 2023-06-08 (change 1121531)
+_______________________________________________________________________________________________________________________
+
+_______________________________________________________________________________________________________________________
+Some objects were hidden when this project was last saved. These objects are still hidden.
+_______________________________________________________________________________________________________________________
+Not all solids are included in the simulation.
+_______________________________________________________________________________________________________________________
+Due to unspecified frequency setting the evaluation of the constant tangent delta model "Folder1/FR-4" is performed at the center frequency of 1750 MHz.
+_______________________________________________________________________________________________________________________
+WARNING:
+This software is licensed for educational purposes only.
+_______________________________________________________________________________________________________________________
+Matrix computation (PBA)
+	[Perfect Boundary Approximation (PBA), version: default]
+	[GPU acceleration: off (by user)]
+<a href="1528;2411.htm">More...</a>
+_______________________________________________________________________________________________________________________
+Solver Settings:
+Excited discrete port: 1 
+[Frequency domain results normalized to default signal]
+Excitation duration: 2.84363900e+000 ns 
+Steady state accuracy limit: -40 dB 
+Maximum number of time steps: 106821 
+Time step width:
+     without subcycles: 5.324070942e-004 ns
+     used: 5.324070942e-004 ns
+Number of threads used: 8
+_______________________________________________________________________________________________________________________
+Steady state energy criterion met, solver finished successfully.
+_______________________________________________________________________________________________________________________
+The Z and Y matrices have been successfully calculated.
+The VSWR results have been successfully calculated.
+
+_______________________________________________________________________________________________________________________
+Successfully finished Secondary Quantity Evaluation.
+_______________________________________________________________________________________________________________________
+WARNING:
+1 warning occurred.
+_______________________________________________________________________________________________________________________
+Creating parametric 1D results for Run ID 1
+_______________________________________________________________________________________________________________________
+Not all solids are included in the simulation.
+_______________________________________________________________________________________________________________________
+Due to unspecified frequency setting the evaluation of the constant tangent delta model "Folder1/FR-4" is performed at the center frequency of 1750 MHz.
+_______________________________________________________________________________________________________________________
+WARNING:
+This software is licensed for educational purposes only.
+_______________________________________________________________________________________________________________________
+Matrix computation (PBA)
+	[Perfect Boundary Approximation (PBA), version: default]
+	[GPU acceleration: off (by user)]
+<a href="1528;2411.htm">More...</a>
+_______________________________________________________________________________________________________________________
+Solver Settings:
+Excited discrete port: 1 
+[Frequency domain results normalized to default signal]
+Excitation duration: 2.84363900e+000 ns 
+Steady state accuracy limit: -40 dB 
+Maximum number of time steps: 106823 
+Time step width:
+     without subcycles: 5.324000994e-004 ns
+     used: 5.324000994e-004 ns
+Number of threads used: 8
+_______________________________________________________________________________________________________________________
+Steady state energy criterion met, solver finished successfully.
+_______________________________________________________________________________________________________________________
+The Z and Y matrices have been successfully calculated.
+The VSWR results have been successfully calculated.
+
+_______________________________________________________________________________________________________________________
+Successfully finished Secondary Quantity Evaluation.
+_______________________________________________________________________________________________________________________
+WARNING:
+1 warning occurred.
+_______________________________________________________________________________________________________________________
+Creating parametric 1D results for Run ID 1
+_______________________________________________________________________________________________________________________
+Not all solids are included in the simulation.
+_______________________________________________________________________________________________________________________
+Due to unspecified frequency setting the evaluation of the constant tangent delta model "Folder1/FR-4" is performed at the center frequency of 1750 MHz.
+_______________________________________________________________________________________________________________________
+WARNING:
+This software is licensed for educational purposes only.
+_______________________________________________________________________________________________________________________
+Matrix computation (PBA)
+	[Perfect Boundary Approximation (PBA), version: default]
+	[GPU acceleration: off (by user)]
+<a href="1528;2411.htm">More...</a>
+_______________________________________________________________________________________________________________________
+QUESTION:
+Project cannot be closed while a solver is running.
+Please abort the solver first.
+
+To release the frontend license use "File: Release Frontend License".
+_______________________________________________________________________________________________________________________
+Solver Settings:
+Excited discrete port: 1 
+[Frequency domain results normalized to default signal]
+Excitation duration: 2.84363900e+000 ns 
+Steady state accuracy limit: -40 dB 
+Maximum number of time steps: 106827 
+Time step width:
+     without subcycles: 5.323806791e-004 ns
+     used: 5.323806791e-004 ns
+Number of threads used: 8

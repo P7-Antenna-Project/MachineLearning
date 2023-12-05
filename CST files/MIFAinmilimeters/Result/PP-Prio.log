@@ -1,0 +1,34 @@
+=========================================
+== CST Matrix Calculation Priority Log ==
+=========================================
+Priorities are sorted in ascending order beginning with the lowest priority
+ 
+Group | Shape-ID | ShapeName | Material | User-priority | 2D/3D-Geometry | Material-attributes | Shape-attributes | Feature-ID | Schemetype
+1 | 22 | </cst/Boundaries/> Low^X | $NFSMaterial$ | n/a | no | normal.vacuum. | boundary. | n/a | FIT_TD
+1 | 23 | </cst/Boundaries/> Low^Y | $NFSMaterial$ | n/a | no | normal.vacuum. | boundary. | n/a | FIT_TD
+1 | 24 | </cst/Boundaries/> Low^Z | $NFSMaterial$ | n/a | no | normal.vacuum. | boundary. | n/a | FIT_TD
+1 | 25 | </cst/Boundaries/> Up^X | $NFSMaterial$ | n/a | no | normal.vacuum. | boundary. | n/a | FIT_TD
+1 | 26 | </cst/Boundaries/> Up^Y | $NFSMaterial$ | n/a | no | normal.vacuum. | boundary. | n/a | FIT_TD
+1 | 27 | </cst/Boundaries/> Up^Z | $NFSMaterial$ | n/a | no | normal.vacuum. | boundary. | n/a | FIT_TD
+2 | 20 | </cst/Ports/> 1^t0 | PEC | n/a | no | pec. | edge-element.wire. | n/a | FIT_TD
+2 | 21 | </cst/Ports/> 1^t1 | PEC | n/a | no | pec. | edge-element.wire. | n/a | FIT_TD
+3 | 19 | component1:substrate | Folder1/FR-4 | n/a | yes | dispersive-mue.normal. | solid. | n/a | FIT_TD
+4 | 1 | antenna:Bot1 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 2 | antenna:Bot2 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 3 | antenna:Bot3 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 4 | antenna:Feed | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 5 | antenna:Line1 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 6 | antenna:Line2 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 7 | antenna:Line3 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 8 | antenna:Line4 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 9 | antenna:Line5 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 10 | antenna:Line6 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 11 | antenna:Tip | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 12 | antenna:Top1 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 13 | antenna:Top2 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 14 | antenna:Top3 | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 15 | antenna:gp_gpConnection | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 16 | antenna:groundingPinLength | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 17 | antenna:groundingPinTop | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+4 | 18 | component1:GP | PEC | n/a | yes | pec. | solid. | n/a | FIT_TD
+=========================================

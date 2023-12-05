@@ -1,0 +1,24 @@
+{
+   "execution": {
+      "classname": "SMAPowerByEmagHPCFrame",
+      "libname": "SMAPowerByEmagUI"
+   },
+   "inputVariables": [
+      {
+         "name": "copper_thickness",
+         "type": "float",
+         "value": 0.03
+      },
+      {
+         "name": "gp_y_max",
+         "type": "float",
+         "value": 0.0
+      },
+      {
+         "name": "milstoMM",
+         "type": "float",
+         "value": 0.0254
+      }
+   ],
+   "outputVariables": []
+}

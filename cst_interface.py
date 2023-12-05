@@ -6,23 +6,32 @@ from tqdm import tqdm
 # -------------------------------------- path til workspace: --------------------------------------
 #mads path:
 path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning"
-result_path = "/data/wireAntennaSimple2Results_inc_eff"
+result_path = "/data/MIFA_results"
 # Nicolai path: 
 #path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
 
 # HUSK AT SÆTTE START OG STOP ( LINJE 57+59 )
 
-paraname = ['wire_length','wire_height', 'wire_thickness']
+paraname = ['Tw1','tipLength','Line1_height']
+#paraname = ['Tw1','tipLength', 'feed_h_negative','groundingPinTopLength','Line1_height']
 
 
 
 dim_x = len(paraname)
 # dim_y = 51
-para_min = np.array([157/10,4,0.5])
-para_max = np.array([157,15,3])
-para_step = np.array([7.43684210526316, 1, 0.25])
-ns = np.array([(para_max[0]-para_min[0])/para_step[0]+1,(para_max[1]-para_min[1])/para_step[1]+1,(para_max[2]-para_min[2])/para_step[2]+1]).astype(int) #Number of parameter samples
+para_min = np.array([1,1,1])
+para_max = np.array([7,12,10])
+para_step = np.array([.5,.5,1])
+ns = np.array([
+    (para_max[0]-para_min[0])/para_step[0]+1,
+    (para_max[1]-para_min[1])/para_step[1]+1,
+    (para_max[2]-para_min[2])/para_step[2]+1,
+    # (para_max[3]-para_min[3])/para_step[3]+1,
+    # (para_max[4]-para_min[4])/para_step[4]+1
+]).astype(int)
 num = np.prod(ns)
+
+# print(num)
 
 
 laptop_path = r"C:\Program Files (x86)\CST Studio Suite 2023\AMD64\python_cst_libraries"
@@ -42,9 +51,7 @@ para = represent(para)
 pd.DataFrame(para).to_csv(f'data\\par_comb{num}.csv', header=None, index=None)
 
 #new_cstfile = r"C:\Users\nlyho\OneDrive - Aalborg Universitet\7. semester\Git\MachineLearning\CST files\Wire_antenna_simple_2.cst"
-new_cstfile = f"{path}\CST files\Wire_antenna_simple_2.cst"
-
-
+new_cstfile = f"{path}\CST files\MIFAinmilimeters.cst"
 
 DE = cst.interface.DesignEnvironment()
 microwavestructure = DE.open_project(new_cstfile)
@@ -55,9 +62,9 @@ schematic = microwavestructure.schematic
 
 # --------------------------------- DEFFINING THE RUNS ---------------------------------
 # Set this if you want to start at a specific run
-start = int(num-1)
+start = 0
 # Set this num if you want to stop at a specific run
-num = int(num)
+num = num//2
 # -------------------------------------------------------------------------------------
 
 
@@ -72,7 +79,7 @@ def setpara(paraname, paravalue, num=dim_x):
     return code
 
 # generate the complete vba code
-def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff, s11file, s21file, a_file, g_file, paraname, paravalue, lenpara): #commented s21file 
+def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff, s11file, s21file,paraname, paravalue, lenpara): #commented s21file 
     code = [
         'Option Explicit',
         'Sub Main',
@@ -82,19 +89,19 @@ def runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,
         setpara(paraname, paravalue, lenpara),
         'Rebuild',
         # save model
-        'SelectTreeItem("{}")'.format("Components\\component1\\wire_antenna"), # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
-        'With STEP',
-        '.Reset',
-        '.FileName("{}")'.format(a_file),
-        '.WriteSelectedSolids',
-        'End With',
+        # 'SelectTreeItem("{}")'.format("Components\\component1\\wire_antenna"), # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        # 'With STEP',
+        # '.Reset',
+        # '.FileName("{}")'.format(a_file),
+        # '.WriteSelectedSolids',
+        # 'End With',
         
-        'SelectTreeItem("{}")'.format("Components\\component1\\ground"), # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
-        'With STEP',
-        '.Reset',
-        '.FileName("{}")'.format(g_file),
-        '.WriteSelectedSolids',
-        'End With',
+        # 'SelectTreeItem("{}")'.format("Components\\component1\\ground"), # S Change this to the correct port HUSK HUSKL HUSK HUSK HUSLK HUSK
+        # 'With STEP',
+        # '.Reset',
+        # '.FileName("{}")'.format(g_file),
+        # '.WriteSelectedSolids',
+        # 'End With',
 
 
         # execute the solver
@@ -214,15 +221,15 @@ tic = time.time()
 
 
 # try run again when encountering unexpected errors
-def tryrun(paraname, para, dim, s11file, s21file, a_file, g_file,phi0, phi45, phi90,phi135, theta0, theta45, theta90,theta135, tot_eff):
+def tryrun(paraname, para, dim, s11file, s21file,phi0, phi45, phi90,phi135, theta0, theta45, theta90,theta135, tot_eff):
     try:
-        runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,s11file, s21file, a_file, g_file, paraname=paraname, paravalue=para, lenpara=dim)
+        runmacro(phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135,tot_eff,s11file, s21file, paraname=paraname, paravalue=para, lenpara=dim)
     except RuntimeError:
-        tryrun(paraname, para, dim, s11file, s21file, a_file, g_file, phi0,phi45,phi90, phi135, theta0, theta45, theta90,theta135,tot_eff)
+        tryrun(paraname, para, dim, s11file, s21file, phi0,phi45,phi90, phi135, theta0, theta45, theta90,theta135,tot_eff)
     else:
         return 1
 
-angles = [0,45,90]
+angles = [0,45,90,135]
 
 # sweep and running simulation and collect data
 # Don't change this for loop, change the start and num variables at the top
@@ -237,18 +244,18 @@ for i in range(start, num):
 # -------------------------------------- CHANGE TO DIR --------------------------------------
 
 # "C:\Users\madsl\Dropbox\AAU\EIT 7. sem\P7\Python6_stuff\data\wireAntennaSimple2Results\theta"
-    s11file = f'{path}{result_path}/test_s11/s11_{i}.txt'
-    a_file =f'{path}{result_path}/Step_files_Antenna/Antenna_{i}_step.step'
-    g_file =f'{path}{result_path}/Step_files_ENV/Ground_{i}_step.step'
-    phi0 = f'{path}{result_path}/test_phi/phi0_{i}.txt'
-    phi45= f'{path}{result_path}/test_phi/phi45_{i}.txt'
-    phi90= f'{path}{result_path}/test_phi/phi90_{i}.txt'
-    phi135 = f'{path}{result_path}/test_phi/phi135_{i}.txt'
-    theta0 = f'{path}{result_path}/test_theta/theta0_{i}.txt'
-    theta45 = f'{path}{result_path}/test_theta/theta45_{i}.txt'
-    theta90 = f'{path}{result_path}/test_theta/theta90_{i}.txt'
-    theta135 = f'{path}{result_path}/test_theta/theta135_{i}.txt'
-    tot_eff = f'{path}{result_path}/test_eff/tot_eff_{i}.txt'
+    s11file = f'{path}{result_path}/s11/s11_{i}.txt'
+    #a_file =f'{path}{result_path}/Step_files_Antenna/Antenna_{i}_step.step'
+    #g_file =f'{path}{result_path}/Step_files_ENV/Ground_{i}_step.step'
+    phi0 = f'{path}{result_path}/phi/phi0_{i}.txt'
+    phi45= f'{path}{result_path}/phi/phi45_{i}.txt'
+    phi90= f'{path}{result_path}/phi/phi90_{i}.txt'
+    phi135 = f'{path}{result_path}/phi/phi135_{i}.txt'
+    theta0 = f'{path}{result_path}/theta/theta0_{i}.txt'
+    theta45 = f'{path}{result_path}/theta/theta45_{i}.txt'
+    theta90 = f'{path}{result_path}/theta/theta90_{i}.txt'
+    theta135 = f'{path}{result_path}/theta/theta135_{i}.txt'
+    tot_eff = f'{path}{result_path}/eff/tot_eff_{i}.txt'
 
     # phi0 = f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi0_{i}.txt'
     # phi45= f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/wireAntennaSimple2Results_nicolai/test_phi/phi45_{i}.txt'
@@ -273,6 +280,6 @@ for i in range(start, num):
     # f'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/CSTEnv/data/s11/s11file_{i}.txt'
     
     s21file =f'data//s21//s21_{i}.txt'
-    tryrun(paraname, para[i], dim_x, s11file, s21file,a_file,g_file,phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135, tot_eff)
+    tryrun(paraname, para[i], dim_x, s11file, s21file,phi0,phi45,phi90,phi135, theta0, theta45, theta90,theta135, tot_eff)
     print(para[i])
     print(f'{time.time()-toc} used for this run, {time.time()-tic} used, {(time.time()-tic)/(i+1-start)*(num-i-1)} more needed')

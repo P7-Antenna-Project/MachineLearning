@@ -1,0 +1,178 @@
+{
+    "parameters": [
+        {
+            "descr": "substrate Length",
+            "expr": "500*milstoMM",
+            "name": "substrateX_max",
+            "value": "12.7"
+        },
+        {
+            "descr": "substrate width",
+            "expr": "300*milstoMM",
+            "name": "substrateY_max",
+            "value": "7.62"
+        },
+        {
+            "descr": "substrate height [mm]",
+            "expr": "3*milstoMM",
+            "name": "substrateH",
+            "value": "0.0762"
+        },
+        {
+            "descr": "width of antenna strips",
+            "expr": "20*milstoMM",
+            "name": "stripWidth",
+            "value": "0.508"
+        },
+        {
+            "descr": "height of feed",
+            "expr": "(280-stripWidth)*milstoMM",
+            "name": "feed_h",
+            "value": "7.0990968"
+        },
+        {
+            "descr": "thickness of copper",
+            "expr": ".03",
+            "name": "copper_thickness",
+            "value": ".03"
+        },
+        {
+            "expr": "65*milstoMM",
+            "name": "Tw1",
+            "value": "1.651"
+        },
+        {
+            "descr": "height of lines (minus 1 stripwidth",
+            "expr": "(160*milstoMM)-stripWidth",
+            "name": "Line1_height",
+            "value": "3.556"
+        },
+        {
+            "descr": "bottom width",
+            "expr": "Tw1",
+            "name": "Bw1",
+            "value": "1.651"
+        },
+        {
+            "expr": "Line1_height",
+            "name": "Line2_height",
+            "value": "3.556"
+        },
+        {
+            "expr": "Tw1",
+            "name": "Tw2",
+            "value": "1.651"
+        },
+        {
+            "expr": "line2_height",
+            "name": "line3_height",
+            "value": "3.556"
+        },
+        {
+            "expr": "Bw1",
+            "name": "Bw2",
+            "value": "1.651"
+        },
+        {
+            "expr": "Line3_height",
+            "name": "Line4_height",
+            "value": "3.556"
+        },
+        {
+            "expr": "tw2",
+            "name": "tw3",
+            "value": "1.651"
+        },
+        {
+            "expr": "line4_height",
+            "name": "Line5_height",
+            "value": "3.556"
+        },
+        {
+            "expr": "Bw2",
+            "name": "Bw3",
+            "value": "1.651"
+        },
+        {
+            "expr": "Line5_height",
+            "name": "Line6_height",
+            "value": "3.556"
+        },
+        {
+            "expr": "200*milstoMM",
+            "name": "tipLength",
+            "value": "5.08"
+        },
+        {
+            "expr": "273*milstoMM",
+            "name": "Leg_length",
+            "value": "6.9342"
+        },
+        {
+            "expr": "30*milstoMM",
+            "name": "Leg_placement",
+            "value": "0.762"
+        },
+        {
+            "expr": "-200*milstoMM",
+            "name": "substrateX_min",
+            "value": "-5.08"
+        },
+        {
+            "expr": "-300*milstoMM",
+            "name": "substrateY_min",
+            "value": "-7.62"
+        },
+        {
+            "expr": "-200*milstoMM",
+            "name": "gp_x_min",
+            "value": "-5.08"
+        },
+        {
+            "expr": "500*milstoMM",
+            "name": "gp_x_max",
+            "value": "12.7"
+        },
+        {
+            "expr": "substrateY_min",
+            "name": "gp_y_min",
+            "value": "-7.62"
+        },
+        {
+            "expr": "0",
+            "name": "gp_y_max",
+            "value": "0"
+        },
+        {
+            "expr": "10*milstoMM",
+            "name": "holeL",
+            "value": "0.254"
+        },
+        {
+            "expr": "3*milstoMM",
+            "name": "holeW",
+            "value": "0.0762"
+        },
+        {
+            "expr": "holeW+(20*milstoMM)",
+            "name": "holeWPlus",
+            "value": "0.5842"
+        },
+        {
+            "expr": "65*milstoMM",
+            "name": "groundingPinTopLength",
+            "value": "1.651"
+        },
+        {
+            "expr": "285*milstoMM",
+            "name": "groundingPinLength",
+            "value": "7.239"
+        },
+        {
+            "expr": "0.0254",
+            "name": "milstoMM",
+            "value": "0.0254"
+        }
+    ],
+    "version": 1
+}
