@@ -123,6 +123,8 @@ if __name__ == "__main__":
     model.add(layers.Dense(256, activation='relu'))
     model.add(layers.Dense(256, activation='relu'))
     model.add(layers.Dense(256, activation='relu'))
+    model.add(layers.Dense(256, activation='relu'))
+    model.add(layers.Dense(256, activation='relu'))
     # model.add(layers.Dense(256, activation='relu'))
     model.add(layers.Dense(y_train.shape[1], activation='linear'))
 
@@ -142,7 +144,7 @@ if __name__ == "__main__":
     # Train the model
     history = model.fit(X_train,
                         y_train,
-                        epochs=500,
+                        epochs=1000,
                         batch_size=100,
                         shuffle=True,
                         verbose=1)
