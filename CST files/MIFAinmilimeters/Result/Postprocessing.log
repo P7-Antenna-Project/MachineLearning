@@ -9,35 +9,19 @@ Units settings:
 
 ----------------------------------------------------------------------------------------
 
-Template based post-processing started at: 04:38 PM Tuesday, 05. December 2023
+Template based post-processing started at: 12:11 PM Wednesday, 06. December 2023
 
-  Evaluating 'Directivity,Phi=0.0': 0.328 s
-  Evaluating 'Directivity,Phi=45.0': 0.323 s
-  Evaluating 'Directivity,Phi=90.0': 0.314 s
-  Evaluating 'Directivity,Phi=135.0': 0.331 s
-  Evaluating 'Directivity,Theta=0': 0.364 s
-  Evaluating 'Directivity,Theta=45.0': 0.352 s
-  Evaluating 'Directivity,Theta=90.0': 0.356 s
-  Evaluating 'Directivity,Theta=135.0': 0.351 s
-  Evaluating 'Efficiency': 0.042 s
+  Evaluating 'Directivity,Phi=0.0': 0.594 s
+  Evaluating 'Directivity,Phi=45.0': 0.513 s
+  Evaluating 'Directivity,Phi=90.0': 0.435 s
+  Evaluating 'Directivity,Phi=135.0': 0.429 s
+  Evaluating 'Directivity,Theta=0.0': 0.448 s
+  Evaluating 'Directivity,Theta=45.0': 0.416 s
+  Evaluating 'Directivity,Theta=90.0': 0.416 s
+  Evaluating 'Directivity,Theta=135.0': 0.452 s
+  Evaluating 'Efficiency': 0.058 s
 
-  Total time: 2 s  ( = 0 h, 0 m, 2 s )
+  Total time: 3 s  ( = 0 h, 0 m, 3 s )
 
-Template based post-processing finished at: 04:38 PM Tuesday, 05. December 2023
-----------------------------------------------------------------------------------------
-Template based post-processing started at: 04:39 PM Tuesday, 05. December 2023
-
-  Evaluating 'Directivity,Phi=0.0': 0.899 s
-  Evaluating 'Directivity,Phi=45.0': 0.444 s
-  Evaluating 'Directivity,Phi=90.0': 0.426 s
-  Evaluating 'Directivity,Phi=135.0': 0.518 s
-  Evaluating 'Directivity,Theta=0': 0.469 s
-  Evaluating 'Directivity,Theta=45.0': 0.42 s
-  Evaluating 'Directivity,Theta=90.0': 0.405 s
-  Evaluating 'Directivity,Theta=135.0': 0.503 s
-  Evaluating 'Efficiency': 0.27 s
-
-  Total time: 4 s  ( = 0 h, 0 m, 4 s )
-
-Template based post-processing finished at: 04:39 PM Tuesday, 05. December 2023
+Template based post-processing finished at: 12:11 PM Wednesday, 06. December 2023
 ----------------------------------------------------------------------------------------

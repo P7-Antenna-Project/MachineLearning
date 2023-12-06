@@ -14,21 +14,21 @@
         },
         {
             "descr": "substrate height [mm]",
-            "expr": "1",
+            "expr": ".7",
             "name": "substrateH",
-            "value": "1"
+            "value": ".7"
         },
         {
             "descr": "width of antenna strips",
-            "expr": "0.8",
+            "expr": "1",
             "name": "stripWidth",
-            "value": "0.8"
+            "value": "1"
         },
         {
             "descr": "height of feed",
             "expr": "7.112-stripWidth",
             "name": "feed_h",
-            "value": "6.312"
+            "value": "6.112"
         },
         {
             "descr": "thickness of copper",
@@ -37,71 +37,71 @@
             "value": "0.1"
         },
         {
-            "expr": "1",
+            "expr": "6",
             "name": "Tw1",
-            "value": "1"
+            "value": "6"
         },
         {
             "descr": "height of lines (minus 1 stripwidth",
-            "expr": "2",
+            "expr": "12",
             "name": "Line1_height",
-            "value": "2"
+            "value": "12"
         },
         {
             "descr": "bottom width",
             "expr": "Tw1",
             "name": "Bw1",
-            "value": "1"
+            "value": "6"
         },
         {
             "expr": "Line1_height",
             "name": "Line2_height",
-            "value": "2"
+            "value": "12"
         },
         {
             "expr": "Tw1",
             "name": "Tw2",
-            "value": "1"
+            "value": "6"
         },
         {
             "expr": "line2_height",
             "name": "line3_height",
-            "value": "2"
+            "value": "12"
         },
         {
             "expr": "Bw1",
             "name": "Bw2",
-            "value": "1"
+            "value": "6"
         },
         {
             "expr": "Line3_height",
             "name": "Line4_height",
-            "value": "2"
+            "value": "12"
         },
         {
             "expr": "tw2",
             "name": "tw3",
-            "value": "1"
+            "value": "6"
         },
         {
             "expr": "line4_height",
             "name": "Line5_height",
-            "value": "2"
+            "value": "12"
         },
         {
             "expr": "Bw2",
             "name": "Bw3",
-            "value": "1"
+            "value": "6"
         },
         {
             "expr": "Line5_height",
             "name": "Line6_height",
-            "value": "2"
+            "value": "12"
         },
         {
-            "expr": "1",
+            "expr": "20",
             "name": "tipLength",
-            "value": "1"
+            "value": "20"
         },
         {
             "expr": "6.9342",
@@ -159,14 +159,14 @@
             "value": "0.5842"
         },
         {
-            "expr": "1",
+            "expr": "7",
             "name": "groundingPinTopLength",
-            "value": "1"
+            "value": "7"
         },
         {
-            "expr": "7.239",
+            "expr": "6.42",
             "name": "groundingPinLength",
-            "value": "7.239"
+            "value": "6.42"
         },
         {
             "expr": "0.0254",

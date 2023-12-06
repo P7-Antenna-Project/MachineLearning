@@ -17,12 +17,12 @@
       {
          "name": "substrateH",
          "type": "float",
-         "value": 1.0
+         "value": 0.7
       },
       {
          "name": "stripWidth",
          "type": "float",
-         "value": 0.8
+         "value": 1.0
       },
       {
          "name": "copper_thickness",
@@ -32,17 +32,17 @@
       {
          "name": "Tw1",
          "type": "float",
-         "value": 1.0
+         "value": 6.0
       },
       {
          "name": "Line1_height",
          "type": "float",
-         "value": 2.0
+         "value": 12.0
       },
       {
          "name": "tipLength",
          "type": "float",
-         "value": 1.0
+         "value": 20.0
       },
       {
          "name": "Leg_length",
@@ -87,12 +87,12 @@
       {
          "name": "groundingPinTopLength",
          "type": "float",
-         "value": 1.0
+         "value": 7.0
       },
       {
          "name": "groundingPinLength",
          "type": "float",
-         "value": 7.239
+         "value": 6.42
       },
       {
          "name": "milstoMM",
@@ -110,7 +110,7 @@
          "len": 1,
          "name": "3D\\Efficiency",
          "type": "float",
-         "value": -21.5945800301778
+         "value": -17.3509389758175
       }
    ]
 }
