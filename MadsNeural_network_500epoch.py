@@ -10,7 +10,7 @@ import shutil
 import random
 import time
 import json
-
+import keras.backend as K
 # keep
 
 path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
@@ -46,13 +46,13 @@ def load_data(path: str):
     par_comb = np.asarray(data_dict['Parameter combination'])
     S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
+    # S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
     degrees = np.asarray(data_dict['degrees'])
     combined_gain = np.asarray(data_dict['combined gain list'])
     std_dev = np.asarray(data_dict['Standard deviation Phi'])
     efficiency = np.asarray(data_dict['efficiency'])
     #efficiency = np.asarray(list(data_dict['efficiency'].values()))
-    return par_comb, S11_vals, S11_parametrized, frequency, degrees, combined_gain, std_dev, efficiency
+    return par_comb, S11_vals, frequency, degrees, combined_gain, std_dev, efficiency
 
 def normalize_data(data_input, mean, std_dev, inverse: bool):
     if inverse:
@@ -63,6 +63,12 @@ def normalize_data(data_input, mean, std_dev, inverse: bool):
         data = (data_input-mean)/std
     return data
 
+def weighted_mse(y_true, y_pred):
+    #Pass y_true values through a sigmoid function
+    weights = 2* K.sigmoid(-y_true)
+    
+    return K.mean(weights * K.square(y_pred - y_true), axis=-1)
+
 
 
 # Run main code
@@ -70,12 +76,12 @@ if __name__ == "__main__":
     run_times = []
     start_time = time.perf_counter()
     path = 'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/'
-    par_comb, S11_vals, S11_parameterized, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/simple_wire2_final_with_parametric.pkl")
+    par_comb, S11_vals, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/MIFA_results/MIFA_results.pkl")
 
     # Normalize data
     par_comb_norm = normalize_data(par_comb,np.mean(par_comb),np.std(par_comb), False)
     S11_vals_norm = normalize_data(S11_vals,np.mean(S11_vals),np.std(S11_vals), False)
-    S11_parameterized_norm = normalize_data(S11_parameterized, np.mean(S11_parameterized),np.std(S11_parameterized), False)
+    # S11_parameterized_norm = normalize_data(S11_parameterized, np.mean(S11_parameterized),np.std(S11_parameterized), False)
     frequency_norm = normalize_data(frequency, np.mean(frequency),np.std(frequency), False)
     degrees_norm = normalize_data(degrees, np.mean(degrees),np.std(degrees), False)
     combined_gain_norm = normalize_data(combined_gain, np.mean(combined_gain),np.std(combined_gain), False)
@@ -135,7 +141,7 @@ if __name__ == "__main__":
 
     model.compile(
                 optimizer=keras.optimizers.Adam(learning_rate=0.001),
-                loss=keras.losses.MeanAbsoluteError(),
+                loss=weighted_mse,
                 metrics=[keras.metrics.MeanSquaredError()]
             )
     model.summary()
@@ -144,7 +150,7 @@ if __name__ == "__main__":
     # Train the model
     history = model.fit(X_train,
                         y_train,
-                        epochs=1000,
+                        epochs=500,
                         batch_size=100,
                         shuffle=True,
                         verbose=1)
@@ -170,7 +176,7 @@ if __name__ == "__main__":
         plt.ylim([0, 1])
         
         # For saving the training loss figure
-        train_loss_path = os.path.join(path, 'data', 'DNN_results', 'simple_wire_2_forward_final',f'train_loss.png').replace("\\", "/")
+        train_loss_path = os.path.join(path, 'data', 'MIFA_results',f'train_loss.png').replace("\\", "/")
         #plt.show()
         plt.savefig(train_loss_path)
         plt.close()
@@ -188,15 +194,14 @@ if __name__ == "__main__":
 
         # Find test curves where the S11 goes below -10 dB and the frequency is below 2 GHz
         test_indices = []
-        for idx, i in enumerate(y_pred_s11):
+        for idx, i in enumerate(y_test[:,:1001]):
             if np.min(i) < -10 and frequency[np.argmin(i)] < 2000:
                 test_indices.append(idx)
         print(f"Number of test curves that satisfy the condition: {len(test_indices)} within the test set")
 
         # Select 10 random curves from the good test curves
         random_indices = random.sample(test_indices, 10)
-
-
+        random_indices = [321, 673, 43, 209, 495, 629, 868, 151, 755, 578]
         error_std_dev = np.abs(std_dev - std_dev_pred)
         MSE_std_dev = np.mean(error_std_dev**2)
 
@@ -207,8 +212,8 @@ if __name__ == "__main__":
         print(f'MSE_std_dev: {error_dictionary["MSE_std_dev"]}, MSE_efficiency: {error_dictionary["MSE_efficiency"]}')
 
         
-        with open (f'{path}/data/DNN_results/relu/error_std_eff.txt', 'w') as file:
-            file.write(json.dumps(error_dictionary)) 
+        # with open (f'{path}/data/DNN_results/relu/error_std_eff.txt', 'w') as file:
+        #     file.write(json.dumps(error_dictionary)) 
 
     # Plot the test data and the predicted data
     if PLOT_TEST: 
@@ -222,13 +227,13 @@ if __name__ == "__main__":
             plt.ylim([-40,2])
         #plt.show()
         # For saving the testing prediction figure
-        test_pred_path = os.path.join(path, 'data', 'DNN_results', 'simple_wire_2_forward_final', f'test_pred.png').replace("\\", "/")
+        test_pred_path = os.path.join(path, 'data', 'MIFA_results', f'test_pred.png').replace("\\", "/")
         plt.savefig(test_pred_path)
         plt.close()
             
         # Save the model
-        os.path.join(path, 'data', 'DNN_results', 'simple_wire_2_forward_final', 'Test_forward_model1.keras').replace("\\", "/")
-        model.save('data/DNN_results/simple_wire_2_forward_final/Test_forward_model1.keras',overwrite=True)
+        os.path.join(path, 'data', 'MIFA_results', 'Test_forward_model_MIFA.keras').replace("\\", "/")
+        model.save('data/MIFA_results/Test_forward_model_MIFA.keras',overwrite=True)
             
         run_time = time.perf_counter() - start_time
         run_times.append(run_time)

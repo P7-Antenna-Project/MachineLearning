@@ -17,7 +17,7 @@
       {
          "name": "substrateH",
          "type": "float",
-         "value": 0.7
+         "value": 0.9
       },
       {
          "name": "stripWidth",
@@ -32,12 +32,12 @@
       {
          "name": "Tw1",
          "type": "float",
-         "value": 6.0
+         "value": 8.0
       },
       {
          "name": "Line1_height",
          "type": "float",
-         "value": 12.0
+         "value": 16.0
       },
       {
          "name": "tipLength",
@@ -110,7 +110,7 @@
          "len": 1,
          "name": "3D\\Efficiency",
          "type": "float",
-         "value": -17.3509389758175
+         "value": -13.152015306426
       }
    ]
 }

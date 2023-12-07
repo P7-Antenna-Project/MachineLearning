@@ -14,9 +14,9 @@
         },
         {
             "descr": "substrate height [mm]",
-            "expr": ".7",
+            "expr": "0.9",
             "name": "substrateH",
-            "value": ".7"
+            "value": "0.9"
         },
         {
             "descr": "width of antenna strips",
@@ -37,66 +37,66 @@
             "value": "0.1"
         },
         {
-            "expr": "6",
+            "expr": "8",
             "name": "Tw1",
-            "value": "6"
+            "value": "8"
         },
         {
             "descr": "height of lines (minus 1 stripwidth",
-            "expr": "12",
+            "expr": "16",
             "name": "Line1_height",
-            "value": "12"
+            "value": "16"
         },
         {
             "descr": "bottom width",
             "expr": "Tw1",
             "name": "Bw1",
-            "value": "6"
+            "value": "8"
         },
         {
             "expr": "Line1_height",
             "name": "Line2_height",
-            "value": "12"
+            "value": "16"
         },
         {
             "expr": "Tw1",
             "name": "Tw2",
-            "value": "6"
+            "value": "8"
         },
         {
             "expr": "line2_height",
             "name": "line3_height",
-            "value": "12"
+            "value": "16"
         },
         {
             "expr": "Bw1",
             "name": "Bw2",
-            "value": "6"
+            "value": "8"
         },
         {
             "expr": "Line3_height",
             "name": "Line4_height",
-            "value": "12"
+            "value": "16"
         },
         {
             "expr": "tw2",
             "name": "tw3",
-            "value": "6"
+            "value": "8"
         },
         {
             "expr": "line4_height",
             "name": "Line5_height",
-            "value": "12"
+            "value": "16"
         },
         {
             "expr": "Bw2",
             "name": "Bw3",
-            "value": "6"
+            "value": "8"
         },
         {
             "expr": "Line5_height",
             "name": "Line6_height",
-            "value": "12"
+            "value": "16"
         },
         {
             "expr": "20",
