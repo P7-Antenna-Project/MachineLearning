@@ -14,6 +14,7 @@ import random
 # It CAN also parameterizes the s11 data and saves it to a pickle file,
 #   but that takes a long time, so the parameterized data is already saved in the pickle file
 #   comment some stuff if you want to parameterize the S11 again
+#   REMEMBER TO FLATTEN THE PARAMETRIC DATA AND REMOVE THE 0 VALUES BEFORE PLUGGING IT INTO THE RATIONAL FUNCTION FOR PLOTTING
 
 # but! it saves the data in a picklefile called "data/simple_wire_2_new_data_madsTest_inc_eff.pkl", where the pickle contains :
 #   dict_keys(['Parameter combination', 'S1,1', 'Frequency', 'degrees', 'combined gain list', 'Standard deviation Phi', 'efficiency'])
@@ -21,6 +22,7 @@ import random
 
 # REMEMBER TO SET DATA PATH IN LINE 267 ISH
 
+Number_of_poles = None
 
 try:
     def parse_s11(par_comb_path: str, s11_path: str):
@@ -160,7 +162,7 @@ def parse_efficiency(par_comb_path: str, efficiency_path: str):
             for line in file:
                 if line != '\n':  # Skip the empty lines
                     parts = line.split()
-                    efficiency_list[i] = float(parts[1])
+                    efficiency_list.append(float(parts[1]))
                     break  # Stop after reading the first non-empty line
 
     dictionary = {'efficiency': efficiency_list,
@@ -169,8 +171,17 @@ def parse_efficiency(par_comb_path: str, efficiency_path: str):
     print("Finished parsing efficiency data")
     return dictionary
 
+def parameterize_s11(TEST_FLAG: bool = False):
+    """
+    This function parameterizes s11 data. It uses a rational function for curve fitting.
 
-def parameterize_s11(TEST_FLAG = False):
+    Parameters:
+        TEST_FLAG (bool): A flag to indicate whether the function is being tested or not. Default is False.
+
+    Returns:
+        dictionary (dict): A dictionary containing the parameter combination, frequency, and best parametric data.
+    """
+
     print("Parameterizing s11 data")
     # Variables to tune the curve fitting
     max_poles = 10
@@ -179,14 +190,14 @@ def parameterize_s11(TEST_FLAG = False):
     zero_vals = [0, 400000]
 
     def rational_func(x, *args):
+        global Number_of_poles
 
         def rational(data, p, q):
             return np.polyval(q, data) / np.polyval(p + [1.0], data)
 
         # Split the args into poles and zeros
-        mid_index = len(args) // 2
-        poles = args[:mid_index]
-        zeros = args[mid_index:]
+        poles = args[:Number_of_poles]
+        zeros = args[Number_of_poles:]
         #print(poles, zeros)  # Debugging line
         return rational(x, [*poles], [*zeros])
 
@@ -199,63 +210,89 @@ def parameterize_s11(TEST_FLAG = False):
 
     def find_best_curve(pole_vals, zero_vals,max_poles, max_zeroes, index):
         fvec = []
-        pole_zero_comb = []
-        
+        pole_zero_comb =[]
+        #np.zeros((max_poles,2))
         parametric_data_list = []
+        global Number_of_poles
 
         for i in range(1,max_poles):
             for j in range(1,max_zeroes):
+                parametric_data_array = np.zeros((2,10))
+                
                 poles = np.linspace(pole_vals[0], pole_vals[1], i)
                 zeroes = np.linspace(zero_vals[0], zero_vals[1], j)
-            
+                Number_of_poles = len(poles)
+
                 try:
                     parametric_data, _, info_d = fit_curve(s11[index], frequency, poles, zeroes)
-                    parametric_data_list.append(parametric_data)
                     pole_zero_comb.append([i, j])
                     fvec.append(np.mean(info_d['fvec']**2))
+
+                    parametric_data_array[0, :len(poles)]=parametric_data[:len(poles)]
+                    parametric_data_array[1, :len(zeroes)]=parametric_data[len(poles):]
+                    parametric_data_list.append(parametric_data_array)
+
+                    #print(f"Parametric_data_array shape: {parametric_data_list[0]}")
                 except TypeError:
                     pass
         best_comb = pole_zero_comb[np.argmin(fvec)]
         best_parametric_data = parametric_data_list[np.argmin(fvec)]
+        
+        # print(best_comb)
+        # print(best_parametric_data)
         return best_comb, best_parametric_data
+    global Number_of_poles
     
     super_best_comb = []
     super_best_parametric_data = []
     if TEST_FLAG:
+        specific_runs = [2000]
         # Loop through all runs and find the best curve
-        random_indices = random.sample(range(len(s11)), 10)
+        random_indices = random.sample(range(len(s11)), 6)
         
-        for run in tqdm(random_indices):
+        for index, run in tqdm(enumerate(random_indices)):
             best_comb, best_parametric_data  = find_best_curve(pole_vals, zero_vals, max_poles, max_zeroes, run)
+            
             super_best_comb.append(best_comb)
             super_best_parametric_data.append(best_parametric_data)
-        
-        dictionary = {"Parameter combination": par_comb, "Frequency": frequency, "Best parametric data": super_best_parametric_data}
+            # print(best_comb)
+            # print(len(super_best_parametric_data))
 
+        dictionary = {"Parameter combination": par_comb, "Frequency": frequency, "Best parametric data": super_best_parametric_data}
+        
         plt.figure(figsize=(50, 50))
+        
         for index, i in enumerate(random_indices):
+            best_parametric_data_flat = np.asarray(dictionary['Best parametric data'][index]).flatten()
+            # Remove the 0 values
+            best_parametric_data_flat = best_parametric_data_flat[best_parametric_data_flat != 0]
+
             plt.subplot(5,2,index+1)
             plt.plot(frequency, s11[i], label="Original data")
-            plt.plot(frequency, rational_func(frequency, *dictionary["Best parametric data"][index]), label="Parametric data")
+            # print(dictionary['Best parametric data'][index])
+            Number_of_poles = super_best_comb[index][0]
+            plt.plot(frequency, rational_func(frequency, *best_parametric_data_flat), label="Parametric data")
             plt.legend()
         plt.show()
+    
     else:
         # Loop through all runs and find the best curve
         for run in tqdm(range(len(s11))):
             best_comb, best_parametric_data  = find_best_curve(pole_vals, zero_vals, max_poles, max_zeroes, run)
             super_best_comb.append(best_comb)
             super_best_parametric_data.append(best_parametric_data)
-        
-        dictionary = {"Parameter combination": par_comb, "Frequency": frequency, "Best parametric data": super_best_parametric_data}
+            Number_of_poles = super_best_comb[run][0]
+
+        dictionary = {"Parameter combination": par_comb, "Frequency": frequency, "Parametric S1,1": super_best_parametric_data}
         print("Finished parameterizing s11 data")
     return dictionary
     
 def save_data(dictionary: dict, path: str):
-    """Save the data to a pickle file
+    """Save the data to a pickle file at the given path
 
     Args:
-        dictionary (dict): Dictionary containing the data and labels
-        path (str): File path to save the pickle file
+        Dictionary (dict): Dictionary containing the data and labels
+        Dath (str): File path to save the pickle file
     """    
     
     # Pickle the dictionary into a file
@@ -267,47 +304,48 @@ def save_data(dictionary: dict, path: str):
 if __name__ == "__main__":
     # set data_path to correct:
     # ----------------------------------------------
-    data_path = r"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/wireAntennaSimple2Results_inc_eff"
-    para_path = r"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data"
+    data_path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/MIFA_results"
+    para_path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data"
     # ----------------------------------------------
 
-    #s11, par_comb, frequency = parse_s11(par_comb_path = f"{para_path}/par_comb_2508.csv", s11_path = f"{data_path}/test_s11")
+    s11, par_comb, frequency = parse_s11(par_comb_path = f"{para_path}/par_comb3159.csv", s11_path = f"{data_path}/s11")
 
-    #phi, theta, par_comb, degree, standardDeviation  = parse_gain(par_comb_path = f"{para_path}/par_comb_2508.csv", PHI_gain_path=f"{data_path}/test_phi", THETA_gain_path=f"{data_path}/test_theta")
-
-    #efficiency, par_comb = parse_efficiency(par_comb_path = f"{para_path}/par_comb_2508.csv", efficiency_path=f"{data_path}/test_eff")
-
-    # print(s11[0]==s11[1])
-    # frequency = np.arange(500,3001, 2.5)
-    # for index, value in enumerate(s11):
-    #     plt.plot(frequency, value, label=f"RunID {index}")
-    # plt.legend()
-    # plt.show()
+    # #Loop through s11 runs and remove any run which never goes below -10
+    # good_s11_list = []
+    # good_par_comb = []
+    # for index, i in enumerate(range(len(s11))):
+    #     if np.min(s11[i]) < -10:
+    #         print(f"Run {index} is good")
+    #         good_s11_list.append(s11[i])
+    #         good_par_comb.append(par_comb[i])
+    
+    # # Plot random indices of the remaining s11
+    # random_indices = random.sample(range(len(good_s11_list)), 6)
+    
+    # for index, i in enumerate(good_s11_list[-6:-1]):
+    #     plt.subplot(5,2,index+1)
+    #     plt.plot(frequency,i)
         
+    # plt.show()
     
-    # Add s11 variables to dictionary
-    #s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
-    
-    gain_dict = parse_gain(par_comb_path = f"{para_path}/par_comb_2508.csv",  PHI_gain_path=f"{data_path}/test_phi", THETA_gain_path=f"{data_path}/test_theta")
-    eff_dict = parse_efficiency(par_comb_path = f"{para_path}/par_comb_2508.csv", efficiency_path=f"{data_path}/test_eff")
-    # Parameterize the s11 parameters for all runs
-    #s11_parameterized_dict = parameterize_s11(TEST_FLAG = False)
-    
-    # open pickle Simple_wire_2.pkl and add eff_dict to it:
-    with open(f"{para_path}/Simple_wire_2_new_data_madsTest_inc_eff.pkl", "rb") as f:
-        previous_dict = pickle.load(f)
-    previous_dict.update(gain_dict)
-    previous_dict.update(eff_dict)
-    save_data(previous_dict, f"{para_path}/Simple_wire_2_newdata_inc_eff.pkl")
-    
-    print(previous_dict.keys())
+    # Add variables to dictionary
+    s11_dict = {'Parameter combination': par_comb, 'S1,1': np.asarray(s11), 'Frequency': frequency}
 
+    # Parameterize the s11 parameters for all runs
+    #s11_parameterized_dict = parameterize_s11(TEST_FLAG = True)
+    # print(s11_parameterized_dict.keys())
+
+    # Parse gain data
+    gain_dict = parse_gain(par_comb_path = f"{para_path}/par_comb3159.csv",  PHI_gain_path=f"{data_path}/phi", THETA_gain_path=f"{data_path}/theta")
+
+    #Parse efficiency data
+    eff_dict = parse_efficiency(par_comb_path = f"{para_path}/par_comb3159.csv", efficiency_path=f"{data_path}/eff")
 
     #Combine the dictionaries
-    #combined_dict = s11_parameterized_dict | gain_dict | eff_dict
-    #combined_dict.update({'S1,1': np.asarray(s11)})
-    # Save the data
-    #save_data(combined_dict, "data/Simple_wire_2_new_data_madsTest_inc_eff.pkl")
-    
+    combined_dict = s11_dict | gain_dict | eff_dict
+
+    #Save the data
+    save_data(combined_dict, "data/MIFA_results/MIFA_results.pkl")
+
     print("Finished parsing data")
    

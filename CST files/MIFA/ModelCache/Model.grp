@@ -1,0 +1,15 @@
+20110628
+<GROUP>Diagnostic Report
+<GROUPTYPE>4
+<GROUP>Excluded from Bounding Box
+<GROUPTYPE>1
+<ENTITY>antenna:Leg
+<TYPE>SOLID
+<GROUP>Excluded from Simulation
+<GROUPTYPE>0
+<ENTITY>antenna:Leg
+<TYPE>SOLID
+<GROUP>meshgroup1
+<GROUPTYPE>3
+<ENTITY>antenna:Leg
+<TYPE>SOLID

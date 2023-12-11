@@ -1,0 +1,21 @@
+[Version]
+2
+[ProjectVersion]
+'# MWS Version: Version 2023.5 - Jun 08 2023 - ACIS 32.0.1 -
+[Author]
+madsl
+[Mesh Cells]
+177,072
+[Mesh Type]
+Hexahedral
+[Last Problem Type]
+High Frequency
+[Last Solver Type]
+HF Time Domain
+[Last Solver Type Abb]
+t
+[Results]
+Time Domain: S-Parameter
+[Modeler Unique ID]
+5:mifa.cst?46823071c9fb3be1610b82edb64cac01?19891:numberofparameters=33:port=1>mode=1>zre=0>zim=0:::milstomm?groundingpinlength?groundingpintoplength?holewplus?holew?holel?gp_y_max?gp_y_min?gp_x_max?gp_x_min?substratey_min?substratex_min?leg_placement?leg_length?tiplength?line6_height?bw3?line5_height?tw3?line4_height?bw2?line3_height?tw2?line2_height?bw1?line1_height?tw1?copper_thickness?feed_h?stripwidth?substrateh?substratey_max?substratex_max
+[Comment]

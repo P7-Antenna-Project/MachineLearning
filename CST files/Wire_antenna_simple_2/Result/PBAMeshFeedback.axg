@@ -5,7 +5,7 @@
       <LineSet points="-0.150000006 14 0 -0.150000006 14 78 -0.150000006 -14 0 -0.150000006 -14 78 -0.150000006 -14 78 -0.150000006 14 78 -0.150000006 -14 0 -0.150000006 14 0" stripped="0" material="$CornerCorrectionMaterial$"/>
     </Object>
     <Object name="Connected" id="1">
-      <PointSet points="-12.3000002 2.75545535e-16 3 -0.300000012 2.75545535e-16 3" material="$00f219"/>
+      <PointSet points="-10.4329996 1.24822124e-16 3 -0.300000012 1.24822124e-16 3" material="$00f219"/>
     </Object>
   </Objects>
   <Materials>

@@ -12,8 +12,17 @@ PLOT_TEST = True
 PLOT_TEST_LOSS = True
 
 # Load the data
-with open("data/Simple_wire.pkl", 'rb') as file:
+with open("data\simple_wire2_final_with_parametric.pkl", 'rb') as file:
     data_dict = pickle.load(file)
+
+def normalize_data(data_input, mean, std_dev, inverse: bool):
+    if inverse:
+        data = data_input*std_dev + mean
+    else:   
+        mean = mean
+        std = std_dev
+        data = (data_input-mean)/std
+    return data
 
 # Define the input and output data
 y = np.asarray(data_dict['Parameter combination'])
@@ -21,7 +30,7 @@ frequency = np.asarray(data_dict['Frequency'])
 x = np.asarray(data_dict['S1,1'])
 
 # Define training and test data
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, shuffle=False)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, shuffle=True, random_state=42)
 
 # # Normalize training and test data
 # x_train_norm = norm_layer_data(x_train)
@@ -51,10 +60,11 @@ y_test_norm = (y_test-ymean1)/ystd1
 
 model = keras.Sequential([
     layers.InputLayer(input_shape=(x.shape[1])),
-    layers.Dense(128, activation='sigmoid', name = 'layer1'),
-    layers.Dense(128, activation='sigmoid', name = 'layer2'),
-    layers.Dense(128, activation='sigmoid', name = 'layer3'),
-    layers.Dense(128, activation='sigmoid', name = 'layer4'),
+    layers.Dense(256, activation='relu', name = 'layer1'),
+    layers.Dense(256, activation='relu', name = 'layer2'),
+    layers.Dense(256, activation='relu', name = 'layer3'),
+    layers.Dense(256, activation='relu', name = 'layer4'),
+#    layers.Dense(256, activation='relu', name = 'layer5'),
     layers.Dense(y_train_norm.shape[1], activation = 'linear', name = 'Output_layer')
 ])
 
@@ -72,12 +82,12 @@ loss_train = []
 mean_error_train = []
 mean_error_pred = np.zeros(50)
 # Train the model
-for j in range(5):
+for j in range(1):
     model.fit(
         x=x_train_norm,
         y=y_train_norm,
         batch_size=100,
-        epochs=1000,
+        epochs=500,
         shuffle=False,
         callbacks=[keras.callbacks.History()]
     )
@@ -95,12 +105,12 @@ for j in range(5):
         plt.legend(['Absolute error'])
         plt.ylim([0, 0.7])
         plt.subplot(122)
-        plt.plot(np.array(mean_error_train).T)
+        plt.plot(10*np.log10(np.array(mean_error_train).T))
         plt.ylabel('Mean-squared error')
         plt.xlabel('epoch')
         plt.legend(['Mean-squared error'])
-        plt.ylim([0, 0.7])
-        plt.savefig(f'data/DNN_results_reversal/train_loss/loss_{j+1}k.png')
+        #plt.ylim([0, 0.7])
+        plt.savefig(f'data/DNN_results_reversal/train_loss/loss_{(j+1)*100}.png')
         plt.close()
     # Run the model on the test data and get the loss and mean-squared error
     y_pred_norm = model.predict(x_test_norm)
@@ -123,10 +133,10 @@ for j in range(5):
 
 # Plot the testing loss
 if PLOT_TEST_LOSS:
-    plt.plot(np.arange(1,51,1)*1000, mean_error_pred)
+    plt.plot(mean_error_pred)
     plt.ylabel('Mean-squared error')
     plt.xlabel('epoch')
     plt.savefig(f'data/DNN_results_reversal/test_loss/test_loss.png')
     plt.close()
 
-model.save("Models/Reverse_Neural_network.keras")
+model.save("Models/Reverse_Neural_network_3.keras")

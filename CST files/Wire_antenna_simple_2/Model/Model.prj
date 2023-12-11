@@ -1,11 +1,11 @@
 [Version]
 2
 [ProjectVersion]
-'# MWS Version: Version 2023.0 - Sep 12 2022 - ACIS 32.0.1 -
+'# MWS Version: Version 2023.5 - Jun 08 2023 - ACIS 32.0.1 -
 [Author]
 nlyho
 [Mesh Cells]
-104,880
+82,824
 [Mesh Type]
 Hexahedral
 [Last Problem Type]
