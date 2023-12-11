@@ -3,7 +3,7 @@ Frontend-Node:  ======================
                 ======================
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:57
 started: parallelization control
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -38,11 +38,11 @@ Concurrency: 0
 Start ID: 0
 Node ID: 0
 HEX Mesh information:
-Hex mesh: global: [hxr o(0 | 0 | 0) s(73 | 49 | 24) np (no TSTs): 85848] 
+Hex mesh: global: [hxr o(0 | 0 | 0) s(78 | 51 | 24) np (no TSTs): 95472] 
 =========================================================================
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:57
 started: processing CAD model
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -54,7 +54,7 @@ Version 2023.5 (build 20230608)
 PBA version 2023060823
 Sub-Workflow: Facets-QQ-GEX
 Workflow updated: -
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:57
 ========================================================================
 
 ===========================================
@@ -62,14 +62,14 @@ Finished CAD processing (for field results)
 ===========================================
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:58
 Resource usage for processing CAD model:
-	Runtime                 00:00:00.00117
+	Runtime                 00:00:00.00173
 	Peak Memory Usage:               22 MB
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:58
 started: processing CAD model
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -81,35 +81,35 @@ Version 2023.5 (build 20230608)
 PBA version 2023060823
 Sub-Workflow: Facets-QQ-GEX
 Workflow updated: -
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:58
 ========================================================================
 
 ----------------------------------------------
-Used point accuracy enhancement value: 68.00%.
+Used point accuracy enhancement value: 65.00%.
 ----------------------------------------------
 
 =============================================================================
 Mesh statistics:
 -----------------------------------------------------------------------------
-Minimum edge length (x): 0.5 @ mesh line 18 (x)
-Maximum edge length (x): 6.51 @ mesh line 69 (x)
-Minimum face area (x): 0.293 @ mesh lines 25 | 11 (y | z)
-Maximum face area (x): 38.1 @ mesh lines 1 | 2 (y | z)
-Minimum edge length (y): 0.308 @ mesh line 25 (y)
-Maximum edge length (y): 6.51 @ mesh line 1 (y)
-Minimum face area (y): 0.475 @ mesh lines 11 | 18 (z | x)
-Maximum face area (y): 38.1 @ mesh lines 2 | 69 (z | x)
-Minimum edge length (z): 0.95 @ mesh line 11 (z)
-Maximum edge length (z): 5.85 @ mesh line 2 (z)
-Minimum face area (z): 0.154 @ mesh lines 18 | 25 (x | y)
-Maximum face area (z): 42.4 @ mesh lines 69 | 1 (x | y)
-Maximum mesh face aspect ratio (x): 19 : 1.0  @ mesh lines 25 | 2 (y | z)
-Maximum mesh face aspect ratio (y): 11.7 : 1.0  @ mesh lines 2 | 18 (z | x)
-Maximum mesh face aspect ratio (z): 21.1 : 1.0  @ mesh lines 69 | 25 (x | y)
+Minimum edge length (x): 0.156 @ mesh line 24 (x)
+Maximum edge length (x): 5.92 @ mesh line 0 (x)
+Minimum face area (x): 0.344 @ mesh lines 27 | 11 (y | z)
+Maximum face area (x): 39 @ mesh lines 49 | 3 (y | z)
+Minimum edge length (y): 0.308 @ mesh line 27 (y)
+Maximum edge length (y): 6.5 @ mesh line 49 (y)
+Minimum face area (y): 0.174 @ mesh lines 11 | 24 (z | x)
+Maximum face area (y): 35.5 @ mesh lines 3 | 0 (z | x)
+Minimum edge length (z): 1.12 @ mesh line 11 (z)
+Maximum edge length (z): 6 @ mesh line 3 (z)
+Minimum face area (z): 0.0481 @ mesh lines 24 | 27 (x | y)
+Maximum face area (z): 38.5 @ mesh lines 0 | 49 (x | y)
+Maximum mesh face aspect ratio (x): 19.5 : 1.0  @ mesh lines 27 | 3 (y | z)
+Maximum mesh face aspect ratio (y): 38.4 : 1.0  @ mesh lines 3 | 24 (z | x)
+Maximum mesh face aspect ratio (z): 41.7 : 1.0  @ mesh lines 24 | 49 (x | y)
 =============================================================================
 
 =============================================================================
-Available resources to store TST cells: 2147397799 (2501395.26% of mesh size)
+Available resources to store TST cells: 2147388175 (2249233.47% of mesh size)
 =============================================================================
 
 ************************************************************************************************
@@ -117,7 +117,7 @@ General settings
 	PBA version: default
 ------------------------------------------------------------------------------------------------
 Geometry processor: default
-	Geo accuracy: 68.000000
+	Geo accuracy: 65.000000
 	Watertightness check: true
 	Self intersection check: false
 	Inheritance (all): false
@@ -192,9 +192,9 @@ Finished CAD processing
 =======================
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-2023 Dec 07 (Thu):  00:37:43
+2023 Dec 10 (Sun):  21:28:58
 Resource usage for processing CAD model:
-	Runtime                 00:00:00.00132
+	Runtime                 00:00:00.00145
 	Peak Memory Usage:               23 MB
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -206,7 +206,7 @@ Hyperthreading used: false
 Number of concurrent threads: 2
 Number of node domains: 2
 Domains-to-threads scaling: 2
-Average FI domain size: 1e+04
+Average FI domain size: 2e+04
 Nice mode: true
 Delayed matrix calculation start: false
 Load balancing: Version 20090403
@@ -214,8 +214,8 @@ Number of mesh fill domains: 6
 Memory downscale: 1
 CPU load: 25.00%
 Emptiness: 0.00%
-Hex mesh complexity: 0.07949
-Geometric complexity: 0.00376
+Hex mesh complexity: 0.08855
+Geometric complexity: 0.00356
 lower size limit of domain (1D): 60
 ------------------------------------------------------------
 Node order
@@ -228,27 +228,27 @@ Currently running jobs: 0
 Waiting jobs: 2
 Concurrency for section: 2/2
 Matrix calculation node 0
-	Mesh coverage: 3974400.00 %
-	Estimated peak memory usage per node: 16 MB, tightness: 0.35 %
+	Mesh coverage: 4600000.00 %
+	Estimated peak memory usage per node: 18 MB, tightness: 0.57 %
 	Processor group: 0
 Matrix calculation node 1
-	Mesh coverage: 4084800.00 %
-	Estimated peak memory usage per node: 16 MB, tightness: 0.34 %
+	Mesh coverage: 4370000.00 %
+	Estimated peak memory usage per node: 17 MB, tightness: 0.52 %
 	Processor group: 1
 Node distribution on 8 numa nodes: 1 - 1 - 0 - 0 - 0 - 0 - 0 - 0
 ------------------------------------------------------------------
 
 -----------------------------------
-Mesh: # of points excl. TSTs: 85848
-      # of points incl. TSTs: 85848
+Mesh: # of points excl. TSTs: 95472
+      # of points incl. TSTs: 95472
 -----------------------------------
 
 ===========================================
 Data rearrangement statistics:
-Disk IO directories:	00:00:00.0006
-Disk IO node domain files:	00:00:00.0080
+Disk IO directories:	00:00:00.0005
+Disk IO node domain files:	00:00:00.0097
 Disk IO FI domain files:	00:00:00.0000
-Disk IO meta information:	00:00:00.0014
+Disk IO meta information:	00:00:00.0024
 Sequential merge (TST):	00:00:00.0000
 ===========================================
 
@@ -267,9 +267,9 @@ Sequential merge (TST):	00:00:00.0000
          =============================
 
 1xN000:  ==================================================
-         [Mesh] world: o(0000,0000,0000) e(0073,0049,0024)
-         [Mesh] l-1xN: o(0000,0000,0000) e(0037,0049,0024)
-         [Mesh] e-1xN: o(0000,0000,0000) e(0039,0049,0024)
+         [Mesh] world: o(0000,0000,0000) e(0078,0051,0024)
+         [Mesh] l-1xN: o(0000,0000,0000) e(0041,0051,0024)
+         [Mesh] e-1xN: o(0000,0000,0000) e(0043,0051,0024)
          [Mesh] g-MPI: not available
          [Mesh] bound offset: (0 | 2 | 0)
          ==================================================
@@ -304,20 +304,20 @@ Sequential merge (TST):	00:00:00.0000
          Start ID: 0
          Node ID: 0
          HEX Mesh information:
-         Hex mesh: node: [hxr o(0 | 0 | 0) s(37 | 49 | 24) np (no TSTs): 43512]
-         Hex mesh: extended: [hxr o(0 | 0 | 0) s(39 | 49 | 24) np (no TSTs): 45864]
+         Hex mesh: node: [hxr o(0 | 0 | 0) s(41 | 51 | 24) np (no TSTs): 50184]
+         Hex mesh: extended: [hxr o(0 | 0 | 0) s(43 | 51 | 24) np (no TSTs): 52632]
          ================================================================================
 
 1xN000:  ------------------------------------------------------
          Memory status  on node "1xN000" for matrix calculation
-         	Estimated memory consumption: 0.0162341 GB
+         	Estimated memory consumption: 0.0180166 GB
          	Physical memory installed: 14.8773 GB
-         	Available physical memory: 4.665 GB
-         	Available relative memory: 31.3566%s
+         	Available physical memory: 3.135 GB
+         	Available relative memory: 21.0724%s
          ------------------------------------------------------
 
 1xN000:  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-         2023 Dec 07 (Thu):  00:37:43
+         2023 Dec 10 (Sun):  21:28:58
          started: calculating matrix coefficients per node
          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -329,11 +329,11 @@ Sequential merge (TST):	00:00:00.0000
          PBA version 2023060823
          Sub-Workflow: FARM-1xN-TST2-Node
          Workflow updated: -
-         2023 Dec 07 (Thu):  00:37:43
+         2023 Dec 10 (Sun):  21:28:58
          ============================================================
 
 1xN000:  ----------------------------------------------
-         Used point accuracy enhancement value: 68.00%.
+         Used point accuracy enhancement value: 65.00%.
          ----------------------------------------------
 
 1xN000:  FARM allocation scheme: PA
@@ -404,11 +404,11 @@ Sequential merge (TST):	00:00:00.0000
          =================================
 
 1xN000:  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-         2023 Dec 07 (Thu):  00:37:46
+         2023 Dec 10 (Sun):  21:29:01
          Resource usage for calculating matrix coefficients per node:
-         	Runtime                          00:00:02.00759
-         	Peak Memory Estimation:                   16 MB
-         	Peak Memory Usage:                        55 MB
+         	Runtime                          00:00:03.00057
+         	Peak Memory Estimation:                   18 MB
+         	Peak Memory Usage:                        63 MB
          <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -428,9 +428,9 @@ Sequential merge (TST):	00:00:00.0000
          ==============================
 
 1xN001:  ==================================================
-         [Mesh] world: o(0000,0000,0000) e(0073,0049,0024)
-         [Mesh] l-1xN: o(0035,0000,0000) e(0073,0049,0024)
-         [Mesh] e-1xN: o(0033,0000,0000) e(0073,0049,0024)
+         [Mesh] world: o(0000,0000,0000) e(0078,0051,0024)
+         [Mesh] l-1xN: o(0039,0000,0000) e(0078,0051,0024)
+         [Mesh] e-1xN: o(0037,0000,0000) e(0078,0051,0024)
          [Mesh] g-MPI: not available
          [Mesh] bound offset: (-2 | 0 | 0)
          ==================================================
@@ -467,20 +467,20 @@ Sequential merge (TST):	00:00:00.0000
          Start ID: 1
          Node ID: 1
          HEX Mesh information:
-         Hex mesh: node: [hxr o(35 | 0 | 0) s(38 | 49 | 24) np (no TSTs): 44688]
-         Hex mesh: extended: [hxr o(33 | 0 | 0) s(40 | 49 | 24) np (no TSTs): 47040]
+         Hex mesh: node: [hxr o(39 | 0 | 0) s(39 | 51 | 24) np (no TSTs): 47736]
+         Hex mesh: extended: [hxr o(37 | 0 | 0) s(41 | 51 | 24) np (no TSTs): 50184]
          ================================================================================
 
 1xN001:  ------------------------------------------------------
          Memory status  on node "1xN001" for matrix calculation
-         	Estimated memory consumption: 0.0157518 GB
+         	Estimated memory consumption: 0.0165471 GB
          	Physical memory installed: 14.8773 GB
-         	Available physical memory: 4.616 GB
-         	Available relative memory: 31.0272%s
+         	Available physical memory: 3.134 GB
+         	Available relative memory: 21.0657%s
          ------------------------------------------------------
 
 1xN001:  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-         2023 Dec 07 (Thu):  00:37:43
+         2023 Dec 10 (Sun):  21:28:58
          started: calculating matrix coefficients per node
          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -492,11 +492,11 @@ Sequential merge (TST):	00:00:00.0000
          PBA version 2023060823
          Sub-Workflow: FARM-1xN-TST2-Node
          Workflow updated: -
-         2023 Dec 07 (Thu):  00:37:43
+         2023 Dec 10 (Sun):  21:28:58
          ============================================================
 
 1xN001:  ----------------------------------------------
-         Used point accuracy enhancement value: 68.00%.
+         Used point accuracy enhancement value: 65.00%.
          ----------------------------------------------
 
 1xN001:  FARM allocation scheme: PA
@@ -561,24 +561,24 @@ Sequential merge (TST):	00:00:00.0000
          =================================
 
 1xN001:  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-         2023 Dec 07 (Thu):  00:37:46
+         2023 Dec 10 (Sun):  21:29:01
          Resource usage for calculating matrix coefficients per node:
-         	Runtime                          00:00:02.00230
-         	Peak Memory Estimation:                   16 MB
-         	Peak Memory Usage:                        46 MB
+         	Runtime                          00:00:02.00573
+         	Peak Memory Estimation:                   17 MB
+         	Peak Memory Usage:                        55 MB
          <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-2023 Dec 07 (Thu):  00:37:47
+2023 Dec 10 (Sun):  21:29:03
 Resource usage for parallelization control:
-	Runtime                      00:00:04.00742
+	Runtime                      00:00:05.00709
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ------------------------------------------------------------------------------------------------------------------------------
 PBAMeshFeedback - InfoMap: 0[ms] - SBCell navigation: Using legacy edges - CornerCorrectionLinesAndWires: 0[ms] - Write: 0[ms]
-ConnectivityAXG - Load: 1[ms] - Setup: 0[ms] - Convert: 4[ms] ( Groups: 2 - Shapes: 20 - Threads: 8 ) - Write: 1[ms]
+ConnectivityAXG - Load: 2[ms] - Setup: 0[ms] - Convert: 8[ms] ( Groups: 2 - Shapes: 20 - Threads: 8 ) - Write: 2[ms]
 ------------------------------------------------------------------------------------------------------------------------------
 
 --------------------------------

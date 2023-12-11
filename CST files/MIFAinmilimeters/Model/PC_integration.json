@@ -17,7 +17,7 @@
       {
          "name": "substrateH",
          "type": "float",
-         "value": 0.9
+         "value": 1.068091869354248
       },
       {
          "name": "stripWidth",
@@ -32,12 +32,12 @@
       {
          "name": "Tw1",
          "type": "float",
-         "value": 8.0
+         "value": 6.415713787078857
       },
       {
          "name": "Line1_height",
          "type": "float",
-         "value": 16.0
+         "value": 12.993558883666992
       },
       {
          "name": "tipLength",
@@ -87,7 +87,7 @@
       {
          "name": "groundingPinTopLength",
          "type": "float",
-         "value": 7.0
+         "value": 0.31204700469970703
       },
       {
          "name": "groundingPinLength",
@@ -110,7 +110,7 @@
          "len": 1,
          "name": "3D\\Efficiency",
          "type": "float",
-         "value": -13.152015306426
+         "value": -22.8051376199669
       }
    ]
 }
