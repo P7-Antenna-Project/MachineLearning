@@ -541,36 +541,6 @@ files=s:AutomaticRunInformation
 
 type=s:XYSIGNAL2
 subtype=s:user
-problemclass=s::8:1000
-visibility=s:visible
-creation=s:internal
-lifetime=s:persistent
-result=s:0
-treepath=s:1D Results\Materials\Folder1\FR-4\Dispersive\Eps' (Fit)
-files=s:Folder1\FR-4_eps_re.sig
-
-type=s:XYSIGNAL2
-subtype=s:user
-problemclass=s::8:1000
-visibility=s:visible
-creation=s:internal
-lifetime=s:persistent
-result=s:0
-treepath=s:1D Results\Materials\Folder1\FR-4\Dispersive\Eps'' (Fit)
-files=s:Folder1\FR-4_eps_im.sig
-
-type=s:XYSIGNAL2
-subtype=s:user
-problemclass=s::8:1000
-visibility=s:visible
-creation=s:internal
-lifetime=s:persistent
-result=s:0
-treepath=s:1D Results\Materials\Folder1\FR-4\Dispersive\Eps TangD (Fit)
-files=s:Folder1\FR-4_eps_tgd.sig
-
-type=s:XYSIGNAL2
-subtype=s:user
 problemclass=s::4:3
 visibility=s:visible
 creation=s:internal
@@ -864,4 +834,34 @@ lifetime=s:rebuild
 result=s:1
 treepath=s:1D Results\AutomaticRunInformation
 files=s:AutomaticRunInformation
+
+type=s:XYSIGNAL2
+subtype=s:user
+problemclass=s::8:1000
+visibility=s:visible
+creation=s:internal
+lifetime=s:persistent
+result=s:0
+treepath=s:1D Results\Materials\Folder1\FR-4\Dispersive\Eps' (Fit)
+files=s:Folder1\FR-4_eps_re.sig
+
+type=s:XYSIGNAL2
+subtype=s:user
+problemclass=s::8:1000
+visibility=s:visible
+creation=s:internal
+lifetime=s:persistent
+result=s:0
+treepath=s:1D Results\Materials\Folder1\FR-4\Dispersive\Eps'' (Fit)
+files=s:Folder1\FR-4_eps_im.sig
+
+type=s:XYSIGNAL2
+subtype=s:user
+problemclass=s::8:1000
+visibility=s:visible
+creation=s:internal
+lifetime=s:persistent
+result=s:0
+treepath=s:1D Results\Materials\Folder1\FR-4\Dispersive\Eps TangD (Fit)
+files=s:Folder1\FR-4_eps_tgd.sig
 
