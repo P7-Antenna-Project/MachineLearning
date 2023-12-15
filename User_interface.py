@@ -12,14 +12,22 @@ from MadsNeural_network_500epoch import *
 import inquirer as inq
 from pprint import pprint
 import os
+import argparse
 
-#Suppress tensorflow warnings
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+# Create the parser
+parser = argparse.ArgumentParser(description='User interface for antenna design')
 
+# Add the arguments
+parser.add_argument('-r', '--REAL_DATA', action='store_true', help='Use real data instead of simulated data')
 
+# Parse the arguments
+args = parser.parse_args()
 
+# Set the REAL_DATA variable
+REAL_DATA = args.REAL_DATA
 
-
+if REAL_DATA:
+    print("Running this shit fr fr")
 # -------- Make user interface questions --------
 questions = [
     inq.List('Antenna_type', message = "What type of antenna do you want to design ?", choices=['Wire', 'MIFA']),
@@ -37,11 +45,18 @@ pprint(f' Design parameters: \n Bandwidth: {answers["bandwidth"]} MHz \n Center 
 
 
 # ------------ The following is necessary as the model is trained on data normalized wrt. the distribution of the whole dataset------------ 
-    
-if answers['Antenna_type'] == 'Wire':
-    file_path = "Data/WIRE_results/WIRE_Forward_results_with_band_centre.pkl"
+
+if REAL_DATA:
+    if answers['Antenna_type'] == 'Wire':
+        file_path = "data\Wire_Results\WIRE_real_cst_BW_center.pkl"
+    else:
+        file_path = "data\MIFA_results\MIFA_real_cst_BW_center.pkl"
+
 else:
-    file_path = "Data/MIFA_results/MIFA_Forward_results_with_band_centre.pkl"
+    if answers['Antenna_type'] == 'Wire':
+        file_path = "Data/WIRE_results/WIRE_Forward_results_with_band_centre.pkl"
+    else:
+        file_path = "Data/MIFA_results/MIFA_Forward_results_with_band_centre.pkl"
 
 # Load data
 with open(file_path, 'rb') as f:

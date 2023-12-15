@@ -162,7 +162,7 @@ if __name__ == "__main__":
     for layer in range(MAX_LAYERS):
         start_time = time.perf_counter()
         # Add a layer to the model
-        base_layers.insert(-1, layers.Dense(256, activation='sigmoid', name = f'layer{layer+1}',kernel_regularizer=regularizers.l2(0.001)))
+        base_layers.insert(-1, layers.Dense(256, activation='LeakyReLU', name = f'layer{layer+1}',kernel_regularizer=regularizers.l2(0.001)))
         
         # Create the model
         model = keras.Sequential(base_layers,name=f'Sequential_{layer+1}')
@@ -273,6 +273,6 @@ if __name__ == "__main__":
     plt.close()
 
 
-    # Save the run time
-    # run_time_path = os.path.join(save_path, '/MADSrun_time.txt').replace("\\", "/")
-    # np.savetxt(save_path + f'/run_time*')
+    Save the run time
+    run_time_path = os.path.join(save_path, '/MADSrun_time.txt').replace("\\", "/")
+    np.savetxt(save_path + f'/run_time*')

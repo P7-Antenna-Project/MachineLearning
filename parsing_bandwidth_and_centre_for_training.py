@@ -2,27 +2,17 @@ import pickle
 import numpy as np
 import random
 from tqdm import tqdm
-
-REAL_CST_DATA = True
-WIRE_ANTENNA = True
+WIRE_ANTENNA = False
 
 TEST_PLOT = True
 
-if REAL_CST_DATA:
-    if WIRE_ANTENNA:
-        with open("data/MIFA_results/MIFA_results.pkl", "rb") as f:
-            data_to_be_loaded = pickle.load(f)
-    else:
-        with open("data/Wire_results/simple_wire2_final_with_parametric.pkl", "rb") as f:
-            data_to_be_loaded = pickle.load(f)
-            
+
+if WIRE_ANTENNA:
+    with open("data/Wire_Results/forward_model_predictions_Wire.pkl", "rb") as f:
+        data_to_be_loaded = pickle.load(f)
 else:
-    if WIRE_ANTENNA:
-        with open("data/Wire_Results/forward_model_predictions_Wire.pkl", "rb") as f:
-            data_to_be_loaded = pickle.load(f)
-    else:
-        with open("data/MIFA_results/forward_model_predictions_MIFA.pkl", "rb") as f:
-            data_to_be_loaded = pickle.load(f)
+    with open("data/MIFA_results/forward_model_predictions_MIFA.pkl", "rb") as f:
+        data_to_be_loaded = pickle.load(f)
 
 print(len(data_to_be_loaded))
 
@@ -101,18 +91,9 @@ data_to_be_loaded["bandwidth"] = bandwidth
 data_to_be_loaded["centre_frequency"] = centre_frequency
 data_to_be_loaded["f1f2"] = f1f2
 
-if REAL_CST_DATA:
-    if WIRE_ANTENNA:
-        with open("data/MIFA_results/Real_cst.pkl", "wb") as f:
-            pickle.dump(data_to_be_loaded, f)
-    else:
-        with open("data/Wire_results/simple_wire2_final_with_parametric_with_band_centre.pkl", "wb") as f:
-            pickle.dump(data_to_be_loaded, f)
-
+if WIRE_ANTENNA:
+    with open("data/WIRE_results/WIRE_Forward_results_with_band_centre.pkl", "wb") as f:
+        pickle.dump(data_to_be_loaded, f)
 else:
-    if WIRE_ANTENNA:
-        with open("data/WIRE_results/WIRE_Forward_results_with_band_centre.pkl", "wb") as f:
-            pickle.dump(data_to_be_loaded, f)
-    else:
-        with open("data/MIFA_results/MIFA_Forward_results_with_band_centre.pkl", "wb") as f:
-            pickle.dump(data_to_be_loaded, f)
+    with open("data/MIFA_results/MIFA_Forward_results_with_band_centre.pkl", "wb") as f:
+        pickle.dump(data_to_be_loaded, f)

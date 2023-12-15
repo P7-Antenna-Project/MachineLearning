@@ -5,16 +5,17 @@ from tensorflow import keras
 from keras import layers
 import pickle
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
 import os
 import shutil
 import random
 import time
-from keras import backend as K
 import json
-
+import keras.backend as K
+from keras import regularizers
 # keep
-path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning"
-# path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
+
+path = "C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning"
 print(path)
 
 VERIFY_TEST_SET = False
@@ -47,7 +48,7 @@ def load_data(path: str):
     par_comb = np.asarray(data_dict['Parameter combination'])
     S11_vals = np.asarray(data_dict['S1,1'])
     frequency = np.asarray(data_dict['Frequency'])
-    #S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
+    # S11_parametrized = np.asarray(data_dict['Parametric S1,1'])
     degrees = np.asarray(data_dict['degrees'])
     combined_gain = np.asarray(data_dict['combined gain list'])
     std_dev = np.asarray(data_dict['Standard deviation Phi'])
@@ -65,19 +66,19 @@ def normalize_data(data_input, mean, std_dev, inverse: bool):
     return data
 
 def weighted_mse(y_true, y_pred):
-#Pass y_true values through a sigmoid function
+    #Pass y_true values through a sigmoid function
     weights = 2* K.sigmoid(-y_true)+2
 
     return K.mean(weights * K.square(y_pred - y_true), axis=-1)
+
+
 
 # Run main code
 if __name__ == "__main__":
     run_times = []
     start_time = time.perf_counter()
-    #path = 'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/'
-    path = "C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/"
-    #par_comb, S11_vals, S11_parameterized, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/simple_wire2_final_with_parametric.pkl")
-    par_comb, S11_vals, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/MIFA_results/MIFA_results.pkl")
+    path = 'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/'
+    par_comb, S11_vals, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/Wire_Results/simple_wire2_final_with_parametric.pkl")
 
     # Normalize data
     par_comb_norm = normalize_data(par_comb,np.mean(par_comb),np.std(par_comb), False)
@@ -112,7 +113,7 @@ if __name__ == "__main__":
 
         # Select 10 random curves from the good test curves
         random_indices = random.sample(test_indices, 10)
-        random_indices = [321, 673, 43, 209, 495, 629, 868, 151, 755, 578]
+
         # plot random test data curves to verify that a good solution is within the test set
         plt.figure(figsize=(50, 50))
         for idx, i in enumerate(random_indices):
@@ -126,12 +127,12 @@ if __name__ == "__main__":
     # Make a 4 layer neural network using relu activation functions
     model = keras.Sequential()
     model.add(layers.Dense(256, activation='relu', input_shape=(X_train.shape[1],)))
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dense(256, activation='relu'))
+    model.add(layers.Dense(256, activation='relu',kernel_regularizer=regularizers.l2(0.001)))
+    model.add(layers.Dense(256, activation='relu',kernel_regularizer=regularizers.l2(0.001)) )
+    model.add(layers.Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.001)))
+    model.add(layers.Dense(256, activation='relu',kernel_regularizer=regularizers.l2(0.001)))
+    model.add(layers.Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.001)))
+    model.add(layers.Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.001)))
     # model.add(layers.Dense(256, activation='relu'))
     model.add(layers.Dense(y_train.shape[1], activation='linear'))
 
@@ -142,7 +143,7 @@ if __name__ == "__main__":
 
     model.compile(
                 optimizer=keras.optimizers.Adam(learning_rate=0.001),
-                loss=keras.losses.MeanAbsoluteError(),
+                loss=weighted_mse,
                 metrics=[keras.metrics.MeanSquaredError()]
             )
     model.summary()
@@ -177,39 +178,39 @@ if __name__ == "__main__":
         plt.ylim([0, 1])
         
         # For saving the training loss figure
-        train_loss_path = os.path.join(path, 'data', 'MIFA_results','train_loss.png').replace("\\", "/")
+        train_loss_path = os.path.join(path, 'data', 'Wire_Results',f'train_loss_with_regularizer.png').replace("\\", "/")
         #plt.show()
         plt.savefig(train_loss_path)
         plt.close()
-
-
+        
         # Run the model on the test data and get the loss and mean-squared error
         y_pred_norm = model.predict(X_test)
-        _ , mean_error_pred = model.evaluate(X_test, y_test)
+        # _ , mean_error_pred = model.evaluate(X_test, y_test)
 
-
-        # Reverse the normalization of the data individually
+         # Reverse the normalization of the data individually
         y_pred_s11 = normalize_data(y_pred_norm[:,:1001], np.mean(S11_vals),np.std(S11_vals), inverse=True)
         std_dev_pred = normalize_data(y_pred_norm[:,-2], np.mean(std_dev), np.std(std_dev), inverse=True)
         efficiency_pred = normalize_data(y_pred_norm[:,-1], np.mean(efficiency), np.std(std_dev), inverse=True)
 
+        #Compute MSE of predicted S11 curve and test s11 curve
+        MSE = mean_squared_error(y_pred_s11, y_test[:,:1001])
+        print(f'Test MSE: {MSE}')
         # Find test curves where the S11 goes below -10 dB and the frequency is below 2 GHz
         test_indices = []
-        for idx, i in enumerate(y_pred_s11):
-            if np.min(i) < -10 and frequency[np.argmin(i)] < 2000:
+        for idx, i in enumerate(y_test[:,:1001]):
+            if np.min(i) < -10 and frequency[np.argmin(i)] in range(1500,2500):
                 test_indices.append(idx)
         print(f"Number of test curves that satisfy the condition: {len(test_indices)} within the test set")
 
         # Select 10 random curves from the good test curves
         random_indices = random.sample(test_indices, 10)
-        random_indices = [321, 673, 43, 209, 495, 629, 868, 151, 755, 578]
-
-
+        # random_indices = [321, 673, 43, 209, 495, 629, 868, 151, 755, 578]
         error_std_dev = np.abs(std_dev - std_dev_pred)
-        MSE_std_dev = np.mean(error_std_dev**2)
-
+        MSE_std_dev = mean_squared_error(std_dev, std_dev_pred)
+    
         error_efficiency = np.abs(efficiency - efficiency_pred)
-        MSE_efficiency = np.mean(error_efficiency**2)
+        MSE_efficiency = mean_squared_error(efficiency, efficiency_pred)
+        
 
         error_dictionary = {'error_std_dev': error_std_dev.tolist(), 'MSE_std_dev': MSE_std_dev.tolist(), 'error_efficiency': error_efficiency.tolist(), 'MSE_efficiency': MSE_efficiency.tolist()}
         print(f'MSE_std_dev: {error_dictionary["MSE_std_dev"]}, MSE_efficiency: {error_dictionary["MSE_efficiency"]}')
@@ -230,13 +231,13 @@ if __name__ == "__main__":
             plt.ylim([-40,2])
         #plt.show()
         # For saving the testing prediction figure
-        test_pred_path = os.path.join(path, 'data', 'MIFA_results', f'test_pred.png').replace("\\", "/")
+        test_pred_path = os.path.join(path, 'data', 'Wire_Results', f'test_pred_with_regularizer.png').replace("\\", "/")
         plt.savefig(test_pred_path)
         plt.close()
             
-        # Save the model(f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/MIFA_results/MIFA_results.pkl")
-        modelpath = os.path.join(f"C:/Users/madsl/Dropbox/AAU/EIT 7. sem/P7/Python6_stuff/MachineLearning/data/MIFA_results/Test_forward_model1.keras")
-        model.save(modelpath,overwrite=True)
+        # Save the model
+        os.path.join(path, 'data', 'Wire_Results', 'Test_forward_model_Wire_with_regularizer.keras').replace("\\", "/")
+        model.save('data/Wire_Results/Test_forward_model_Wire_with_regularizer.keras',overwrite=True)
             
         run_time = time.perf_counter() - start_time
         run_times.append(run_time)

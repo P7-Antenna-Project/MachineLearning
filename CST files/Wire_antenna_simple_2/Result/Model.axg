@@ -2,8 +2,8 @@
 <CSTAuxiliaryGeometry version="20170928" creator="modeler">
   <Objects>
     <Object name="Ports\port1" id="3">
-      <Cone position="-5.3664999 1.24822124e-16 3" direction="10.1330004 -2.49644247e-16 0" dimension="10 10 10" material="$PortMaterial$" text="1" short="1"/>
-      <LineSet points="-10.4329996 2.49644247e-16 3 -0.300000012 0 3" stripped="1" material="$WireMaterial$"/>
+      <Cone position="-2.82375693 1.73953816e-17 3" direction="5.04751396 -3.47907633e-17 0" dimension="10 10 10" material="$PortMaterial$" text="1" short="1"/>
+      <LineSet points="-5.34751368 3.47907633e-17 3 -0.300000012 0 3" stripped="1" material="$WireMaterial$"/>
     </Object>
   </Objects>
   <Materials/>
