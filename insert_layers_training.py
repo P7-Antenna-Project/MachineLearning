@@ -24,7 +24,7 @@ MAX_LAYERS = 6
 
 # CHANGE IT IN LINE 165 ish AS WELL
 activation_func = 'sigmoid'
-
+plt.rcParams.update({'font.family': 'Serif','font.serif': 'CMU Serif', 'font.size': 14})
 
 
 # Cleaning directories - remove old results and create new directories
@@ -200,10 +200,10 @@ if __name__ == "__main__":
                 plt.subplots_adjust(wspace=0.5)
                 plt.subplot(121)
                 plt.plot(np.array(loss_train).T)
-                plt.ylabel('Absolute error')
+                plt.ylabel('Weighted Loss')
                 plt.xlabel('epoch')
-                plt.legend(['Absolute error'])
-                plt.ylim([0, 1])
+                plt.legend(['Weighted Loss'])
+                plt.ylim([0, 3])
                 plt.subplot(122)
                 plt.plot(np.array(mean_error_train).T)
                 plt.ylabel('Mean-squared error')
