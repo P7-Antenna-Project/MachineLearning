@@ -85,7 +85,7 @@ if __name__ == "__main__":
     run_times = []
     start_time = time.perf_counter()
     path = 'C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/'
-    par_comb, S11_vals, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/Wire_Results/simple_wire2_final_with_parametric.pkl")
+    par_comb, S11_vals, frequency, degrees, combined_gain, std_dev, efficiency = load_data(f"C:/Users/nlyho/OneDrive - Aalborg Universitet/7. semester/Git/MachineLearning/data/Mifa_results/MIFA_results.pkl")
 
     # # Normalize data
     # par_comb_norm = normalize_data(par_comb,np.mean(par_comb),np.std(par_comb), False)
@@ -194,7 +194,7 @@ if __name__ == "__main__":
         
         
         # For saving the training loss figure
-        train_loss_path = os.path.join(path, 'data', 'Wire_Results',f'train_loss_with_regularizer.png').replace("\\", "/")
+        train_loss_path = os.path.join(path, 'data', 'MIFA_results',f'train_loss_with_regularizer.png').replace("\\", "/")
         #plt.show()
         plt.savefig(train_loss_path)
         plt.close()
@@ -254,13 +254,13 @@ if __name__ == "__main__":
             plt.ylim([-40,2])
         #plt.show()
         # For saving the testing prediction figure
-        test_pred_path = os.path.join(path, 'data', 'Wire_Results', f'test_pred_with_regularizer.png').replace("\\", "/")
+        test_pred_path = os.path.join(path, 'data', 'MIFA_results', f'test_pred_with_regularizer.png').replace("\\", "/")
         plt.savefig(test_pred_path)
         plt.close()
             
         # Save the model
-        os.path.join(path, 'data', 'Wire_Results', 'Test_forward_model_Wire_with_regularizer.keras').replace("\\", "/")
-        model.save('data/Wire_Results/Test_forward_model_Wire_with_regularizer.keras',overwrite=True)
+        os.path.join(path, 'data', 'MIFA_results', 'Test_forward_model_Wire_with_regularizer.keras').replace("\\", "/")
+        model.save('data/Wire_Results/Test_forward_model_MIFA_with_regularizer.keras',overwrite=True)
             
         run_time = time.perf_counter() - start_time
         run_times.append(run_time)
