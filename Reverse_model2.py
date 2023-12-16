@@ -39,24 +39,24 @@ print(input_vector.shape)
 print(output_vector.shape)
 
 # Split data into training and testing
-X_train, X_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.2, random_state=42)
 
 # Normalise data
-x_train_mean = np.mean(X_train, axis=0)
-x_train_std = np.std(X_train, axis=0)
+x_train_mean = np.mean(x_train, axis=0)
+x_train_std = np.std(x_train, axis=0)
 
 y_train_mean = np.mean(y_train, axis=0)
 y_train_std = np.std(y_train, axis=0)
 
-x_train_norm = (X_train - x_train_mean)/x_train_std
+x_train_norm = (x_train - x_train_mean)/x_train_std
 y_train_norm = (y_train - y_train_mean)/y_train_std
 
-x_test_norm = (X_test - x_train_mean)/x_train_std
+x_test_norm = (x_test - x_train_mean)/x_train_std
 y_test_norm = (y_test - y_train_mean)/y_train_std
 
 # Create model
 model = keras.Sequential([
-    layers.InputLayer(input_shape=(X_train.shape[1])),
+    layers.InputLayer(input_shape=(x_train.shape[1])),
     layers.Dense(256, activation='relu', name = 'layer1'),
     layers.Dense(256, activation='relu', name = 'layer2'),
     layers.Dense(256, activation='relu', name = 'layer3'),
@@ -72,7 +72,7 @@ model.compile(optimizer='adam',
               )
 
 # Train model
-history = model.fit(X_train, y_train, epochs=500, batch_size=100, validation_split = 0.2)
+history = model.fit(x_train, y_train, epochs=500, batch_size=100, validation_split = 0.2)
 
 # Plot training history
 plt.figure()
