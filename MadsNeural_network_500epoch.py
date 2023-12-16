@@ -156,7 +156,7 @@ if __name__ == "__main__":
 
     model.compile(
                 optimizer=keras.optimizers.Adam(learning_rate=0.001),
-                loss=weighted_mse,
+                loss=keras.losses.MeanAbsoluteError(),
                 metrics=[keras.metrics.MeanSquaredError()]
             )
     model.summary()
@@ -180,9 +180,9 @@ if __name__ == "__main__":
         plt.subplot(121)
         plt.grid(True)
         plt.plot(np.array(loss_train).T)
-        plt.ylabel('Weighted error')
+        plt.ylabel('Absolute error')
         plt.xlabel('epoch')
-        plt.legend(['Weighted error'])
+        plt.legend(['Absolute error'])
         plt.ylim([0, 1])
         plt.subplot(122)
         plt.grid(True)
@@ -194,9 +194,9 @@ if __name__ == "__main__":
         
         
         # For saving the training loss figure
-        train_loss_path = os.path.join(path, 'data', 'MIFA_results',f'train_loss_with_regularizer.png').replace("\\", "/")
+        train_loss_path = os.path.join(path, 'data', 'MIFA_results',f'train_loss_with_regularizer_no_custom.pdf').replace("\\", "/")
         #plt.show()
-        plt.savefig(train_loss_path)
+        plt.savefig(train_loss_path, format="pdf", bbox_inches="tight")
         plt.close()
         
         # Run the model on the test data and get the loss and mean-squared error
@@ -227,6 +227,7 @@ if __name__ == "__main__":
 
         # Select 10 random curves from the good test curves
         random_indices = random.sample(test_indices, 4)
+        print(random_indices)
         # random_indices = [321, 673, 43, 209, 495, 629, 868, 151, 755, 578]
         error_std_dev = np.abs(std_dev - y_pred[:,-2])
         MSE_std_dev = mean_squared_error(std_dev, y_pred[:,-2])
@@ -254,8 +255,8 @@ if __name__ == "__main__":
             plt.ylim([-40,2])
         #plt.show()
         # For saving the testing prediction figure
-        test_pred_path = os.path.join(path, 'data', 'MIFA_results', f'test_pred_with_regularizer.png').replace("\\", "/")
-        plt.savefig(test_pred_path)
+        test_pred_path = os.path.join(path, 'data', 'MIFA_results', f'test_pred_with_regularizer_no_custom.pdf').replace("\\", "/")
+        plt.savefig(test_pred_path, format="pdf", bbox_inches="tight")       
         plt.close()
             
         # Save the model
