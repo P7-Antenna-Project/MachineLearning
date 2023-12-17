@@ -2,16 +2,18 @@ import pickle
 import numpy as np
 import random
 from tqdm import tqdm
-WIRE_ANTENNA = False
+import matplotlib.pyplot as plt
+
+WIRE_ANTENNA = True
 
 TEST_PLOT = True
 
 
 if WIRE_ANTENNA:
-    with open("data/Wire_Results/forward_model_predictions_Wire.pkl", "rb") as f:
+    with open("data/Wire_Results/Wire_interpolated_Data.pkl", "rb") as f:
         data_to_be_loaded = pickle.load(f)
 else:
-    with open("data/MIFA_results/forward_model_predictions_MIFA.pkl", "rb") as f:
+    with open("data/MIFA_results/MIFA_interpolated_data.pkl", "rb") as f:
         data_to_be_loaded = pickle.load(f)
 
 print(len(data_to_be_loaded))
@@ -71,19 +73,24 @@ for idx, s11_val in tqdm(enumerate(S11)):
 
 
 if TEST_PLOT:
+    plt.rcParams.update({'font.family': 'serif', 'font.serif': ['Times New Roman'], 'font.size': 16})
     print(len(S11))
     print(len(centre_frequency))
     print(len(bandwidth))
-    import matplotlib.pyplot as plt
-    indexs =random.sample(range(0, len(S11)), 10)
-
+    indexs =random.sample(range(0, len(S11)), 4)
+    print(indexs)
+    plt.figure(figsize=(20, 10))
     for idx, index in enumerate(indexs):
-        plt.subplot(5, 2, idx+1)
+        plt.subplot(2, 2, idx+1)
         plt.grid(True)
         plt.plot(freq, S11[index], "r-")
         if bandwidth[index] != 0:
             plt.axvspan(f1f2[index][0], f1f2[index][1], alpha=0.5, color='blue')
         plt.hlines(-alpha,freq[0],freq[-1], linestyles='dashed')
+        if WIRE_ANTENNA:
+            plt.savefig("data/Wire_Results/BW_parser_fig_Wire.pdf", format="pdf",bbox_inches='tight')
+        else:
+            plt.savefig("data/MIFA_results/BW_parser_fig_MIFA.pdf", format="pdf",bbox_inches='tight')
     plt.show()
 
 
@@ -92,8 +99,8 @@ data_to_be_loaded["centre_frequency"] = centre_frequency
 data_to_be_loaded["f1f2"] = f1f2
 
 if WIRE_ANTENNA:
-    with open("data/WIRE_results/WIRE_Forward_results_with_band_centre.pkl", "wb") as f:
+    with open("data/WIRE_results/Wire_BW_fc.pkl", "wb") as f:
         pickle.dump(data_to_be_loaded, f)
 else:
-    with open("data/MIFA_results/MIFA_Forward_results_with_band_centre.pkl", "wb") as f:
+    with open("data/MIFA_results/MIFA_BW_fc.pkl", "wb") as f:
         pickle.dump(data_to_be_loaded, f)

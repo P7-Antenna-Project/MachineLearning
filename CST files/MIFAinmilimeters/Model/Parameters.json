@@ -14,9 +14,9 @@
         },
         {
             "descr": "substrate height [mm]",
-            "expr": "0.9",
+            "expr": "0.777",
             "name": "substrateH",
-            "value": "0.9"
+            "value": "0.777"
         },
         {
             "descr": "width of antenna strips",
@@ -37,66 +37,66 @@
             "value": "0.1"
         },
         {
-            "expr": "8",
+            "expr": "2.113",
             "name": "Tw1",
-            "value": "8"
+            "value": "2.113"
         },
         {
             "descr": "height of lines (minus 1 stripwidth",
-            "expr": "16",
+            "expr": "12.120",
             "name": "Line1_height",
-            "value": "16"
+            "value": "12.120"
         },
         {
             "descr": "bottom width",
             "expr": "Tw1",
             "name": "Bw1",
-            "value": "8"
+            "value": "2.113"
         },
         {
             "expr": "Line1_height",
             "name": "Line2_height",
-            "value": "16"
+            "value": "12.12"
         },
         {
             "expr": "Tw1",
             "name": "Tw2",
-            "value": "8"
+            "value": "2.113"
         },
         {
             "expr": "line2_height",
             "name": "line3_height",
-            "value": "16"
+            "value": "12.12"
         },
         {
             "expr": "Bw1",
             "name": "Bw2",
-            "value": "8"
+            "value": "2.113"
         },
         {
             "expr": "Line3_height",
             "name": "Line4_height",
-            "value": "16"
+            "value": "12.12"
         },
         {
             "expr": "tw2",
             "name": "tw3",
-            "value": "8"
+            "value": "2.113"
         },
         {
             "expr": "line4_height",
             "name": "Line5_height",
-            "value": "16"
+            "value": "12.12"
         },
         {
             "expr": "Bw2",
             "name": "Bw3",
-            "value": "8"
+            "value": "2.113"
         },
         {
             "expr": "Line5_height",
             "name": "Line6_height",
-            "value": "16"
+            "value": "12.12"
         },
         {
             "expr": "20",
@@ -159,9 +159,9 @@
             "value": "0.5842"
         },
         {
-            "expr": "7",
+            "expr": "4.306",
             "name": "groundingPinTopLength",
-            "value": "7"
+            "value": "4.306"
         },
         {
             "expr": "6.42",

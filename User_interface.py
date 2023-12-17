@@ -42,7 +42,25 @@ pprint(f' Design parameters: \n Bandwidth: {answers["bandwidth"]} MHz \n Center 
 
 
 
+if answers['Antenna_type'] == 'Wire':
+    def weighted_loss(y_true, y_pred):
+        e = y_pred - y_true
+        # Apply different weights based on the input parameters
+        e1 = e[:, :2]*5 # Increase the weight for the first two parameters
+        e2 = e[:, 2:]
+        return K.mean(K.square(K.concatenate([e1, e2], axis=-1)), axis=-1)
 
+
+else:
+    def weighted_loss(y_true, y_pred):
+        e = y_pred - y_true
+        # Apply different weights based on the input parameters
+        e1 = e[:, 0]*5
+        e2 = e[:, 2]*5# Increase the weight for the first two parameters
+        e3 = e[:, 1]
+        e4 = e[:, 3]
+        
+        return K.mean(K.square(K.concatenate([e1, e2, e3, e4], axis=-1)), axis=-1)
 
 # ------------ The following is necessary as the model is trained on data normalized wrt. the distribution of the whole dataset------------ 
 
@@ -54,9 +72,9 @@ if REAL_DATA:
 
 else:
     if answers['Antenna_type'] == 'Wire':
-        file_path = "Data/WIRE_results/WIRE_Forward_results_with_band_centre.pkl"
+        file_path = "Data/WIRE_results/Wire_BW_fc.pkl"
     else:
-        file_path = "Data/MIFA_results/MIFA_Forward_results_with_band_centre.pkl"
+        file_path = "Data/MIFA_results/MIFA_BW_fc.pkl"
 
 # Load data
 with open(file_path, 'rb') as f:
@@ -69,25 +87,40 @@ f1f2 = data_to_load["f1f2"]
 
 parameter = data_to_load["Parameter combination"]
 
-#Normalize the data wrt. distribution
-parameter_norm = normalize_data(parameter,np.mean(parameter),np.std(parameter), False)
-bandwidth_norm = normalize_data(bandwidth,np.mean(bandwidth),np.std(bandwidth), False)
-center_frequency_norm = normalize_data(center_frequency,np.mean(center_frequency),np.std(center_frequency), False)
+input_vector =  np.asarray([[bandwidth[x], center_frequency[x]] for x in range(len(bandwidth))])
+input_vector2 = np.asarray([np.concatenate((input_vector[x], f1f2[x])) for x in range(len(input_vector))])
+output_vector = np.asarray(parameter)
+
+# Split data into training and testing
+x_train, x_test, y_train, y_test = train_test_split(input_vector, output_vector, test_size=0.3, random_state=42)
+
+# #Normalize the data
+# x_train_norm = normalize_data(x_train,np.mean(x_train),np.std(x_train), False)
+# x_test_norm = normalize_data(x_test,np.mean(x_test),np.std(x_test), False)
+# y_train_norm = normalize_data(y_train,np.mean(y_train),np.std(y_train), False)
+# y_test_norm = normalize_data(y_test,np.mean(y_test),np.std(y_test), False)
 
 
 
 # Load the model
-if answers['Antenna_type'] == 'Wire':
-    model = load_model('data/Wire_Results/Reverse2ForwardWire_model.keras')
-    
-elif answers['Antenna_type'] == 'MIFA':
-    model = load_model('data/MIFA_results/Reverse2ForwardMIFA_model.keras')
-    
+if REAL_DATA:
+    if answers['Antenna_type'] == 'Wire':
+        model = load_model('data/Wire_Results/REAL_data_Reverse2ForwardWire_model.keras', custom_objects={'weighted_loss': weighted_loss})
+    else:
+        model = load_model('data/MIFA_results/REAL_data_Reverse2ForwardMIFA_model.keras',custom_objects={'weighted_loss': weighted_loss})
+else:
+    if answers['Antenna_type'] == 'Wire':
+        model = load_model('data/Wire_Results/Wire_Inverse_model_2.keras',custom_objects={'weighted_loss': weighted_loss})
+        
+    elif answers['Antenna_type'] == 'MIFA':
+        model = load_model('data/MIFA_results/MIFA_Inverse_model_2.keras',custom_objects={'weighted_loss': weighted_loss})
+        
 
-input_vector = np.asarray([[normalize_data(int(answers['bandwidth']), np.mean(bandwidth), np.std(bandwidth), False), normalize_data(int(answers['center_frequency']), np.mean(center_frequency), np.std(center_frequency), False)]])
+user_input_vector = np.asarray([[int(answers['bandwidth']), int(answers['center_frequency'])]])
+user_input_norm = normalize_data(user_input_vector, np.mean(x_train), np.std(x_train), False)
 
-
-prediction = normalize_data(model.predict(input_vector), np.mean(parameter), np.std(parameter), True)
+prediction_norm = model.predict(user_input_norm)
+prediction = normalize_data(prediction_norm, np.mean(y_train), np.std(y_train), True)
 
 if answers['Antenna_type'] == 'Wire':
     pprint(f'Predicted parameters: \n Length:  {prediction[0][0]} mm \n Height: {prediction[0][1]} mm \n Radius: {prediction[0][2]} mm \n')
