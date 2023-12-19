@@ -9,19 +9,19 @@ Units settings:
 
 ----------------------------------------------------------------------------------------
 
-Template based post-processing started at: 12:13 AM Monday, 18. December 2023
+Template based post-processing started at: 09:55 PM Monday, 18. December 2023
 
-  Evaluating 'Directivity,Phi=0.0': 0.361 s
-  Evaluating 'Directivity,Phi=45.0': 0.376 s
-  Evaluating 'Directivity,Phi=90.0': 0.361 s
-  Evaluating 'Directivity,Phi=135.0': 0.343 s
-  Evaluating 'Directivity,Theta=0.0': 0.346 s
-  Evaluating 'Directivity,Theta=45.0': 0.353 s
-  Evaluating 'Directivity,Theta=90.0': 0.348 s
-  Evaluating 'Directivity,Theta=135.0': 0.343 s
-  Evaluating 'Efficiency': 0.071 s
+  Evaluating 'Directivity,Phi=0.0': 0.3 s
+  Evaluating 'Directivity,Phi=45.0': 0.305 s
+  Evaluating 'Directivity,Phi=90.0': 0.315 s
+  Evaluating 'Directivity,Phi=135.0': 0.314 s
+  Evaluating 'Directivity,Theta=0.0': 0.316 s
+  Evaluating 'Directivity,Theta=45.0': 0.307 s
+  Evaluating 'Directivity,Theta=90.0': 0.32 s
+  Evaluating 'Directivity,Theta=135.0': 0.319 s
+  Evaluating 'Efficiency': 0.038 s
 
-  Total time: 3 s  ( = 0 h, 0 m, 3 s )
+  Total time: 2 s  ( = 0 h, 0 m, 2 s )
 
-Template based post-processing finished at: 12:13 AM Monday, 18. December 2023
+Template based post-processing finished at: 09:55 PM Monday, 18. December 2023
 ----------------------------------------------------------------------------------------

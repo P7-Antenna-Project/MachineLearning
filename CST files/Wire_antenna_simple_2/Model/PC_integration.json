@@ -22,17 +22,17 @@
       {
          "name": "wire_thickness",
          "type": "float",
-         "value": 2.1028
+         "value": 0.935766220092773
       },
       {
          "name": "wire_height",
          "type": "float",
-         "value": 13.286
+         "value": 11.9797916412354
       },
       {
          "name": "wire_length",
          "type": "float",
-         "value": 112.8296
+         "value": 36.4111938476563
       },
       {
          "name": "offset_in_v",
@@ -45,7 +45,7 @@
          "len": 1,
          "name": "3D\\Efficiency",
          "type": "float",
-         "value": -0.144469435323395
+         "value": -5.65589658144088
       }
    ]
 }

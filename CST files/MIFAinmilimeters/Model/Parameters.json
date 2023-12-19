@@ -14,9 +14,9 @@
         },
         {
             "descr": "substrate height [mm]",
-            "expr": "0.777",
+            "expr": "1.14071655273438",
             "name": "substrateH",
-            "value": "0.777"
+            "value": "1.14071655273438"
         },
         {
             "descr": "width of antenna strips",
@@ -37,66 +37,66 @@
             "value": "0.1"
         },
         {
-            "expr": "2.113",
+            "expr": "3.6362566947937",
             "name": "Tw1",
-            "value": "2.113"
+            "value": "3.6362566947937"
         },
         {
             "descr": "height of lines (minus 1 stripwidth",
-            "expr": "12.120",
+            "expr": "9.50952339172363",
             "name": "Line1_height",
-            "value": "12.120"
+            "value": "9.50952339172363"
         },
         {
             "descr": "bottom width",
             "expr": "Tw1",
             "name": "Bw1",
-            "value": "2.113"
+            "value": "3.6362566947937"
         },
         {
             "expr": "Line1_height",
             "name": "Line2_height",
-            "value": "12.12"
+            "value": "9.50952339172363"
         },
         {
             "expr": "Tw1",
             "name": "Tw2",
-            "value": "2.113"
+            "value": "3.6362566947937"
         },
         {
             "expr": "line2_height",
             "name": "line3_height",
-            "value": "12.12"
+            "value": "9.50952339172363"
         },
         {
             "expr": "Bw1",
             "name": "Bw2",
-            "value": "2.113"
+            "value": "3.6362566947937"
         },
         {
             "expr": "Line3_height",
             "name": "Line4_height",
-            "value": "12.12"
+            "value": "9.50952339172363"
         },
         {
             "expr": "tw2",
             "name": "tw3",
-            "value": "2.113"
+            "value": "3.6362566947937"
         },
         {
             "expr": "line4_height",
             "name": "Line5_height",
-            "value": "12.12"
+            "value": "9.50952339172363"
         },
         {
             "expr": "Bw2",
             "name": "Bw3",
-            "value": "2.113"
+            "value": "3.6362566947937"
         },
         {
             "expr": "Line5_height",
             "name": "Line6_height",
-            "value": "12.12"
+            "value": "9.50952339172363"
         },
         {
             "expr": "20",
@@ -159,9 +159,9 @@
             "value": "0.5842"
         },
         {
-            "expr": "4.306",
+            "expr": "6.28757381439209",
             "name": "groundingPinTopLength",
-            "value": "4.306"
+            "value": "6.28757381439209"
         },
         {
             "expr": "6.42",
